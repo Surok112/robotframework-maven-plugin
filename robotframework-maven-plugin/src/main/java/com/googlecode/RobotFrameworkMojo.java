@@ -28,7 +28,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Runs the "jybot" command.
@@ -128,7 +127,7 @@ public class RobotFrameworkMojo extends AbstractMojo
     addFileToArguments(generatedArguments, argumentFile, "A");
 
 
-    if (timestamOuputs)
+    if (timestampOuputs)
     {
       generatedArguments.add("-T");
     }
@@ -266,7 +265,7 @@ public class RobotFrameworkMojo extends AbstractMojo
 
 
   /**
-   * Sets the execution mode for this test run. Valid modes are ContinueOnFailure, ExitOnFailure, SkipTeardownOnExit, DryRun, and Random:<what>.
+   * Sets the execution mode for this test run. Valid modes are ContinueOnFailure, ExitOnFailure, SkipTeardownOnExit, DryRun, and Random:&lt;what&gt;.
    *
    * @parameter
    */
@@ -339,7 +338,7 @@ public class RobotFrameworkMojo extends AbstractMojo
    *
    * @parameter
    */
-  private boolean timestamOuputs;
+  private boolean timestampOuputs;
 
 
   /**
