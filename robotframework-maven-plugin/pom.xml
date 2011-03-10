@@ -77,8 +77,13 @@
     <repository>
       <uniqueVersion>false</uniqueVersion>
       <id>robotframework-maven-plugin-repo</id>
-      <url>svn:https://robotframework-maven-plugin.googlecode.com/svn/maven2</url>
+      <url>svn:https://robotframework-maven-plugin.googlecode.com/svn/maven/releases</url>
     </repository>
+    <snapshotRepository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>robotframework-maven-plugin-repo</id>
+      <url>svn:https://robotframework-maven-plugin.googlecode.com/svn/maven/snapshots</url>
+    </snapshotRepository>
   </distributionManagement>
 
 </project>
