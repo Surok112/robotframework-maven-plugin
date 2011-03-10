@@ -179,9 +179,9 @@ public class RobotFrameworkMojo extends AbstractMojo
   private File outputDirectory;
 
   /**
-   * The directory where the test cases are located. Defaults to "${project.basedir}/src/main/resources"
+   * The directory where the test cases are located. Defaults to "${project.basedir}/src/test/resources/robot"
    *
-   * @parameter default-value="${project.basedir}/src/main/resources"
+   * @parameter default-value="${project.basedir}/src/test/resources/robot"
    */
   private File testCasesDirectory;
 
