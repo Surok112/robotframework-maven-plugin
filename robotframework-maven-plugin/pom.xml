@@ -18,13 +18,17 @@
   </developers>
   <licenses>
     <license>
-      <name>Apache 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
     </license>
   </licenses>
   <scm>
-    <connection>http://robotframework-maven-plugin.googlecode.com/svn/trunk/robotframework-maven-plugin</connection>
-    <developerConnection>https://robotframework-maven-plugin.googlecode.com/svn/trunk/robotframework-maven-plugin
+    <connection>
+      scm:svn:http://robotframework-maven-plugin.googlecode.com/svn/trunk/robotframework-maven-plugin
+    </connection>
+    <developerConnection>
+      scm:svn:https://robotframework-maven-plugin.googlecode.com/svn/trunk/robotframework-maven-plugin
     </developerConnection>
     <url>http://code.google.com/p/robotframework-maven-plugin/source/browse</url>
   </scm>
