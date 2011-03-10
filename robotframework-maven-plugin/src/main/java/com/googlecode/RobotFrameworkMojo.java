@@ -273,7 +273,7 @@ public class RobotFrameworkMojo extends AbstractMojo
 
 
   /**
-   * Sets individual variables.
+   * Sets individual variables. Use the format "name:value"
    *
    * @parameter
    */
@@ -281,7 +281,7 @@ public class RobotFrameworkMojo extends AbstractMojo
 
 
   /**
-   * Sets variables using variable files.
+   * Sets variables using variable files. Use the format "path:args"
    *
    * @parameter
    */
@@ -410,7 +410,7 @@ public class RobotFrameworkMojo extends AbstractMojo
   private String suiteStatLevel;
 
   /**
-   * Creates combined statistics based on tags.
+   * Creates combined statistics based on tags. Use the format "tags:title"
    *
    * @parameter
    */
@@ -426,7 +426,7 @@ public class RobotFrameworkMojo extends AbstractMojo
 
 
   /**
-   * Adds external links to the Statistics by Tag table in outputs.
+   * Adds external links to the Statistics by Tag table in outputs. Use the format "pattern:link:title"
    *
    * @parameter
    */
@@ -434,11 +434,11 @@ public class RobotFrameworkMojo extends AbstractMojo
 
 
   /**
-   * Sets a listener for monitoring test execution.
+   * Sets a listener for monitoring test execution. Use the format "ListenerWithArgs:arg1:arg2" or simply "ListenerWithoutArgs"
    *
    * @parameter
    */
-  private String listener;  //dont use colon
+  private String listener;
 
 
   /**
