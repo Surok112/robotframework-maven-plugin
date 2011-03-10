@@ -1,4 +1,0 @@
-*** Test Cases ***
-Failing Test
-  Should Be Equal As Numbers  1  2
-  Should Be Equal As Numbers  4  3
