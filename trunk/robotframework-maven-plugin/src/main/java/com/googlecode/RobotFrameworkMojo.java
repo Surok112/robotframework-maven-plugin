@@ -91,33 +91,6 @@ public class RobotFrameworkMojo extends AbstractMojo
     ArrayList<String> generatedArguments = new ArrayList<String>();
 
     addFileToArguments(generatedArguments, outputDirectory, "d");
-    addStringToArguments(generatedArguments, name, "N");
-    addStringToArguments(generatedArguments, document, "D");
-    addStringToArguments(generatedArguments, metadata, "M");
-    addStringToArguments(generatedArguments, tag, "G");
-    addStringToArguments(generatedArguments, test, "t");
-    addStringToArguments(generatedArguments, suite, "s");
-    addStringToArguments(generatedArguments, include, "i");
-    addStringToArguments(generatedArguments, exclude, "e");
-    addStringToArguments(generatedArguments, critical, "c");
-    addStringToArguments(generatedArguments, nonCritical, "n");
-    addStringToArguments(generatedArguments, runMode, "-runmode");
-    addStringToArguments(generatedArguments, variable, "v");
-    addStringToArguments(generatedArguments, variableFile, "V");
-    addStringToArguments(generatedArguments, splitOutputs, "-splitoutputs");
-    addStringToArguments(generatedArguments, logTitle, "-logtitle");
-    addStringToArguments(generatedArguments, reportTitle, "-reporttitle");
-    addStringToArguments(generatedArguments, reportBackground, "-reportbackground");
-    addStringToArguments(generatedArguments, summaryTitle, "-summarytitle");
-    addStringToArguments(generatedArguments, logLevel, "L");
-    addStringToArguments(generatedArguments, suiteStatLevel, "-suitestatlevel");
-    addStringToArguments(generatedArguments, tagStatInclude, "-tagstatinclude");
-    addStringToArguments(generatedArguments, tagStatExclude, "-tagstatexclude");
-    addStringToArguments(generatedArguments, tagStatCombine, "-tagstatcombine");
-    addStringToArguments(generatedArguments, tagDoc, "-tagdoc");
-    addStringToArguments(generatedArguments, tagStatLink, "-tagstatlink");
-    addStringToArguments(generatedArguments, listener, "-listener");
-
     addFileToArguments(generatedArguments, output, "o");
     addFileToArguments(generatedArguments, log, "l");
     addFileToArguments(generatedArguments, report, "r");
@@ -126,6 +99,33 @@ public class RobotFrameworkMojo extends AbstractMojo
     addFileToArguments(generatedArguments, debugFile, "b");
     addFileToArguments(generatedArguments, argumentFile, "A");
 
+    addStringToArguments(generatedArguments, name, "N");
+    addStringToArguments(generatedArguments, document, "D");
+    addStringToArguments(generatedArguments, runMode, "-runmode");
+    addStringToArguments(generatedArguments, splitOutputs, "-splitoutputs");
+    addStringToArguments(generatedArguments, logTitle, "-logtitle");
+    addStringToArguments(generatedArguments, reportTitle, "-reporttitle");
+    addStringToArguments(generatedArguments, reportBackground, "-reportbackground");
+    addStringToArguments(generatedArguments, summaryTitle, "-summarytitle");
+    addStringToArguments(generatedArguments, logLevel, "L");
+    addStringToArguments(generatedArguments, suiteStatLevel, "-suitestatlevel");
+
+    addListToArguments(generatedArguments, metadata, "M");
+    addListToArguments(generatedArguments, tag, "G");
+    addListToArguments(generatedArguments, test, "t");
+    addListToArguments(generatedArguments, suite, "s");
+    addListToArguments(generatedArguments, include, "i");
+    addListToArguments(generatedArguments, exclude, "e");
+    addListToArguments(generatedArguments, critical, "c");
+    addListToArguments(generatedArguments, nonCritical, "n");
+    addListToArguments(generatedArguments, variable, "v");
+    addListToArguments(generatedArguments, variableFile, "V");
+    addListToArguments(generatedArguments, tagStatInclude, "-tagstatinclude");
+    addListToArguments(generatedArguments, tagStatExclude, "-tagstatexclude");
+    addListToArguments(generatedArguments, tagStatCombine, "-tagstatcombine");
+    addListToArguments(generatedArguments, tagDoc, "-tagdoc");
+    addListToArguments(generatedArguments, tagStatLink, "-tagstatlink");
+    addListToArguments(generatedArguments, listener, "-listener");
 
     if (timestampOuputs)
     {
@@ -159,6 +159,23 @@ public class RobotFrameworkMojo extends AbstractMojo
     {
       arguments.add("-" + flag);
       arguments.add(variableToAdd);
+    }
+  }
+
+  private void addListToArguments(List<String> arguments, List<String> variablesToAdd, String flag)
+  {
+    if (variablesToAdd == null)
+    {
+      return;
+    }
+
+    for (String variableToAdd : variablesToAdd)
+    {
+      if (!StringUtils.isEmpty(variableToAdd))
+      {
+        arguments.add("-" + flag);
+        arguments.add(variableToAdd);
+      }
     }
   }
 
@@ -205,7 +222,7 @@ public class RobotFrameworkMojo extends AbstractMojo
    *
    * @parameter
    */
-  private String metadata;
+  private List<String> metadata;
 
 
   /**
@@ -213,7 +230,7 @@ public class RobotFrameworkMojo extends AbstractMojo
    *
    * @parameter
    */
-  private String tag;
+  private List<String> tag;
 
 
   /**
@@ -221,7 +238,7 @@ public class RobotFrameworkMojo extends AbstractMojo
    *
    * @parameter
    */
-  private String test;
+  private List<String> test;
 
 
   /**
@@ -229,7 +246,7 @@ public class RobotFrameworkMojo extends AbstractMojo
    *
    * @parameter
    */
-  private String suite;
+  private List<String> suite;
 
 
   /**
@@ -237,7 +254,7 @@ public class RobotFrameworkMojo extends AbstractMojo
    *
    * @parameter
    */
-  private String include;
+  private List<String> include;
 
 
   /**
@@ -245,7 +262,7 @@ public class RobotFrameworkMojo extends AbstractMojo
    *
    * @parameter
    */
-  private String exclude;
+  private List<String> exclude;
 
 
   /**
@@ -253,7 +270,7 @@ public class RobotFrameworkMojo extends AbstractMojo
    *
    * @parameter
    */
-  private String critical;
+  private List<String> critical;
 
 
   /**
@@ -261,7 +278,7 @@ public class RobotFrameworkMojo extends AbstractMojo
    *
    * @parameter
    */
-  private String nonCritical;
+  private List<String> nonCritical;
 
 
   /**
@@ -277,7 +294,7 @@ public class RobotFrameworkMojo extends AbstractMojo
    *
    * @parameter
    */
-  private String variable;
+  private List<String> variable;
 
 
   /**
@@ -285,7 +302,7 @@ public class RobotFrameworkMojo extends AbstractMojo
    *
    * @parameter
    */
-  private String variableFile;
+  private List<String> variableFile;
 
   /**
    * Sets the path to the generated output file.
@@ -391,7 +408,7 @@ public class RobotFrameworkMojo extends AbstractMojo
    *
    * @parameter
    */
-  private String tagStatInclude;
+  private List<String> tagStatInclude;
 
 
   /**
@@ -399,7 +416,7 @@ public class RobotFrameworkMojo extends AbstractMojo
    *
    * @parameter
    */
-  private String tagStatExclude;
+  private List<String> tagStatExclude;
 
 
   /**
@@ -414,7 +431,7 @@ public class RobotFrameworkMojo extends AbstractMojo
    *
    * @parameter
    */
-  private String tagStatCombine;
+  private List<String> tagStatCombine;
 
 
   /**
@@ -422,7 +439,7 @@ public class RobotFrameworkMojo extends AbstractMojo
    *
    * @parameter
    */
-  private String tagDoc;
+  private List<String> tagDoc;
 
 
   /**
@@ -430,7 +447,7 @@ public class RobotFrameworkMojo extends AbstractMojo
    *
    * @parameter
    */
-  private String tagStatLink;
+  private List<String> tagStatLink;
 
 
   /**
@@ -438,7 +455,7 @@ public class RobotFrameworkMojo extends AbstractMojo
    *
    * @parameter
    */
-  private String listener;
+  private List<String> listener;
 
 
   /**
