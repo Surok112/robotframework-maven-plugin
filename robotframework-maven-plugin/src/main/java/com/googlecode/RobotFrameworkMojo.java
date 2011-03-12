@@ -188,14 +188,14 @@ public class RobotFrameworkMojo extends AbstractMojo
   private List<String> classpathElements;
 
   /**
-   * Configures where generated reports are to be placed. Defaults to "${project.build.directory}/robot"
+   * Configures where generated reports are to be placed.
    *
    * @parameter default-value="${project.build.directory}/robot"
    */
   private File outputDirectory;
 
   /**
-   * The directory where the test cases are located. Defaults to "${project.basedir}/src/test/resources/robot"
+   * The directory where the test cases are located.
    *
    * @parameter default-value="${project.basedir}/src/test/resources/robot"
    */
