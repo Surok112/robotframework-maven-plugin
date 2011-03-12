@@ -16,27 +16,29 @@ package com.googlecode;
  * limitations under the License.
  */
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.robotframework.RobotFramework;
 
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Runs the "jybot" command.
  *
+ * Robot Framework test cases are created in files and directories, and
+ * they are executed by giving the path to the file or directory in question
+ * to the "jybot" command. The path can be absolute or, more commonly,
+ * relative to the directory where tests are executed from. The given file or
+ * directory creates the top-level test suite, which gets its name, unless
+ * overridden with the "name" option, from the file or directory name.
+ *
  * @goal jybot
  * @phase integration-test
  * @requiresDependencyResolution test
  */
-public class RobotFrameworkMojo extends AbstractMojo
+public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
 {
 
   public void execute() throws MojoExecutionException, MojoFailureException
@@ -57,33 +59,6 @@ public class RobotFrameworkMojo extends AbstractMojo
     }
 
 
-  }
-
-  private void loadClassPath() throws MojoExecutionException
-  {
-    List<URL> urls = new ArrayList<URL>();
-
-    if (classpathElements != null)
-    {
-      for (String element : classpathElements)
-      {
-        File elementFile = new File(element);
-        try
-        {
-          urls.add(elementFile.toURI().toURL());
-        }
-        catch (MalformedURLException e)
-        {
-          throw new MojoExecutionException("Classpath loading error: " + element);
-        }
-      }
-    }
-
-    if (urls.size() > 0)
-    {
-      ClassLoader realm = new URLClassLoader(urls.toArray(new URL[urls.size()]), getClass().getClassLoader());
-      Thread.currentThread().setContextClassLoader(realm);
-    }
   }
 
   private String[] generateRunArguments()
@@ -144,48 +119,6 @@ public class RobotFrameworkMojo extends AbstractMojo
     return generatedArguments.toArray(new String[generatedArguments.size()]);
   }
 
-  private void addFileToArguments(List<String> arguments, File file, String flag)
-  {
-    if (file != null && !file.getPath().isEmpty())
-    {
-      arguments.add("-" + flag);
-      arguments.add(file.getPath());
-    }
-  }
-
-  private void addStringToArguments(List<String> arguments, String variableToAdd, String flag)
-  {
-    if (!StringUtils.isEmpty(variableToAdd))
-    {
-      arguments.add("-" + flag);
-      arguments.add(variableToAdd);
-    }
-  }
-
-  private void addListToArguments(List<String> arguments, List<String> variablesToAdd, String flag)
-  {
-    if (variablesToAdd == null)
-    {
-      return;
-    }
-
-    for (String variableToAdd : variablesToAdd)
-    {
-      if (!StringUtils.isEmpty(variableToAdd))
-      {
-        arguments.add("-" + flag);
-        arguments.add(variableToAdd);
-      }
-    }
-  }
-
-
-  /**
-   * @parameter expression="${project.compileClasspathElements}"
-   * @required
-   * @readonly
-   */
-  private List<String> classpathElements;
 
   /**
    * Configures where generated reports are to be placed.
