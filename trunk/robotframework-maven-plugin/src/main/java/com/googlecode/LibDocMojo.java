@@ -16,7 +16,6 @@ package com.googlecode;
  * limitations under the License.
  */
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.python.util.PythonInterpreter;
@@ -39,28 +38,24 @@ import java.io.File;
  */
 public class LibDocMojo extends AbstractMojoWithLoadedClasspath
 {
-  public void execute() throws MojoExecutionException, MojoFailureException
+  public void subclassExecute() throws MojoExecutionException, MojoFailureException
   {
-
     try
     {
 
       PythonInterpreter pythonInterpreter = new PythonInterpreter();
 
-      pythonInterpreter.execfile(ClassLoader.class.getResourceAsStream("/libdoc.py"));
+      pythonInterpreter.execfile(getClass().getResourceAsStream("/libdoc.py"));
 
-      pythonInterpreter.exec(String.format("libraryOrResourceFile = %s\n" +
-                                               "argument = %s\n" +
-                                               "name = %s\n" +
-                                               "output = %s\n" +
-                                               "format = %s\n" +
-                                               "title = %s\n" +
-                                               "styles = %s",
-                                           pythonStringOrNone(libraryOrResourceFile), pythonStringOrNone(argument),
-                                           pythonStringOrNone(name), pythonStringOrNone(output),
-                                           pythonStringOrNone(format), pythonStringOrNone(title), pythonStringOrNone(styles)));
+      pythonInterpreter.set("libraryOrResourceFile", libraryOrResourceFile);
+      pythonInterpreter.set("argument", argument);
+      pythonInterpreter.set("name", name);
+      pythonInterpreter.set("output", output == null ? null : output.getPath());
+      pythonInterpreter.set("format", format);
+      pythonInterpreter.set("title", title);
+      pythonInterpreter.set("styles", styles);
 
-      pythonInterpreter.execfile(ClassLoader.class.getResourceAsStream("/libdoc_exec.py"));
+      pythonInterpreter.execfile(getClass().getResourceAsStream("/libdoc_exec.py"));
 
 
     }
@@ -69,47 +64,19 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
       throw new MojoExecutionException("There was an error executing libdoc.py.", e);
     }
 
-    loadClassPath();
-
-  }
-
-  private String pythonStringOrNone(String value)
-  {
-    if (StringUtils.isEmpty(value))
-    {
-      return "None";
-    }
-    else
-    {
-      return String.format("'%s'", value);
-    }
-
-  }
-
-  private String pythonStringOrNone(File file)
-  {
-    if (file == null)
-    {
-      return "None";
-    }
-    else
-    {
-      return String.format("'%s'", file.getPath());
-    }
-
   }
 
   /**
    * Possible arguments that a library needs.
    *
-   * @parameter
+   * @parameter expression="${argument}"
    */
   private String argument;
 
   /**
    * Specifies whether to generate HTML or XML output. The default value is HTML.
    *
-   * @parameter
+   * @parameter expression="${format}"
    */
   private String format;
 
@@ -122,14 +89,14 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
    * directly and possible existing files are overwritten. The default
    * value for the path is the directory where the script is executed from.
    *
-   * @parameter
+   * @parameter expression="${output}"
    */
   private File output;
 
   /**
    * Sets the name of the documented library or resource.
    *
-   * @parameter
+   * @parameter expression="${name}"
    */
   private String name;
 
@@ -137,7 +104,7 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
    * Sets the title of the generated HTML documentation. Underscores
    * in the given title are automatically converted to spaces.
    *
-   * @parameter
+   * @parameter expression="${title}"
    */
   private String title;
 
@@ -147,7 +114,7 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
    * resource file.
    * e.g. src/main/java/com/test/ExampleLib.java
    *
-   * @parameter
+   * @parameter expression="${libraryOrResourceFile}"
    * @required
    */
   private String libraryOrResourceFile;
@@ -159,7 +126,7 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
    * from it. If it is string a 'NONE', no styles will be
    * used. Otherwise the given text is used as-is.
    *
-   * @parameter
+   * @parameter expression="${styles}"
    */
   private String styles;
 
