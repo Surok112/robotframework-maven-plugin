@@ -44,9 +44,33 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
   {
     try
     {
-
       checkIfOutputDirectoryExists();
+    }
+    catch (IOException e)
+    {
+      throw new MojoExecutionException(e.getMessage(), e);
+    }
 
+    if (libraryOrResourceDirectory != null)
+    {
+      for (File currentFile : extractFilesFromLibraryOrResourceDirectory(libraryOrResourceDirectory))
+      {
+        runLibDoc(currentFile);
+      }
+
+    }
+
+    if (libraryOrResourceFile != null)
+    {
+      runLibDoc(libraryOrResourceFile);
+    }
+
+  }
+
+  private void runLibDoc(File libraryOrResourceFile) throws MojoExecutionException
+  {
+    try
+    {
       PythonInterpreter pythonInterpreter = new PythonInterpreter();
 
       pythonInterpreter.execfile(getClass().getResourceAsStream("/libdoc.py"));
@@ -67,7 +91,6 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
     {
       throw new MojoExecutionException("There was an error executing libdoc.py.", e);
     }
-
   }
 
   private String extractPath(File file)
@@ -91,22 +114,22 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
     }
   }
 
-  private File[] checkLibraryOrResourceDirectory()
+  private File[] extractFilesFromLibraryOrResourceDirectory(File directoryToRecurse)
   {
-    if (libraryOrResourceDirectory == null || !libraryOrResourceDirectory.exists())
+    if (directoryToRecurse == null || !directoryToRecurse.exists())
     {
       return null;
     }
 
-    File[] qualifiedFiles = libraryOrResourceDirectory.listFiles(new FilenameFilter()
+    File[] qualifiedFiles = directoryToRecurse.listFiles(new FilenameFilter()
     {
-      public boolean accept(File file, String extension)
+      public boolean accept(File file, String name)
       {
-        return file.getName().toLowerCase().endsWith("txt") || file.getName().toLowerCase().endsWith("java")
-            || file.getName().toLowerCase().endsWith("html") || file.getName().toLowerCase().endsWith("htm")
-            || file.getName().toLowerCase().endsWith("xhtml") || file.getName().toLowerCase().endsWith("tsv")
-            || file.getName().toLowerCase().endsWith("rst") || file.getName().toLowerCase().endsWith("rest")
-            || file.getName().toLowerCase().endsWith("py");
+        return name.toLowerCase().endsWith("txt") || name.toLowerCase().endsWith("java")
+            || name.toLowerCase().endsWith("html") || name.toLowerCase().endsWith("htm")
+            || name.toLowerCase().endsWith("xhtml") || name.toLowerCase().endsWith("tsv")
+            || name.toLowerCase().endsWith("rst") || name.toLowerCase().endsWith("rest")
+            || name.toLowerCase().endsWith("py");
       }
     });
 
@@ -174,7 +197,6 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
    * e.g. src/main/java/com/test/ExampleLib.java
    *
    * @parameter expression="${libraryOrResourceFile}"
-   * @required
    */
   private File libraryOrResourceFile;
 
