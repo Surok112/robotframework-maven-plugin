@@ -21,6 +21,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.python.util.PythonInterpreter;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 
 /**
@@ -50,10 +51,10 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
 
       pythonInterpreter.execfile(getClass().getResourceAsStream("/libdoc.py"));
 
-      pythonInterpreter.set("libraryOrResourceFile", libraryOrResourceFile);
+      pythonInterpreter.set("libraryOrResourceFile", extractPath(libraryOrResourceFile));
       pythonInterpreter.set("argument", argument);
       pythonInterpreter.set("name", name);
-      pythonInterpreter.set("output", output == null ? null : output.getPath());
+      pythonInterpreter.set("output", extractPath(output));
       pythonInterpreter.set("format", format);
       pythonInterpreter.set("title", title);
       pythonInterpreter.set("styles", styles);
@@ -67,6 +68,11 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
       throw new MojoExecutionException("There was an error executing libdoc.py.", e);
     }
 
+  }
+
+  private String extractPath(File file)
+  {
+    return file == null ? null : file.getPath();
   }
 
   private void checkIfOutputDirectoryExists() throws IOException
@@ -83,6 +89,28 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
         throw new IOException("Target output directory cannot be created.");
       }
     }
+  }
+
+  private File[] checkLibraryOrResourceDirectory()
+  {
+    if (libraryOrResourceDirectory == null || !libraryOrResourceDirectory.exists())
+    {
+      return null;
+    }
+
+    File[] qualifiedFiles = libraryOrResourceDirectory.listFiles(new FilenameFilter()
+    {
+      public boolean accept(File file, String extension)
+      {
+        return file.getName().toLowerCase().endsWith("txt") || file.getName().toLowerCase().endsWith("java")
+            || file.getName().toLowerCase().endsWith("html") || file.getName().toLowerCase().endsWith("htm")
+            || file.getName().toLowerCase().endsWith("xhtml") || file.getName().toLowerCase().endsWith("tsv")
+            || file.getName().toLowerCase().endsWith("rst") || file.getName().toLowerCase().endsWith("rest")
+            || file.getName().toLowerCase().endsWith("py");
+      }
+    });
+
+    return qualifiedFiles;
   }
 
   /**
@@ -129,17 +157,6 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
 
 
   /**
-   * Fully qualified path to the Java class (source code) or the
-   * resource file.
-   * e.g. src/main/java/com/test/ExampleLib.java
-   *
-   * @parameter expression="${libraryOrResourceFile}"
-   * @required
-   */
-  private String libraryOrResourceFile;
-
-
-  /**
    * Overrides the default styles. If the given 'styles'
    * is a path to an existing files, styles will be read
    * from it. If it is string a 'NONE', no styles will be
@@ -148,5 +165,28 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
    * @parameter expression="${styles}"
    */
   private String styles;
+
+
+  /**
+   * Fully qualified path to the Java class (source code) or the
+   * resource file.
+   * <p/>
+   * e.g. src/main/java/com/test/ExampleLib.java
+   *
+   * @parameter expression="${libraryOrResourceFile}"
+   * @required
+   */
+  private File libraryOrResourceFile;
+
+
+  /**
+   * Fully qualified path to the directory where the Java classes
+   * or resource files are located.
+   * <p/>
+   * e.g. src/main/java/com/test/
+   *
+   * @parameter expression="${libraryOrResourceDirectory}"
+   */
+  private File libraryOrResourceDirectory;
 
 }
