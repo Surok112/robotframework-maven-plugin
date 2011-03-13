@@ -155,7 +155,7 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
    * If the given path is a directory, the documentation is
    * written there using a file name like '&lt;name&gt;.&lt;format&gt;'.
    * If a file with that name already exists, an index is added after
-   * the '<name>' part. If the given path is not a directory, it is used
+   * the '&lt;name&gt;' part. If the given path is not a directory, it is used
    * directly and possible existing files are overwritten. The default
    * value for the path is the directory where the script is executed from.
    *
