@@ -21,6 +21,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.python.util.PythonInterpreter;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Runs the "libdoc" command to generate documentation of user libraries.
@@ -43,6 +44,8 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
     try
     {
 
+      checkIfOutputDirectoryExists();
+
       PythonInterpreter pythonInterpreter = new PythonInterpreter();
 
       pythonInterpreter.execfile(getClass().getResourceAsStream("/libdoc.py"));
@@ -64,6 +67,22 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
       throw new MojoExecutionException("There was an error executing libdoc.py.", e);
     }
 
+  }
+
+  private void checkIfOutputDirectoryExists() throws IOException
+  {
+    if (output == null)
+    {
+      return;
+    }
+
+    if (!output.exists())
+    {
+      if (!output.mkdirs())
+      {
+        throw new IOException("Target output directory cannot be created.");
+      }
+    }
   }
 
   /**
@@ -89,7 +108,7 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
    * directly and possible existing files are overwritten. The default
    * value for the path is the directory where the script is executed from.
    *
-   * @parameter expression="${output}"
+   * @parameter expression="${output}" default-value="${project.build.directory}/robot"
    */
   private File output;
 
