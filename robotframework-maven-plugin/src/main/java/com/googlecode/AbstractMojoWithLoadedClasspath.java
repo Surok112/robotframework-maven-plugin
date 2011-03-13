@@ -22,7 +22,15 @@ public abstract class AbstractMojoWithLoadedClasspath extends AbstractMojo
    */
   private List<String> classpathElements;
 
-  protected void loadClassPath() throws MojoExecutionException
+  public void execute() throws MojoExecutionException, MojoFailureException
+  {
+    loadClassPath();
+    subclassExecute();
+  }
+
+  protected abstract void subclassExecute() throws MojoExecutionException, MojoFailureException;
+
+  private void loadClassPath() throws MojoExecutionException
   {
     List<URL> urls = new ArrayList<URL>();
 

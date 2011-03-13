@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Runs the "jybot" command.
- *
+ * <p/>
  * Robot Framework test cases are created in files and directories, and
  * they are executed by giving the path to the file or directory in question
  * to the "jybot" command. The path can be absolute or, more commonly,
@@ -41,10 +41,8 @@ import java.util.List;
 public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
 {
 
-  public void execute() throws MojoExecutionException, MojoFailureException
+  public void subclassExecute() throws MojoExecutionException, MojoFailureException
   {
-    loadClassPath();
-
     String[] runArguments = generateRunArguments();
 
     int robotRunReturnValue = RobotFramework.run(runArguments);
