@@ -181,8 +181,7 @@ Generated reports are written to _${project.build.directory}/robot_ by default. 
           <li><strong>Type</strong>: <code>java.util.List</code></li> 
           <li><strong>Required</strong>: <code>No</code></li> 
         </ul><hr/><p><strong><a name="suiteStatLevel">suiteStatLevel</a>:</strong></p> 
-        <div>Defines how many levels to show in the Statistics by Suite table in
-                   outputs.</div> 
+        <div>Defines how many levels to show in the Statistics by Suite table in outputs.</div> 
         <ul> 
           <li><strong>Type</strong>: <code>java.lang.String</code></li> 
           <li><strong>Required</strong>: <code>No</code></li> 
@@ -207,26 +206,22 @@ Generated reports are written to _${project.build.directory}/robot_ by default. 
           <li><strong>Type</strong>: <code>java.util.List</code></li> 
           <li><strong>Required</strong>: <code>No</code></li> 
         </ul><hr/><p><strong><a name="tagStatCombine">tagStatCombine</a>:</strong></p> 
-        <div>Creates combined statistics based on tags. Use the format
-                  "tags:title"</div> 
+        <div>Creates combined statistics based on tags. Use the format  "tags:title"</div> 
         <ul> 
           <li><strong>Type</strong>: <code>java.util.List</code></li> 
           <li><strong>Required</strong>: <code>No</code></li> 
         </ul><hr/><p><strong><a name="tagStatExclude">tagStatExclude</a>:</strong></p> 
-        <div>Excludes these tags from the Statistics by Tag and Test Details by
-                  Tag tables in outputs.</div> 
+        <div>Excludes these tags from the Statistics by Tag and Test Details by Tag tables in outputs.</div> 
         <ul> 
           <li><strong>Type</strong>: <code>java.util.List</code></li> 
           <li><strong>Required</strong>: <code>No</code></li> 
         </ul><hr/><p><strong><a name="tagStatInclude">tagStatInclude</a>:</strong></p> 
-        <div>Includes only these tags in the Statistics by Tag and Test Details
-                   by Tag tables in outputs.</div> 
+        <div>Includes only these tags in the Statistics by Tag and Test Details by Tag tables in outputs.</div> 
         <ul> 
           <li><strong>Type</strong>: <code>java.util.List</code></li> 
           <li><strong>Required</strong>: <code>No</code></li> 
         </ul><hr/><p><strong><a name="tagStatLink">tagStatLink</a>:</strong></p> 
-        <div>Adds external links to the Statistics by Tag table in outputs. Use
-                  the format "pattern:link:title"</div> 
+        <div>Adds external links to the Statistics by Tag table in outputs. Use the format "pattern:link:title"</div> 
         <ul> 
           <li><strong>Type</strong>: <code>java.util.List</code></li> 
           <li><strong>Required</strong>: <code>No</code></li> 
@@ -262,8 +257,7 @@ Generated reports are written to _${project.build.directory}/robot_ by default. 
           <li><strong>Type</strong>: <code>boolean</code></li> 
           <li><strong>Required</strong>: <code>No</code></li> 
         </ul><hr/><p><strong><a name="xunitFile">xunitFile</a>:</strong></p> 
-        <div>Sets the path to the generated XUnit compatible result file. New in
-                   Robot Framework 2.5.5.</div> 
+        <div>Sets the path to the generated XUnit compatible result file.</div> 
         <ul> 
           <li><strong>Type</strong>: <code>java.io.File</code></li> 
           <li><strong>Required</strong>: <code>No</code></li> 
