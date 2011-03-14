@@ -48,13 +48,12 @@ Generated reports are written to _${project.build.directory}/robot_ by default. 
 || metadata||	List||	-	||Sets free metadata for the top level test suite.||
 || name	||String	||-	||Sets the name of the top-level test suite.||
 || nonCritical	||List	||-||	Tests that have the given tag are not critical.||
-|| output||	File	||-	||Sets the path to the generated output file.||
-|| outputDirectory	|| File ||	-	|| Configures where generated reports are to be placed.
-Default value is: ${project.build.directory}/robot. ||
-|| report||	File||	-	Sets the path to the generated report file.||
-|| reportBackground	String	-	Sets background colors for the generated report and summary.
-|| reportTitle	String	-	Sets a title for the generated test report.
-|| runMode	String	-	Sets the execution mode for this test run. Valid modes are ContinueOnFailure, ExitOnFailure, SkipTeardownOnExit, DryRun, and Random:<what>.
+|| output ||	File	||-	||Sets the path to the generated output file. ||
+|| outputDirectory	|| File ||	- || Configures where generated reports are to be placed. Default value is: ${project.build.directory}/robot. ||
+|| report||	File||	- ||	Sets the path to the generated report file.||
+|| reportBackground	||String||	-||	Sets background colors for the generated report and summary.||
+|| reportTitle||	String||	-	||Sets a title for the generated test report.||
+|| runMode||	String	||-	||Sets the execution mode for this test run. Valid modes are ContinueOnFailure, ExitOnFailure, SkipTeardownOnExit, DryRun, and Random:{{{<what>}}}.||
 || splitOutputs	String	-	Splits output and log files.
 || suite	List	-	Selects the test suites by name.
 || suiteStatLevel	String	-	Defines how many levels to show in the Statistics by Suite table in outputs.
