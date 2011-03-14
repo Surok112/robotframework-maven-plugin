@@ -21,3 +21,73 @@ You can invoke {{{mvn robotframework:libdoc -DlibraryOrResourceDirectory=src/mai
 ||output||	File||	-||	Specifies where to write the generated documentation. If the given path is a directory, the documentation is written there using a file name like '{{{<name>.<format>}}}'. If a file with that name already exists, an index is added after the '{{{<name>}}}' part. If the given path is not a directory, it is used directly and possible existing files are overwritten. The default value for the path is the directory where the script is executed from. Default value is: ${project.build.directory}/robot.||
 ||styles||	String||	-	||Overrides the default styles. If the given 'styles' is a path to an existing files, styles will be read from it. If it is string a 'NONE', no styles will be used. Otherwise the given text is used as-is.||
 ||title	||String||	-	||Sets the title of the generated HTML documentation. Underscores in the given title are automatically converted to spaces.||
+
+== Parameter Details ==
+
+<p><strong><a name="argument">argument</a>:</strong></p> 
+        <div>Possible arguments that a library needs.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.lang.String</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+          <li><strong>Expression</strong>: <code>${argument}</code></li> 
+        </ul><hr/><p><strong><a name="format">format</a>:</strong></p> 
+        <div>Specifies whether to generate HTML or XML output. The default value
+is HTML.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.lang.String</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+          <li><strong>Expression</strong>: <code>${format}</code></li> 
+        </ul><hr/><p><strong><a name="libraryOrResourceDirectory">libraryOrResourceDirectory</a>:</strong></p> 
+        <div>Fully qualified path to the directory where the Java classes or
+resource files are located. 
+ 
+<p />e.g. src/main/java/com/test/</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.io.File</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+          <li><strong>Expression</strong>: <code>${libraryOrResourceDirectory}</code></li> 
+        </ul><hr/><p><strong><a name="libraryOrResourceFile">libraryOrResourceFile</a>:</strong></p> 
+        <div>Fully qualified path to the Java class (source code) or the
+resource file. 
+ 
+<p />e.g. src/main/java/com/test/ExampleLib.java</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.io.File</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+          <li><strong>Expression</strong>: <code>${libraryOrResourceFile}</code></li> 
+        </ul><hr/><p><strong><a name="name">name</a>:</strong></p> 
+        <div>Sets the name of the documented library or resource.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.lang.String</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+          <li><strong>Expression</strong>: <code>${name}</code></li> 
+        </ul><hr/><p><strong><a name="output">output</a>:</strong></p> 
+        <div>Specifies where to write the generated documentation. If the given
+path is a directory, the documentation is written there using a
+file name like '&lt;name&gt;.&lt;format&gt;'. If a file with that
+name already exists, an index is added after the '&lt;name&gt;'
+part. If the given path is not a directory, it is used directly and
+possible existing files are overwritten. The default value for the
+path is the directory where the script is executed from.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.io.File</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+          <li><strong>Expression</strong>: <code>${output}</code></li> 
+          <li><strong>Default</strong>: <code>${project.build.directory}/robot</code></li> 
+        </ul><hr/><p><strong><a name="styles">styles</a>:</strong></p> 
+        <div>Overrides the default styles. If the given 'styles' is a path to an
+existing files, styles will be read from it. If it is string a
+'NONE', no styles will be used. Otherwise the given text is used
+as-is.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.lang.String</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+          <li><strong>Expression</strong>: <code>${styles}</code></li> 
+        </ul><hr/><p><strong><a name="title">title</a>:</strong></p> 
+        <div>Sets the title of the generated HTML documentation. Underscores in
+the given title are automatically converted to spaces.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.lang.String</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+          <li><strong>Expression</strong>: <code>${title}</code></li> 
+        </ul> 
