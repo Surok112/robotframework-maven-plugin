@@ -73,6 +73,7 @@ Generated reports are written to _${project.build.directory}/robot_ by default. 
 || warnOnSkippedFiles||	boolean||	-	||Show a warning when an invalid file is skipped.||
 || xunitFile||	File||	-	||Sets the path to the generated XUnit compatible result file. New in Robot Framework 2.5.5.||
 
+== Parameter Details ==
 
         <p><strong><a name="argumentFile">argumentFile</a>:</strong></p> 
         <div>A text file to read more arguments from.</div> 
