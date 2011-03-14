@@ -41,7 +41,7 @@ import java.util.List;
 public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
 {
 
-  public void subclassExecute() throws MojoExecutionException, MojoFailureException
+  protected void subclassExecute() throws MojoExecutionException, MojoFailureException
   {
     String[] runArguments = generateRunArguments();
 

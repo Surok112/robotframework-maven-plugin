@@ -40,7 +40,7 @@ import java.io.IOException;
  */
 public class LibDocMojo extends AbstractMojoWithLoadedClasspath
 {
-  public void subclassExecute() throws MojoExecutionException, MojoFailureException
+  protected void subclassExecute() throws MojoExecutionException, MojoFailureException
   {
     try
     {
