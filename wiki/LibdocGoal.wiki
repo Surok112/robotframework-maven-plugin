@@ -1,3 +1,4 @@
+#labels Featured
 = Libdoc Goal =
 
 Runs the "libdoc" command to generate documentation of user libraries.
@@ -5,4 +6,6 @@ This script can generate keyword documentation in HTML and XML formats. The form
 
 Documentation can be created for both test libraries and resource files. All library and resource file types are supported, and also earlier generated documentation in XML format can be used as input.
 
+== Usage ==
 
+You can invoke _mvn robotframework:libdoc -DlibraryOrResourceDirectory=src/main/java/com/example/keywords_ to generate documentation for user libraries contained in that package. The documentation, by default, goes to _${project.build.directory}/robot_.
