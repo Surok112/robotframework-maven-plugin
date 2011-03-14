@@ -105,8 +105,7 @@ Generated reports are written to _${project.build.directory}/robot_ by default. 
           <li><strong>Type</strong>: <code>java.util.List</code></li> 
           <li><strong>Required</strong>: <code>No</code></li> 
         </ul><hr/><p><strong><a name="listener">listener</a>:</strong></p> 
-        <div>Sets a listener for monitoring test execution. Use the format
-                  "ListenerWithArgs:arg1:arg2" or simply "ListenerWithoutArgs"</div> 
+        <div>Sets a listener for monitoring test execution. Use the format "ListenerWithArgs:arg1:arg2" or simply "ListenerWithoutArgs"</div> 
         <ul> 
           <li><strong>Type</strong>: <code>java.util.List</code></li> 
           <li><strong>Required</strong>: <code>No</code></li> 
@@ -167,9 +166,7 @@ Generated reports are written to _${project.build.directory}/robot_ by default. 
           <li><strong>Type</strong>: <code>java.lang.String</code></li> 
           <li><strong>Required</strong>: <code>No</code></li> 
         </ul><hr/><p><strong><a name="runMode">runMode</a>:</strong></p> 
-        <div>Sets the execution mode for this test run. Valid modes are
-                   ContinueOnFailure, ExitOnFailure, SkipTeardownOnExit, DryRun, and
-                   Random:&lt;what&gt;.</div> 
+        <div>Sets the execution mode for this test run. Valid modes are ContinueOnFailure, ExitOnFailure, SkipTeardownOnExit, DryRun, and Random:&lt;what&gt;.</div> 
         <ul> 
           <li><strong>Type</strong>: <code>java.lang.String</code></li> 
           <li><strong>Required</strong>: <code>No</code></li> 
