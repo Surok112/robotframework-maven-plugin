@@ -8,4 +8,4 @@ Documentation can be created for both test libraries and resource files. All lib
 
 == Usage ==
 
-You can invoke _mvn robotframework:libdoc -DlibraryOrResourceDirectory=src/main/java/com/example/keywords_ to generate documentation for user libraries contained in that package. The documentation, by default, goes to _${project.build.directory}/robot_.
+You can invoke {{{mvn robotframework:libdoc -DlibraryOrResourceDirectory=src/main/java/com/example/keywords}}} to generate documentation for user libraries contained in that package. The documentation, by default, goes to _${project.build.directory}/robot_.
