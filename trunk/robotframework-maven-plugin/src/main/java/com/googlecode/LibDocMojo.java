@@ -36,7 +36,7 @@ import java.io.IOException;
  * documentation in XML format can be used as input.
  *
  * @goal libdoc
- * @requiresDependencyResolution compile
+ * @requiresDependencyResolution test
  */
 public class LibDocMojo extends AbstractMojoWithLoadedClasspath
 {

@@ -16,7 +16,7 @@ public abstract class AbstractMojoWithLoadedClasspath extends AbstractMojo
 {
 
   /**
-   * @parameter expression="${project.compileClasspathElements}"
+   * @parameter expression="${project.testClasspathElements}"
    * @required
    * @readonly
    */
