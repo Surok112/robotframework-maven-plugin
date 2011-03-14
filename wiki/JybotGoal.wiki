@@ -13,7 +13,7 @@ By default, test cases located at _${project.basedir}/src/test/resources/robot_ 
 If for example you want to run test cases in a different path, say _${project.basedir}/src/main/resources/robot_, configure your pom as so:
 
 {{{
-<plugin>
+      <plugin>
         <groupId>com.googlecode</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
         <version>1.0</version>
@@ -33,3 +33,231 @@ If for example you want to run test cases in a different path, say _${project.ba
 Generated reports are written to _${project.build.directory}/robot_ by default. This could be overridden by configuring the _outputDirectory_ configuration.
 
 == Plugin Parameters ==
+
+|| Name  ||	Type ||	Since ||	Description ||
+|| argumentFile ||	File	|| -	|| A text file to read more arguments from. ||
+|| critical ||	List ||	-	|| Tests that have the given tag are considered critical.||
+|| debugFile	|| File	|| -|| 	A debug file that is written during execution.||
+|| document ||	String||	-	||Sets the documentation of the top-level test suite.||
+|| exclude||	List	||-	||Selects the test cases by tag.||
+|| include	||List||	-||	Selects the test cases by tag.||
+|| listener||	List	||-||	Sets a listener for monitoring test execution. Use the format "ListenerWithArgs:arg1:arg2" or simply "ListenerWithoutArgs"||
+|| log	||File||	-	||Sets the path to the generated log file.||
+|| logLevel||	String	||-	||Sets the threshold level for logging.||
+|| logTitle	||String||	-	||Sets a title for the generated test log.||
+|| metadata||	List||	-	||Sets free metadata for the top level test suite.||
+|| name	||String	||-	||Sets the name of the top-level test suite.||
+|| nonCritical	||List	||-||	Tests that have the given tag are not critical.||
+|| output||	File	||-	||Sets the path to the generated output file.||
+|| outputDirectory	|| File ||	-	|| Configures where generated reports are to be placed.
+Default value is: ${project.build.directory}/robot. ||
+|| report||	File||	-	Sets the path to the generated report file.||
+|| reportBackground	String	-	Sets background colors for the generated report and summary.
+|| reportTitle	String	-	Sets a title for the generated test report.
+|| runMode	String	-	Sets the execution mode for this test run. Valid modes are ContinueOnFailure, ExitOnFailure, SkipTeardownOnExit, DryRun, and Random:<what>.
+|| splitOutputs	String	-	Splits output and log files.
+|| suite	List	-	Selects the test suites by name.
+|| suiteStatLevel	String	-	Defines how many levels to show in the Statistics by Suite table in outputs.
+|| summary	File	-	Sets the path to the generated summary file.
+|| summaryTitle	String	-	Sets a title for the generated summary report.
+|| tag	List	-	Sets the tag(s) to all executed test cases.
+|| tagDoc	List	-	Adds documentation to the specified tags.
+|| tagStatCombine	List	-	Creates combined statistics based on tags. Use the format "tags:title"
+|| tagStatExclude	List	-	Excludes these tags from the Statistics by Tag and Test Details by Tag tables in outputs.
+|| tagStatInclude	List	-	Includes only these tags in the Statistics by Tag and Test Details by Tag tables in outputs.
+|| tagStatLink	List	-	Adds external links to the Statistics by Tag table in outputs. Use the format "pattern:link:title"
+|| test	List	-	Selects the test cases by name.
+|| testCasesDirectory	File	-	The directory where the test cases are located.
+Default value is: ${project.basedir}/src/test/resources/robot.
+|| timestampOuputs	boolean	-	Adds a timestamp to all output files.
+|| variable	List	-	Sets individual variables. Use the format "name:value"
+|| variableFile	List	-	Sets variables using variable files. Use the format "path:args"
+|| warnOnSkippedFiles	boolean	-	Show a warning when an invalid file is skipped.
+|| xunitFile	File	-	Sets the path to the generated XUnit compatible result file. New in Robot Framework 2.5.5.
+argumentFile:
+
+A text file to read more arguments from.
+Type: java.io.File
+Required: No
+critical:
+
+Tests that have the given tag are considered critical.
+Type: java.util.List
+Required: No
+debugFile:
+
+A debug file that is written during execution.
+Type: java.io.File
+Required: No
+document:
+
+Sets the documentation of the top-level test suite.
+Type: java.lang.String
+Required: No
+exclude:
+
+Selects the test cases by tag.
+Type: java.util.List
+Required: No
+include:
+
+Selects the test cases by tag.
+Type: java.util.List
+Required: No
+listener:
+
+Sets a listener for monitoring test execution. Use the format "ListenerWithArgs:arg1:arg2" or simply "ListenerWithoutArgs"
+Type: java.util.List
+Required: No
+log:
+
+Sets the path to the generated log file.
+Type: java.io.File
+Required: No
+logLevel:
+
+Sets the threshold level for logging.
+Type: java.lang.String
+Required: No
+logTitle:
+
+Sets a title for the generated test log.
+Type: java.lang.String
+Required: No
+metadata:
+
+Sets free metadata for the top level test suite.
+Type: java.util.List
+Required: No
+name:
+
+Sets the name of the top-level test suite.
+Type: java.lang.String
+Required: No
+nonCritical:
+
+Tests that have the given tag are not critical.
+Type: java.util.List
+Required: No
+output:
+
+Sets the path to the generated output file.
+Type: java.io.File
+Required: No
+outputDirectory:
+
+Configures where generated reports are to be placed.
+Type: java.io.File
+Required: No
+Default: ${project.build.directory}/robot
+report:
+
+Sets the path to the generated report file.
+Type: java.io.File
+Required: No
+reportBackground:
+
+Sets background colors for the generated report and summary.
+Type: java.lang.String
+Required: No
+reportTitle:
+
+Sets a title for the generated test report.
+Type: java.lang.String
+Required: No
+runMode:
+
+Sets the execution mode for this test run. Valid modes are ContinueOnFailure, ExitOnFailure, SkipTeardownOnExit, DryRun, and Random:<what>.
+Type: java.lang.String
+Required: No
+splitOutputs:
+
+Splits output and log files.
+Type: java.lang.String
+Required: No
+suite:
+
+Selects the test suites by name.
+Type: java.util.List
+Required: No
+suiteStatLevel:
+
+Defines how many levels to show in the Statistics by Suite table in outputs.
+Type: java.lang.String
+Required: No
+summary:
+
+Sets the path to the generated summary file.
+Type: java.io.File
+Required: No
+summaryTitle:
+
+Sets a title for the generated summary report.
+Type: java.lang.String
+Required: No
+tag:
+
+Sets the tag(s) to all executed test cases.
+Type: java.util.List
+Required: No
+tagDoc:
+
+Adds documentation to the specified tags.
+Type: java.util.List
+Required: No
+tagStatCombine:
+
+Creates combined statistics based on tags. Use the format "tags:title"
+Type: java.util.List
+Required: No
+tagStatExclude:
+
+Excludes these tags from the Statistics by Tag and Test Details by Tag tables in outputs.
+Type: java.util.List
+Required: No
+tagStatInclude:
+
+Includes only these tags in the Statistics by Tag and Test Details by Tag tables in outputs.
+Type: java.util.List
+Required: No
+tagStatLink:
+
+Adds external links to the Statistics by Tag table in outputs. Use the format "pattern:link:title"
+Type: java.util.List
+Required: No
+test:
+
+Selects the test cases by name.
+Type: java.util.List
+Required: No
+testCasesDirectory:
+
+The directory where the test cases are located.
+Type: java.io.File
+Required: No
+Default: ${project.basedir}/src/test/resources/robot
+timestampOuputs:
+
+Adds a timestamp to all output files.
+Type: boolean
+Required: No
+variable:
+
+Sets individual variables. Use the format "name:value"
+Type: java.util.List
+Required: No
+variableFile:
+
+Sets variables using variable files. Use the format "path:args"
+Type: java.util.List
+Required: No
+warnOnSkippedFiles:
+
+Show a warning when an invalid file is skipped.
+Type: boolean
+Required: No
+xunitFile:
+
+Sets the path to the generated XUnit compatible result file. New in Robot Framework 2.5.5.
+Type: java.io.File
+Required: No
