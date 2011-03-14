@@ -1,0 +1,35 @@
+#labels Featured
+= Jybot Goal =
+
+Runs the "jybot" command.
+
+Robot Framework test cases are created in files and directories, and they are executed by configuring the path to the file or directory in question to the _testCasesDirectory_ configuration. The given file or directory creates the top-level test suite, which gets its name, unless overridden with the "name" option, from the file or directory name.
+
+
+== Usage ==
+
+By default, test cases located at _${project.basedir}/src/test/resources/robot_ gets run during the _integration-test_ phase. 
+
+If for example you want to run test cases in a different path, say _${project.basedir}/src/main/resources/robot_, configure your pom as so:
+
+{{{
+<plugin>
+        <groupId>com.googlecode</groupId>
+        <artifactId>robotframework-maven-plugin</artifactId>
+        <version>1.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>jybot</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <testCasesDirectory>${project.basedir}/src/main/resources</testCasesDirectory>
+        </configuration>
+      </plugin>
+}}}
+
+Generated reports are written to _${project.build.directory}/robot_ by default. This could be overridden by configuring the _outputDirectory_ configuration.
+
+== Plugin Parameters ==
