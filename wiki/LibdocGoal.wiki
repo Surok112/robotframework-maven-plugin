@@ -55,7 +55,7 @@ You can invoke {{{mvn robotframework:libdoc -DlibraryOrResourceDirectory=src/mai
           <li><strong>Required</strong>: <code>No</code></li> 
           <li><strong>Expression</strong>: <code>${name}</code></li> 
         </ul><hr/><p><strong><a name="output">output</a>:</strong></p> 
-        <div>Specifies where to write the generated documentation. If the given path is a directory, the documentation is written there using a file name like '&lt;name&gt;.&lt;format&gt;'. If a file with that name already exists, an index is added after the '&lt;name&gt;' part. If the given path is not a directory, it is used directly and possible existing files are overwritten. The default value for the path is the directory where the script is executed from.</div> 
+        <div>Specifies where to write the generated documentation. If the given path is a directory, the documentation is written there using a file name like '{{{<name>.<format>}}}'. If a file with that name already exists, an index is added after the '&lt;name&gt;' part. If the given path is not a directory, it is used directly and possible existing files are overwritten. The default value for the path is the directory where the script is executed from.</div> 
         <ul> 
           <li><strong>Type</strong>: <code>java.io.File</code></li> 
           <li><strong>Required</strong>: <code>No</code></li> 
