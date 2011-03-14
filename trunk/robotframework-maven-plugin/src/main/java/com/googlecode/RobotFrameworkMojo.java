@@ -27,12 +27,11 @@ import java.util.List;
 /**
  * Runs the "jybot" command.
  * <p/>
- * Robot Framework test cases are created in files and directories, and
- * they are executed by giving the path to the file or directory in question
- * to the "jybot" command. The path can be absolute or, more commonly,
- * relative to the directory where tests are executed from. The given file or
- * directory creates the top-level test suite, which gets its name, unless
- * overridden with the "name" option, from the file or directory name.
+ * Robot Framework test cases are created in files and directories, and they
+ * are executed by configuring the path to the file or directory in question
+ * to the testCasesDirectory configuration. The given file or directory creates
+ * the top-level test suite, which gets its name, unless overridden with the "name"
+ * option, from the file or directory name.
  *
  * @goal jybot
  * @phase integration-test
