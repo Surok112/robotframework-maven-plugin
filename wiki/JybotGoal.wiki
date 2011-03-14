@@ -54,25 +54,26 @@ Generated reports are written to _${project.build.directory}/robot_ by default. 
 || reportBackground	||String||	-||	Sets background colors for the generated report and summary.||
 || reportTitle||	String||	-	||Sets a title for the generated test report.||
 || runMode||	String	||-	||Sets the execution mode for this test run. Valid modes are ContinueOnFailure, ExitOnFailure, SkipTeardownOnExit, DryRun, and Random:{{{<what>}}}.||
-|| splitOutputs	String	-	Splits output and log files.
-|| suite	List	-	Selects the test suites by name.
-|| suiteStatLevel	String	-	Defines how many levels to show in the Statistics by Suite table in outputs.
-|| summary	File	-	Sets the path to the generated summary file.
-|| summaryTitle	String	-	Sets a title for the generated summary report.
-|| tag	List	-	Sets the tag(s) to all executed test cases.
-|| tagDoc	List	-	Adds documentation to the specified tags.
-|| tagStatCombine	List	-	Creates combined statistics based on tags. Use the format "tags:title"
-|| tagStatExclude	List	-	Excludes these tags from the Statistics by Tag and Test Details by Tag tables in outputs.
-|| tagStatInclude	List	-	Includes only these tags in the Statistics by Tag and Test Details by Tag tables in outputs.
-|| tagStatLink	List	-	Adds external links to the Statistics by Tag table in outputs. Use the format "pattern:link:title"
-|| test	List	-	Selects the test cases by name.
-|| testCasesDirectory	File	-	The directory where the test cases are located.
-Default value is: ${project.basedir}/src/test/resources/robot.
-|| timestampOuputs	boolean	-	Adds a timestamp to all output files.
-|| variable	List	-	Sets individual variables. Use the format "name:value"
-|| variableFile	List	-	Sets variables using variable files. Use the format "path:args"
-|| warnOnSkippedFiles	boolean	-	Show a warning when an invalid file is skipped.
-|| xunitFile	File	-	Sets the path to the generated XUnit compatible result file. New in Robot Framework 2.5.5.
+|| splitOutputs||	String||	-||	Splits output and log files.||
+|| suite||	List||	-	||Selects the test suites by name.||
+|| suiteStatLevel	||String||	-||	Defines how many levels to show in the Statistics by Suite table in outputs.||
+|| summary	||File	||-	||Sets the path to the generated summary file.||
+|| summaryTitle||	String||	-	||Sets a title for the generated summary report.||
+|| tag||	List||	-||	Sets the tag(s) to all executed test cases.||
+|| tagDoc||	List||	-||	Adds documentation to the specified tags.||
+|| tagStatCombine||	List	||-	||Creates combined statistics based on tags. Use the format "tags:title"||
+|| tagStatExclude	||List||	-	||Excludes these tags from the Statistics by Tag and Test Details by Tag tables in outputs.||
+|| tagStatInclude	||List||	-	||Includes only these tags in the Statistics by Tag and Test Details by Tag tables in outputs.||
+|| tagStatLink||	List||	-	||Adds external links to the Statistics by Tag table in outputs. Use the format "pattern:link:title"||
+|| test||	List||	-	||Selects the test cases by name.||
+|| testCasesDirectory||	File	||-	||The directory where the test cases are located. Default value is: ${project.basedir}/src/test/resources/robot.||
+|| timestampOuputs	||boolean||	-	||Adds a timestamp to all output files.||
+|| variable||	List||	-	||Sets individual variables. Use the format "name:value"||
+|| variableFile||	List||	-||	Sets variables using variable files. Use the format "path:args"||
+|| warnOnSkippedFiles||	boolean||	-	||Show a warning when an invalid file is skipped.||
+|| xunitFile||	File||	-	||Sets the path to the generated XUnit compatible result file. New in Robot Framework 2.5.5.||
+
+
 argumentFile:
 
 A text file to read more arguments from.
