@@ -44,7 +44,7 @@ You can invoke {{{mvn robotframework:libdoc -DlibraryOrResourceDirectory=src/mai
           <li><strong>Required</strong>: <code>No</code></li> 
           <li><strong>Expression</strong>: <code>${libraryOrResourceDirectory}</code></li> 
         </ul><hr/><p><strong><a name="libraryOrResourceFile">libraryOrResourceFile</a>:</strong></p> 
-        <div>Fully qualified path to the Java class (source code) or the resource file. <p />e.g. src/main/java/com/test/ExampleLib.java</div> 
+        <div>Fully qualified path to the Java class (source code) or the resource file. e.g. src/main/java/com/test/ExampleLib.java</div> 
         <ul> 
           <li><strong>Type</strong>: <code>java.io.File</code></li> 
           <li><strong>Required</strong>: <code>No</code></li> 
