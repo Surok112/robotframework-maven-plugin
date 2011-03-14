@@ -24,7 +24,7 @@ You can invoke {{{mvn robotframework:libdoc -DlibraryOrResourceDirectory=src/mai
 
 == Parameter Details ==
 
-<p><strong><a name="argument">argument</a>:</strong></p> 
+        <p><strong><a name="argument">argument</a>:</strong></p> 
         <div>Possible arguments that a library needs.</div> 
         <ul> 
           <li><strong>Type</strong>: <code>java.lang.String</code></li> 
@@ -38,8 +38,7 @@ You can invoke {{{mvn robotframework:libdoc -DlibraryOrResourceDirectory=src/mai
           <li><strong>Expression</strong>: <code>${format}</code></li> 
         </ul><hr/><p><strong><a name="libraryOrResourceDirectory">libraryOrResourceDirectory</a>:</strong></p> 
         <div>Fully qualified path to the directory where the Java classes or resource files are located. 
- 
-<p />e.g. src/main/java/com/test/</div> 
+                 <p />e.g. src/main/java/com/test/</div> 
         <ul> 
           <li><strong>Type</strong>: <code>java.io.File</code></li> 
           <li><strong>Required</strong>: <code>No</code></li> 
