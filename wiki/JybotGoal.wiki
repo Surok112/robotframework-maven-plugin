@@ -1,7 +1,7 @@
 #labels Featured
 = Jybot Goal =
 
-Runs the "jybot" command.
+Behaves like invoking the "jybot" command.
 
 Robot Framework test cases are created in files and directories, and they are executed by configuring the path to the file or directory in question to the _testCasesDirectory_ configuration. The given file or directory creates the top-level test suite, which gets its name, unless overridden with the "name" option, from the file or directory name.
 
