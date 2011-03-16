@@ -33,7 +33,7 @@ import java.util.List;
  * the top-level test suite, which gets its name, unless overridden with the "name"
  * option, from the file or directory name.
  *
- * @goal jybot
+ * @goal run
  * @phase integration-test
  * @requiresDependencyResolution test
  */
