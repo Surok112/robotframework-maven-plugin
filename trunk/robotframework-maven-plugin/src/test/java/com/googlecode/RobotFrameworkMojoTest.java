@@ -13,7 +13,7 @@ public class RobotFrameworkMojoTest extends AbstractMojoTestCase
   {
     File pom = getTestFile("src/test/resources/pom-success.xml");
 
-    RobotFrameworkMojo mojo = (RobotFrameworkMojo) lookupMojo("jybot", pom);
+    RobotFrameworkMojo mojo = (RobotFrameworkMojo) lookupMojo("run", pom);
 
     try
     {
@@ -33,7 +33,7 @@ public class RobotFrameworkMojoTest extends AbstractMojoTestCase
   {
     File pom = getTestFile("src/test/resources/pom-fail.xml");
 
-    RobotFrameworkMojo mojo = (RobotFrameworkMojo) lookupMojo("jybot", pom);
+    RobotFrameworkMojo mojo = (RobotFrameworkMojo) lookupMojo("run", pom);
 
     try
     {
@@ -53,7 +53,7 @@ public class RobotFrameworkMojoTest extends AbstractMojoTestCase
   {
     File pom = getTestFile("src/test/resources/pom-error.xml");
 
-    RobotFrameworkMojo mojo = (RobotFrameworkMojo) lookupMojo("jybot", pom);
+    RobotFrameworkMojo mojo = (RobotFrameworkMojo) lookupMojo("run", pom);
 
     try
     {
