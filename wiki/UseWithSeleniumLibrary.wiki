@@ -40,7 +40,7 @@ No formal 1.1 Release yet, so please use the snapshot version.
 Use the snapshot version:
 
 {{{
-       <groupId>com.googlecode</groupId>
+        <groupId>com.googlecode</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
         <version>1.1-SNAPSHOT</version>
 }}}
