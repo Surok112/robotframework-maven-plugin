@@ -107,4 +107,5 @@ public abstract class AbstractMojoWithLoadedClasspath extends AbstractMojo
       }
     }
   }
+
 }

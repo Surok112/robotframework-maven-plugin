@@ -27,14 +27,14 @@ import java.util.List;
 /**
  * Runs the "jybot" command.
  * <p/>
- * Robot Framework test cases are created in files and directories, and they
+ * Robot Framework tests cases are created in files and directories, and they
  * are executed by configuring the path to the file or directory in question
  * to the testCasesDirectory configuration. The given file or directory creates
- * the top-level test suite, which gets its name, unless overridden with the "name"
+ * the top-level tests suites, which gets its name, unless overridden with the "name"
  * option, from the file or directory name.
  *
  * @goal run
- * @phase integration-test
+ * @phase integration-tests
  * @requiresDependencyResolution test
  */
 public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
@@ -48,11 +48,11 @@ public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
 
     if (robotRunReturnValue == 1)
     {
-      throw new MojoFailureException("There are failing test cases. Check the logs for details.");
+      throw new MojoFailureException("There are failing tests cases. Check the logs for details.");
     }
     else if (robotRunReturnValue > 1)
     {
-      throw new MojoExecutionException("Failed to execute test cases. Check the logs for details.");
+      throw new MojoExecutionException("Failed to execute tests cases. Check the logs for details.");
     }
 
 
@@ -83,21 +83,23 @@ public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
     addStringToArguments(generatedArguments, suiteStatLevel, "-suitestatlevel");
 
     addListToArguments(generatedArguments, metadata, "M");
-    addListToArguments(generatedArguments, tag, "G");
-    addListToArguments(generatedArguments, test, "t");
-    addListToArguments(generatedArguments, suite, "s");
-    addListToArguments(generatedArguments, include, "i");
-    addListToArguments(generatedArguments, exclude, "e");
+    addListToArguments(generatedArguments, tags, "G");
+    addListToArguments(generatedArguments, tests, "t");
+    addListToArguments(generatedArguments, suites, "s");
+    addListToArguments(generatedArguments, includes, "i");
+    addListToArguments(generatedArguments, excludes, "e");
     addListToArguments(generatedArguments, critical, "c");
     addListToArguments(generatedArguments, nonCritical, "n");
-    addListToArguments(generatedArguments, variable, "v");
-    addListToArguments(generatedArguments, variableFile, "V");
-    addListToArguments(generatedArguments, tagStatInclude, "-tagstatinclude");
-    addListToArguments(generatedArguments, tagStatExclude, "-tagstatexclude");
+    addListToArguments(generatedArguments, variables, "v");
+    addListToArguments(generatedArguments, variableFiles, "V");
+    addListToArguments(generatedArguments, tagStatIncludes, "-tagstatinclude");
+    addListToArguments(generatedArguments, tagStatExcludes, "-tagstatexclude");
     addListToArguments(generatedArguments, tagStatCombine, "-tagstatcombine");
-    addListToArguments(generatedArguments, tagDoc, "-tagdoc");
-    addListToArguments(generatedArguments, tagStatLink, "-tagstatlink");
-    addListToArguments(generatedArguments, listener, "-listener");
+    addListToArguments(generatedArguments, tagDocs, "-tagdoc");
+    addListToArguments(generatedArguments, tagStatLinks, "-tagstatlink");
+    addListToArguments(generatedArguments, listeners, "-listeners");
+
+    addFileToArguments(generatedArguments, extraTestLibraries, "P");
 
     if (timestampOuputs)
     {
@@ -125,14 +127,14 @@ public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
   private File outputDirectory;
 
   /**
-   * The directory where the test cases are located.
+   * The directory where the tests cases are located.
    *
-   * @parameter default-value="${project.basedir}/src/test/resources/robot"
+   * @parameter default-value="${project.basedir}/src/test/resources/robot/tests"
    */
   private File testCasesDirectory;
 
   /**
-   * Sets the name of the top-level test suite.
+   * Sets the name of the top-level tests suites.
    *
    * @parameter
    */
@@ -140,7 +142,7 @@ public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
 
 
   /**
-   * Sets the documentation of the top-level test suite.
+   * Sets the documentation of the top-level tests suites.
    *
    * @parameter
    */
@@ -148,7 +150,7 @@ public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
 
 
   /**
-   * Sets free metadata for the top level test suite.
+   * Sets free metadata for the top level tests suites.
    *
    * @parameter
    */
@@ -156,47 +158,47 @@ public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
 
 
   /**
-   * Sets the tag(s) to all executed test cases.
+   * Sets the tags(s) to all executed tests cases.
    *
    * @parameter
    */
-  private List<String> tag;
+  private List<String> tags;
 
 
   /**
-   * Selects the test cases by name.
+   * Selects the tests cases by name.
    *
    * @parameter
    */
-  private List<String> test;
+  private List<String> tests;
 
 
   /**
-   * Selects the test suites by name.
+   * Selects the tests suites by name.
    *
    * @parameter
    */
-  private List<String> suite;
+  private List<String> suites;
 
 
   /**
-   * Selects the test cases by tag.
+   * Selects the tests cases by tags.
    *
    * @parameter
    */
-  private List<String> include;
+  private List<String> includes;
 
 
   /**
-   * Selects the test cases by tag.
+   * Selects the tests cases by tags.
    *
    * @parameter
    */
-  private List<String> exclude;
+  private List<String> excludes;
 
 
   /**
-   * Tests that have the given tag are considered critical.
+   * Tests that have the given tags are considered critical.
    *
    * @parameter
    */
@@ -204,7 +206,7 @@ public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
 
 
   /**
-   * Tests that have the given tag are not critical.
+   * Tests that have the given tags are not critical.
    *
    * @parameter
    */
@@ -212,7 +214,7 @@ public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
 
 
   /**
-   * Sets the execution mode for this test run. Valid modes are ContinueOnFailure, ExitOnFailure, SkipTeardownOnExit, DryRun, and Random:&lt;what&gt;.
+   * Sets the execution mode for this tests run. Valid modes are ContinueOnFailure, ExitOnFailure, SkipTeardownOnExit, DryRun, and Random:&lt;what&gt;.
    *
    * @parameter
    */
@@ -224,15 +226,15 @@ public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
    *
    * @parameter
    */
-  private List<String> variable;
+  private List<String> variables;
 
 
   /**
-   * Sets variables using variable files. Use the format "path:args"
+   * Sets variables using variables files. Use the format "path:args"
    *
    * @parameter
    */
-  private List<String> variableFile;
+  private List<String> variableFiles;
 
   /**
    * Sets the path to the generated output file.
@@ -297,7 +299,7 @@ public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
 
 
   /**
-   * Sets a title for the generated test log.
+   * Sets a title for the generated tests log.
    *
    * @parameter
    */
@@ -305,7 +307,7 @@ public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
 
 
   /**
-   * Sets a title for the generated test report.
+   * Sets a title for the generated tests report.
    *
    * @parameter
    */
@@ -338,7 +340,7 @@ public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
    *
    * @parameter
    */
-  private List<String> tagStatInclude;
+  private List<String> tagStatIncludes;
 
 
   /**
@@ -346,7 +348,7 @@ public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
    *
    * @parameter
    */
-  private List<String> tagStatExclude;
+  private List<String> tagStatExcludes;
 
 
   /**
@@ -369,7 +371,7 @@ public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
    *
    * @parameter
    */
-  private List<String> tagDoc;
+  private List<String> tagDocs;
 
 
   /**
@@ -377,15 +379,15 @@ public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
    *
    * @parameter
    */
-  private List<String> tagStatLink;
+  private List<String> tagStatLinks;
 
 
   /**
-   * Sets a listener for monitoring test execution. Use the format "ListenerWithArgs:arg1:arg2" or simply "ListenerWithoutArgs"
+   * Sets a listeners for monitoring tests execution. Use the format "ListenerWithArgs:arg1:arg2" or simply "ListenerWithoutArgs"
    *
    * @parameter
    */
-  private List<String> listener;
+  private List<String> listeners;
 
 
   /**
@@ -401,4 +403,12 @@ public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
    * @parameter
    */
   private File argumentFile;
+
+
+  /**
+   * Additional locations where to search tests libraries from when they are imported. A path to where your extra tests libraries are located. e.g. ${project.basedir}/src/test/resources/robot/libraries
+   *
+   * @parameter  default-value="${project.basedir}/src/test/resources/robot/libraries"
+   */
+  private File extraTestLibraries;
 }
