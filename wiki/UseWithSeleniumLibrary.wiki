@@ -30,7 +30,7 @@ Suite Tear Down  Stop Selenium Server
 
 *** Test Cases ***
 My Test
-   Open Browser  http://google.com
+   Open Browser  http://robotframework.googlecode.com
 }}}
 
 
