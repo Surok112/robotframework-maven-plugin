@@ -35,7 +35,15 @@ My Test
 
 
 == Note ==
-No formal 1.1 Release yet, so please use the snapshot version:
+No formal 1.1 Release yet, so please use the snapshot version.
+
+Use the snapshot version:
+
+{{{
+       <groupId>com.googlecode</groupId>
+        <artifactId>robotframework-maven-plugin</artifactId>
+        <version>1.1-SNAPSHOT</version>
+}}}
 
 Add the following to your pom:
 {{{
