@@ -1,6 +1,7 @@
+#labels Featured
 = Using the Robot Framework Maven Plugin with Selenium Library =
 
-_*Note: Only available starting version 1.1*_
+_*Note: Only available starting version 1.1. Please see Note below*_
 
 Starting version 1.1, a _extraTestLibraries_ parameter has been added to the plugin. You can use this to add extra test libraries to your build. 
 
@@ -37,7 +38,7 @@ My Test
 No formal 1.1 Release yet, so please use the snapshot version:
 
 Add the following to your pom:
-
+{{{
     <pluginRepository>
       <id>robotframework-maven-plugin-snapshots</id>
       <url>http://robotframework-maven-plugin.googlecode.com/svn/maven/snapshots</url>
@@ -45,13 +46,13 @@ Add the following to your pom:
         <enabled>true</enabled>
       </snapshots>
     </pluginRepository>
-
+}}}
 This would enable you to grab the snapshot artifact.
 
 Starting with 1.1, _jybot_ goal is no longer available. You should now use _run_:
-
+{{{
             <goals> 
               <goal>run</goal>
             </goals>
-
+}}}
 Also take note that by this version, the default directory of where your test cases should reside is already at: _${project.basedir}/src/test/resources/robot/tests_
