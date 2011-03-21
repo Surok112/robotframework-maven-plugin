@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Runs the "jybot" command.
+ * Runs the Robot tests. Behaves like invoking the "jybot" command.
  * <p/>
  * Robot Framework tests cases are created in files and directories, and they
  * are executed by configuring the path to the file or directory in question
