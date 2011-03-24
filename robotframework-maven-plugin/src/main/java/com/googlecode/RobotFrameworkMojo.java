@@ -39,7 +39,7 @@ import java.util.List;
  * option, from the file or directory name.
  *
  * @goal run
- * @phase integration-tests
+ * @phase integration-test
  * @requiresDependencyResolution test
  */
 public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
