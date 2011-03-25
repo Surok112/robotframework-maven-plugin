@@ -16,17 +16,12 @@ package com.googlecode;
  * limitations under the License.
  */
 
-import com.googlecode.util.FileUtil;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.IOFileFilter;
-import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.robotframework.RobotFramework;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -115,22 +110,8 @@ public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
       generatedArguments.add("--warnonskippedfiles");
     }
 
-    if (testCasesDirectory != null && !testCasesDirectory.getPath().isEmpty())
-    {
-      if (recursive)
-      {
-        Collection<String> validTestFiles = FileUtil.getAllValidTestFiles(testCasesDirectory);
 
-        for (String testFile : validTestFiles)
-        {
-          generatedArguments.add(testFile);
-        }
-      }
-      else
-      {
-        generatedArguments.add(testCasesDirectory.getPath());
-      }
-    }
+    generatedArguments.add(testCasesDirectory.getPath());
 
     return generatedArguments.toArray(new String[generatedArguments.size()]);
   }
@@ -429,11 +410,4 @@ public class RobotFrameworkMojo extends AbstractMojoWithLoadedClasspath
    */
   private File extraTestLibraries;
 
-
-  /**
-   * Set to "true" if the plugin should invoke all test cases contained not only in the test case directory, but also within the subdirectories.
-   *
-   * @parameter default-value="false"
-   */
-  private boolean recursive;
 }
