@@ -222,7 +222,7 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
   private File libraryOrResourceDirectory;
 
   /**
-   * Use in conjuction with libraryOrResourceDirectory. The directory is recursively searched
+   * Use in conjuction with "libraryOrResourceDirectory." The directory is recursively searched
    * for files matching these values. The wildcards "*" can be used to signify multiple possible values
    * while "?" can be used to signify single characters. e.g. *esources?.* will be able to process
    * thisisaresources2.txt, resources1.html, etc
@@ -233,7 +233,7 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
 
 
   /**
-   * Use in conjuction with libraryOrResourceDirectory. The directory is recursively searched
+   * Use in conjuction with "libraryOrResourceDirectory." The directory is recursively searched
    * and files matching these values are excluded. The wildcards "*" can be used to signify multiple possible values
    * while "?" can be used to signify single characters. e.g. *test?.* will be able to process
    * thisisatest2.txt, test1.html, etc
