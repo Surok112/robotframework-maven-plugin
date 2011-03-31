@@ -16,6 +16,7 @@ package com.googlecode;
  * limitations under the License.
  */
 
+import com.googlecode.util.WildCardUtil;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.python.util.PythonInterpreter;
@@ -23,6 +24,9 @@ import org.python.util.PythonInterpreter;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Runs the "libdoc" command to generate documentation of user libraries.
@@ -114,11 +118,17 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
     }
   }
 
-  private File[] extractFilesFromLibraryOrResourceDirectory(File directoryToRecurse)
+  private Collection<File> extractFilesFromLibraryOrResourceDirectory(File directoryToRecurse)
   {
     if (directoryToRecurse == null || !directoryToRecurse.exists())
     {
       return null;
+    }
+
+    if(includes != null || excludes != null)
+    {
+      WildCardUtil wildCardUtil = new WildCardUtil(includes, excludes);
+      return wildCardUtil.listFiles(directoryToRecurse);
     }
 
     File[] qualifiedFiles = directoryToRecurse.listFiles(new FilenameFilter()
@@ -133,7 +143,7 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
       }
     });
 
-    return qualifiedFiles;
+    return Arrays.asList(qualifiedFiles);
   }
 
   /**
@@ -210,5 +220,27 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
    * @parameter expression="${libraryOrResourceDirectory}"
    */
   private File libraryOrResourceDirectory;
+
+  /**
+   * Use in conjuction with libraryOrResourceDirectory. The directory is recursively searched
+   * for files matching these values. The wildcards "*" can be used to signify multiple possible values
+   * while "?" can be used to signify single characters. e.g. *esources?.* will be able to process
+   * thisisaresources2.txt, resources1.html, etc
+   *
+   * @parameter
+   */
+  private List<String> includes;
+
+
+  /**
+   * Use in conjuction with libraryOrResourceDirectory. The directory is recursively searched
+   * and files matching these values are excluded. The wildcards "*" can be used to signify multiple possible values
+   * while "?" can be used to signify single characters. e.g. *test?.* will be able to process
+   * thisisatest2.txt, test1.html, etc
+   *
+   *
+   * @parameter
+   */
+  private List<String> excludes;
 
 }
