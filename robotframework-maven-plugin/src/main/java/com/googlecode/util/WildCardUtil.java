@@ -8,16 +8,17 @@ import java.util.Collection;
 
 public class WildCardUtil
 {
+  private CompositeWildCardFilenameFilter filter;
 
-  public static Collection<File> listFilesThatIncludes(File file, Collection<String> wildcards)
+  public WildCardUtil(Collection<String> includes, Collection<String> excludes)
   {
-    CompositeOrWildCardFilenameFilter filter = new CompositeOrWildCardFilenameFilter(wildcards);
+    filter = new CompositeWildCardFilenameFilter(includes, excludes);
+
+  }
+
+  public Collection<File> listFiles(File file)
+  {
     return FileUtils.listFiles(file, filter, TrueFileFilter.INSTANCE);
   }
 
-  public static Collection<File> listFiltesThatExcludes(File file, Collection<String> wildcards)
-  {
-    CompositeAndWildCardFilenameFilter filter = new CompositeAndWildCardFilenameFilter(wildcards);
-    return FileUtils.listFiles(file, filter, TrueFileFilter.INSTANCE);
-  }
 }
