@@ -26,6 +26,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -122,7 +123,7 @@ public class LibDocMojo extends AbstractMojoWithLoadedClasspath
   {
     if (directoryToRecurse == null || !directoryToRecurse.exists())
     {
-      return null;
+      return Collections.emptyList();
     }
 
     if(includes != null || excludes != null)
