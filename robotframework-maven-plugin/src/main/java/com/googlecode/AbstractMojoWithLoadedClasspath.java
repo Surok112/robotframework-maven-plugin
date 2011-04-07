@@ -16,11 +16,6 @@ package com.googlecode;
  * limitations under the License.
  */
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,84 +23,93 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractMojoWithLoadedClasspath extends AbstractMojo
+import org.apache.commons.lang.StringUtils;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+
+public abstract class AbstractMojoWithLoadedClasspath
+    extends AbstractMojo
 {
 
-  /**
-   * @parameter expression="${project.testClasspathElements}"
-   * @required
-   * @readonly
-   */
-  private List<String> classpathElements;
+    /**
+     * @parameter expression="${project.testClasspathElements}"
+     * @required
+     * @readonly
+     */
+    private List<String> classpathElements;
 
-  public void execute() throws MojoExecutionException, MojoFailureException
-  {
-    loadClassPath();
-    subclassExecute();
-  }
-
-  protected abstract void subclassExecute() throws MojoExecutionException, MojoFailureException;
-
-  private void loadClassPath() throws MojoExecutionException
-  {
-    List<URL> urls = new ArrayList<URL>();
-
-    if (classpathElements != null)
+    public void execute()
+        throws MojoExecutionException, MojoFailureException
     {
-      for (String element : classpathElements)
-      {
-        File elementFile = new File(element);
-        try
+        loadClassPath();
+        subclassExecute();
+    }
+
+    protected abstract void subclassExecute()
+        throws MojoExecutionException, MojoFailureException;
+
+    private void loadClassPath()
+        throws MojoExecutionException
+    {
+        List<URL> urls = new ArrayList<URL>();
+
+        if ( classpathElements != null )
         {
-          urls.add(elementFile.toURI().toURL());
+            for ( String element : classpathElements )
+            {
+                File elementFile = new File( element );
+                try
+                {
+                    urls.add( elementFile.toURI().toURL() );
+                }
+                catch ( MalformedURLException e )
+                {
+                    throw new MojoExecutionException( "Classpath loading error: " + element );
+                }
+            }
         }
-        catch (MalformedURLException e)
+
+        if ( urls.size() > 0 )
         {
-          throw new MojoExecutionException("Classpath loading error: " + element);
+            ClassLoader realm = new URLClassLoader( urls.toArray( new URL[urls.size()] ), getClass().getClassLoader() );
+            Thread.currentThread().setContextClassLoader( realm );
         }
-      }
     }
 
-    if (urls.size() > 0)
+    protected void addFileToArguments( List<String> arguments, File file, String flag )
     {
-      ClassLoader realm = new URLClassLoader(urls.toArray(new URL[urls.size()]), getClass().getClassLoader());
-      Thread.currentThread().setContextClassLoader(realm);
-    }
-  }
-
-  protected void addFileToArguments(List<String> arguments, File file, String flag)
-  {
-    if (file != null && !file.getPath().isEmpty())
-    {
-      arguments.add("-" + flag);
-      arguments.add(file.getPath());
-    }
-  }
-
-  protected void addStringToArguments(List<String> arguments, String variableToAdd, String flag)
-  {
-    if (!StringUtils.isEmpty(variableToAdd))
-    {
-      arguments.add("-" + flag);
-      arguments.add(variableToAdd);
-    }
-  }
-
-  protected void addListToArguments(List<String> arguments, List<String> variablesToAdd, String flag)
-  {
-    if (variablesToAdd == null)
-    {
-      return;
+        if ( file != null && file.getPath() != null && file.getPath() != null && !file.getPath().equals( "" ) )
+        {
+            arguments.add( "-" + flag );
+            arguments.add( file.getPath() );
+        }
     }
 
-    for (String variableToAdd : variablesToAdd)
+    protected void addStringToArguments( List<String> arguments, String variableToAdd, String flag )
     {
-      if (!StringUtils.isEmpty(variableToAdd))
-      {
-        arguments.add("-" + flag);
-        arguments.add(variableToAdd);
-      }
+        if ( !StringUtils.isEmpty( variableToAdd ) )
+        {
+            arguments.add( "-" + flag );
+            arguments.add( variableToAdd );
+        }
     }
-  }
+
+    protected void addListToArguments( List<String> arguments, List<String> variablesToAdd, String flag )
+    {
+        if ( variablesToAdd == null )
+        {
+            return;
+        }
+
+        for ( String variableToAdd : variablesToAdd )
+        {
+            if ( !StringUtils.isEmpty( variableToAdd ) )
+            {
+                arguments.add( "-" + flag );
+                arguments.add( variableToAdd );
+            }
+        }
+    }
 
 }
