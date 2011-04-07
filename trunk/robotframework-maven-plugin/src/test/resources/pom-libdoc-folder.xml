@@ -9,24 +9,17 @@
   <packaging>jar</packaging>
   <name>Test Mojo</name>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-
   <build>
     <plugins>
       <plugin>
         <groupId>com.googlecode</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
         <configuration>
-          <testCasesDirectory>nothing/here</testCasesDirectory>
-          <outputDirectory>target/robot</outputDirectory>
-          <xunitFile>TEST-robot-error-errorsInTest.xml</xunitFile>
+          <libraryOrResourceDirectory>src/test/resources/robot-libdoc</libraryOrResourceDirectory>
+          <includes>
+            <include>**/*resource.txt</include>
+          </includes>
+          <output>target/robot</output>
         </configuration>
       </plugin>
     </plugins>

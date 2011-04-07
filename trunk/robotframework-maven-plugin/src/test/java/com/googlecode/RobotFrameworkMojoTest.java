@@ -1,81 +1,69 @@
 package com.googlecode;
 
+import java.io.File;
+
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 
-import java.io.File;
-
-public class RobotFrameworkMojoTest extends AbstractMojoTestCase
+public class RobotFrameworkMojoTest
+    extends AbstractMojoTestCase
 {
 
-  public void testShouldSucceed() throws Exception
-  {
-    File pom = getTestFile("src/test/resources/pom-success.xml");
-
-    RobotFrameworkMojo mojo = (RobotFrameworkMojo) lookupMojo("run", pom);
-
-    try
+    public void setup()
     {
-      mojo.execute();
-    }
-    catch (MojoFailureException e)
-    {
-      assertTrue(false);
-      return;
     }
 
-    assertTrue(true);
-
-  }
-
-  public void testShouldFail() throws Exception
-  {
-    File pom = getTestFile("src/test/resources/pom-fail.xml");
-
-    RobotFrameworkMojo mojo = (RobotFrameworkMojo) lookupMojo("run", pom);
-
-    try
+    public void testShouldSucceed()
+        throws Exception
     {
-      mojo.execute();
-    }
-    catch (MojoFailureException e)
-    {
-      assertTrue(true);
-      return;
+        File pom = getTestFile( "src/test/resources/pom-success.xml" );
+        RobotFrameworkMojo mojo = (RobotFrameworkMojo) lookupMojo( "run", pom );
+        mojo.execute();
     }
 
-    assertFalse(true);
-
-  }
-
-  public void testShouldHaveErrors() throws Exception
-  {
-    File pom = getTestFile("src/test/resources/pom-error.xml");
-
-    RobotFrameworkMojo mojo = (RobotFrameworkMojo) lookupMojo("run", pom);
-
-    try
+    public void testShouldFail()
+        throws Exception
     {
-      mojo.execute();
-    }
-    catch (MojoExecutionException e)
-    {
-      assertTrue(true);
-      return;
+        File pom = getTestFile( "src/test/resources/pom-fail.xml" );
+        RobotFrameworkMojo mojo = (RobotFrameworkMojo) lookupMojo( "run", pom );
+        try
+        {
+            mojo.execute();
+            fail( "robot tests should have failed" );
+        }
+        catch ( MojoFailureException e )
+        {
+            // expected
+        }
     }
 
-    assertTrue(false);
+    public void testHsqlShouldPass()
+        throws Exception
+    {
+        File pom = getTestFile( "src/test/resources/pom-hsqldb.xml" );
+        RobotFrameworkMojo mojo = (RobotFrameworkMojo) lookupMojo( "run", pom );
+        mojo.execute();
+    }
 
-  }
+    public void testShouldHaveErrors()
+        throws Exception
+    {
 
-  protected void setUp() throws Exception
-  {
-    super.setUp();
-  }
+        File pom = getTestFile( "src/test/resources/pom-error.xml" );
+        RobotFrameworkMojo mojo = (RobotFrameworkMojo) lookupMojo( "run", pom );
+        try
+        {
+            mojo.execute();
+            fail( "robot tests should have errors" );
+        }
+        catch ( MojoExecutionException e )
+        {
+            // expected
+        }
 
-  protected void tearDown() throws Exception
-  {
-    super.tearDown();
-  }
+    }
+
+
+
 }

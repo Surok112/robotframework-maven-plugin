@@ -1,91 +1,86 @@
 package com.googlecode.util;
 
-import junit.framework.TestCase;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
-public class WildCardUtilTest extends TestCase
+import junit.framework.TestCase;
+
+import org.codehaus.plexus.components.io.resources.PlexusIoFileResource;
+
+public class WildCardUtilTest
+    extends TestCase
 {
 
-  public void testShouldReturnAllResources() throws IOException
-  {
-    WildCardUtil wildCardUtil = new WildCardUtil(new ArrayList<String>()
+    private final File baseDir = new File( "src/test/resources/files" );
+
+    private final WildCardUtil wildCardUtil = new WildCardUtil();
+
+    private final String[] excludes = new String[0];
+
+    private final String[] includes = new String[0];
+
+    public void testShouldReturnAllResources()
+        throws IOException
     {
-      {
-        add("*esources*.*");
-      }
-    }, Collections.<String>emptyList());
+        List<String> expectedFiles = Arrays.asList( "resourcesA.txt", "resources.txt" );
+        String[] includes = new String[] { "**/*esources*.*" };
 
+        doTestWildCardUtil( expectedFiles, includes, excludes );
+    }
 
-    File file = new File(new File(".").getCanonicalPath() + "/src/test/resources/files");
-
-
-    Collection<File> files = wildCardUtil.listFiles(file);
-
-    assertEquals(2, files.size());
-  }
-
-  public void testShouldNotReturnTestFiles() throws IOException
-  {
-    WildCardUtil wildCardUtil = new WildCardUtil(Collections.<String>emptyList(), new ArrayList<String>()
+    public void testShouldReturnAllResourcesAndJava()
+        throws IOException
     {
-      {
-        add("*est*.txt");
-      }
-    });
+        List<String> expectedFiles = Arrays.asList( "resourcesA.txt", "resources.txt", "test.java" );
+        String[] includes = new String[] { "**/*esources*.*", "**/*.java" };
 
+        doTestWildCardUtil( expectedFiles, includes, excludes );
+    }
 
-    File file = new File(new File(".").getCanonicalPath() + "/src/test/resources/files");
-
-    Collection<File> files = wildCardUtil.listFiles(file);
-
-    assertEquals(3, files.size());
-  }
-
-  public void testShouldReturnAllResourcesAndJava() throws IOException
-  {
-    WildCardUtil wildCardUtil = new WildCardUtil(new ArrayList<String>()
+    public void testShouldNotReturnTestFiles()
+        throws IOException
     {
-      {
-        add("*esources*.*");
-        add("*.java");
-      }
-    }, Collections.<String>emptyList());
+        List<String> expectedFiles = Arrays.asList( "resourcesA.txt", "test.java", "resources.txt" );
+        String[] excludes = new String[] { "**/*est*.txt" };
 
+        doTestWildCardUtil( expectedFiles, includes, excludes );
+    }
 
-    File file = new File(new File(".").getCanonicalPath() + "/src/test/resources/files");
-
-
-    Collection<File> files = wildCardUtil.listFiles(file);
-
-    assertEquals(3, files.size());
-  }
-
-  public void testShouldReturnAllRealTests() throws IOException
-  {
-    WildCardUtil wildCardUtil = new WildCardUtil(new ArrayList<String>()
+    public void testShouldReturnAllRealTests()
+        throws IOException
     {
-      {
-        add("*est*.*");
+        List<String> expectedFiles = Arrays.asList( "test.txt", "test2.txt" );
+        String[] includes = new String[] { "**/*est*.*" };
+        String[] excludes = new String[] { "**/*.java" };
 
-      }
-    }, new ArrayList<String>()
+        doTestWildCardUtil( expectedFiles, includes, excludes );
+    }
+
+    public void testShouldReturnPossibleRobotFiles()
+        throws IOException
     {
-      {
-        add("*.java");
-      }
-    });
+        List<String> expectedFiles =
+            Arrays.asList( "resourcesA.txt", "test.java", "resources.txt", "test2.txt", "test.txt" );
 
+        doTestWildCardUtil( expectedFiles, includes, excludes );
+    }
 
-    File file = new File(new File(".").getCanonicalPath() + "/src/test/resources/files");
+    private void doTestWildCardUtil( List<String> expectedFiles, String[] includes, String[] excludes )
+        throws IOException
+    {
+        Iterator<PlexusIoFileResource> iterator = wildCardUtil.listFiles( baseDir, includes, excludes );
 
-    Collection<File> files = wildCardUtil.listFiles(file);
-
-
-    assertEquals(2, files.size());
-  }
+        int found = 0;
+        while ( iterator.hasNext() )
+        {
+            PlexusIoFileResource fileResource = iterator.next();
+            found++;
+            assertTrue( "unexpected file: " + fileResource.getFile().getName(),
+                        expectedFiles.contains( fileResource.getFile().getName() ) );
+        }
+        assertEquals( expectedFiles.size(), found );
+    }
 }
