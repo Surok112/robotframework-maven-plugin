@@ -43,7 +43,7 @@ public class RobotFrameworkMojo
     protected void subclassExecute()
         throws MojoExecutionException, MojoFailureException
     {
-        if ( skipTests || skipATs || skip )
+        if ( skipTests || skipITs || skipATs || skip )
         {
             getLog().info( "RobotFramework tests are skipped." );
             return;
@@ -58,7 +58,8 @@ public class RobotFrameworkMojo
         }
         else if ( robotRunReturnValue > 1 )
         {
-            throw new MojoExecutionException( "Failed to execute RobotFramework test cases. Check the logs for details." );
+            throw new MojoExecutionException(
+                                              "Failed to execute RobotFramework test cases. Check the logs for details." );
         }
 
     }
@@ -431,6 +432,15 @@ public class RobotFrameworkMojo
      * @since 1.1
      */
     private boolean skipATs;
+
+    /**
+     * Skip acceptance tests executed by this plugin together with other integration tests, e.g. tests run by the
+     * maven-failsafe-plugin.
+     * 
+     * @parameter expression="${skipATs}"
+     * @since 1.1
+     */
+    private boolean skipITs;
 
     /**
      * Skip tests, bound to -Dmaven.test.skip, which suppresses test compilation as well.
