@@ -43,17 +43,22 @@ public class RobotFrameworkMojo
     protected void subclassExecute()
         throws MojoExecutionException, MojoFailureException
     {
+        if ( skipTests || skipATs || skip )
+        {
+            getLog().info( "RobotFramework tests are skipped." );
+            return;
+        }
         String[] runArguments = generateRunArguments();
 
         int robotRunReturnValue = RobotFramework.run( runArguments );
 
         if ( robotRunReturnValue == 1 )
         {
-            throw new MojoFailureException( "There are failing test cases. Check the logs for details." );
+            throw new MojoFailureException( "There are failing RobotFramework test cases. Check the logs for details." );
         }
         else if ( robotRunReturnValue > 1 )
         {
-            throw new MojoExecutionException( "Failed to execute test cases. Check the logs for details." );
+            throw new MojoExecutionException( "Failed to execute RobotFramework test cases. Check the logs for details." );
         }
 
     }
@@ -82,6 +87,7 @@ public class RobotFrameworkMojo
         addStringToArguments( generatedArguments, logLevel, "L" );
         addStringToArguments( generatedArguments, suiteStatLevel, "-suitestatlevel" );
         addStringToArguments( generatedArguments, monitorColors, "-monitorcolors" );
+        addStringToArguments( generatedArguments, pythonPath, "P" );
 
         addListToArguments( generatedArguments, metadata, "M" );
         addListToArguments( generatedArguments, tags, "G" );
@@ -89,13 +95,13 @@ public class RobotFrameworkMojo
         addListToArguments( generatedArguments, suites, "s" );
         addListToArguments( generatedArguments, includes, "i" );
         addListToArguments( generatedArguments, excludes, "e" );
-        addListToArguments( generatedArguments, critical, "c" );
-        addListToArguments( generatedArguments, nonCritical, "n" );
+        addListToArguments( generatedArguments, criticalTags, "c" );
+        addListToArguments( generatedArguments, nonCriticalTags, "n" );
         addListToArguments( generatedArguments, variables, "v" );
         addListToArguments( generatedArguments, variableFiles, "V" );
         addListToArguments( generatedArguments, tagStatIncludes, "-tagstatinclude" );
         addListToArguments( generatedArguments, tagStatExcludes, "-tagstatexclude" );
-        addListToArguments( generatedArguments, tagStatCombine, "-tagstatcombine" );
+        addListToArguments( generatedArguments, tagStatCombines, "-tagstatcombine" );
         addListToArguments( generatedArguments, tagDocs, "-tagdoc" );
         addListToArguments( generatedArguments, tagStatLinks, "-tagstatlink" );
         addListToArguments( generatedArguments, listeners, "-listeners" );
@@ -119,7 +125,7 @@ public class RobotFrameworkMojo
     /**
      * Configures where generated reports are to be placed.
      * 
-     * @parameter default-value="${project.build.directory}/robot"
+     * @parameter default-value="${project.build.directory}/robotframework"
      */
     private File outputDirectory;
 
@@ -191,14 +197,14 @@ public class RobotFrameworkMojo
      * 
      * @parameter
      */
-    private List<String> critical;
+    private List<String> criticalTags;
 
     /**
      * Tests that have the given tags are not critical.
      * 
      * @parameter
      */
-    private List<String> nonCritical;
+    private List<String> nonCriticalTags;
 
     /**
      * Sets the execution mode for this tests run. Valid modes are ContinueOnFailure, ExitOnFailure, SkipTeardownOnExit,
@@ -339,7 +345,7 @@ public class RobotFrameworkMojo
      * 
      * @parameter
      */
-    private List<String> tagStatCombine;
+    private List<String> tagStatCombines;
 
     /**
      * Adds documentation to the specified tags.
@@ -378,10 +384,22 @@ public class RobotFrameworkMojo
     private File argumentFile;
 
     /**
+     * Additional locations (directories, ZIPs, JARs) where to search test libraries from when they are imported, e.g.
+     * ${project.basedir}/src/test/resources/robot/libraries. Multiple paths can be given by separating them with a
+     * colon (':').
+     * 
+     * @parameter default-value="${project.basedir}/src/test/resources/robot/libraries"
+     * @since 1.1
+     */
+    private String pythonPath;
+
+    /**
      * Additional locations where to search tests libraries from when they are imported. A path to where your extra
      * tests libraries are located. e.g. ${project.basedir}/src/test/resources/robot/libraries
      * 
      * @parameter default-value="${project.basedir}/src/test/resources/robot/libraries"
+     * @since 1.1
+     * @deprecated use pythonPath instead
      */
     private File extraTestLibraries;
 
@@ -394,7 +412,31 @@ public class RobotFrameworkMojo
      * </ul>
      * 
      * @parameter
+     * @since 1.1
      */
     private String monitorColors;
+
+    /**
+     * Skip tests.
+     * 
+     * @parameter expression="${skipTests}"
+     * @since 1.1
+     */
+    private boolean skipTests;
+
+    /**
+     * Skip acceptance tests executed by this plugin.
+     * 
+     * @parameter expression="${skipATs}"
+     * @since 1.1
+     */
+    private boolean skipATs;
+
+    /**
+     * Skip tests, bound to -Dmaven.test.skip, which suppresses test compilation as well.
+     * 
+     * @parameter default-value="false" expression="${maven.test.skip}"
+     */
+    private boolean skip;
 
 }

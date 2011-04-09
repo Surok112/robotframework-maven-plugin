@@ -26,7 +26,7 @@
         <configuration>
           <testCasesDirectory>src/test/resources/robot-hsqldb</testCasesDirectory>
           <outputDirectory>target/robot</outputDirectory>
-          <extraTestLibraries>src/test/resources/python</extraTestLibraries>
+          <pythonPath>src/test/resources/python</pythonPath>
         </configuration>
         <dependencies>
           <dependency>

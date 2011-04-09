@@ -22,6 +22,14 @@ public class RobotFrameworkMojoTest
         mojo.execute();
     }
 
+    public void testShouldBeSkipped()
+        throws Exception
+    {
+        File pom = getTestFile( "src/test/resources/pom-skip.xml" );
+        RobotFrameworkMojo mojo = (RobotFrameworkMojo) lookupMojo( "run", pom );
+        mojo.execute();
+    }
+
     public void testShouldFail()
         throws Exception
     {
@@ -63,7 +71,5 @@ public class RobotFrameworkMojoTest
         }
 
     }
-
-
 
 }
