@@ -17,6 +17,7 @@
         <configuration>
           <testCasesDirectory>src/test/resources/robot-success</testCasesDirectory>
           <outputDirectory>target/robot-success</outputDirectory>
+          <skipATs>true</skipATs>
         </configuration>
       </plugin>
     </plugins>
