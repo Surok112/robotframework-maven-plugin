@@ -1,14 +1,13 @@
 package com.googlecode.util;
 
+import junit.framework.TestCase;
+import org.codehaus.plexus.components.io.resources.PlexusIoFileResource;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-
-import junit.framework.TestCase;
-
-import org.codehaus.plexus.components.io.resources.PlexusIoFileResource;
 
 public class WildCardUtilTest
     extends TestCase
@@ -26,7 +25,7 @@ public class WildCardUtilTest
         throws IOException
     {
         List<String> expectedFiles = Arrays.asList( "resourcesA.txt", "resources.txt" );
-        String[] includes = new String[] { "**/*esources*.*" };
+        String[] includes = new String[]{ "**/*esources*.*" };
 
         doTestWildCardUtil( expectedFiles, includes, excludes );
     }
@@ -35,7 +34,7 @@ public class WildCardUtilTest
         throws IOException
     {
         List<String> expectedFiles = Arrays.asList( "resourcesA.txt", "resources.txt", "test.java" );
-        String[] includes = new String[] { "**/*esources*.*", "**/*.java" };
+        String[] includes = new String[]{ "**/*esources*.*", "**/*.java" };
 
         doTestWildCardUtil( expectedFiles, includes, excludes );
     }
@@ -44,7 +43,7 @@ public class WildCardUtilTest
         throws IOException
     {
         List<String> expectedFiles = Arrays.asList( "resourcesA.txt", "test.java", "resources.txt" );
-        String[] excludes = new String[] { "**/*est*.txt" };
+        String[] excludes = new String[]{ "**/*est*.txt" };
 
         doTestWildCardUtil( expectedFiles, includes, excludes );
     }
@@ -53,8 +52,8 @@ public class WildCardUtilTest
         throws IOException
     {
         List<String> expectedFiles = Arrays.asList( "test.txt", "test2.txt" );
-        String[] includes = new String[] { "**/*est*.*" };
-        String[] excludes = new String[] { "**/*.java" };
+        String[] includes = new String[]{ "**/*est*.*" };
+        String[] excludes = new String[]{ "**/*.java" };
 
         doTestWildCardUtil( expectedFiles, includes, excludes );
     }

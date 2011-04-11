@@ -16,17 +16,16 @@ package com.googlecode;
  * limitations under the License.
  */
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Iterator;
-
+import com.googlecode.util.WildCardUtil;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.components.io.resources.PlexusIoFileResource;
 import org.python.util.PythonInterpreter;
 
-import com.googlecode.util.WildCardUtil;
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Iterator;
 
 /**
  * Runs the "libdoc" command to generate documentation of user libraries.
@@ -36,7 +35,7 @@ import com.googlecode.util.WildCardUtil;
  * <p/>
  * Documentation can be created for both test libraries and resource files. All library and resource file types are
  * supported, and also earlier generated documentation in XML format can be used as input.
- * 
+ *
  * @goal libdoc
  * @requiresDependencyResolution test
  */
@@ -126,7 +125,7 @@ public class LibDocMojo
     {
         if ( directoryToRecurse == null || !directoryToRecurse.exists() )
         {
-            return Collections.<PlexusIoFileResource> emptyList().iterator();
+            return Collections.<PlexusIoFileResource>emptyList().iterator();
         }
 
         WildCardUtil wildCardUtil = new WildCardUtil();
@@ -148,7 +147,7 @@ public class LibDocMojo
     /**
      * List of files to include, in conjunction with libraryOrResourceDirectory. Specified as fileset patterns which are
      * relative to the input directory whose contents is being packaged into the JAR.
-     * 
+     *
      * @parameter
      */
     private String[] includes;
@@ -156,21 +155,21 @@ public class LibDocMojo
     /**
      * List of files to exclude, in conjunction with libraryOrResourceDirectory. Specified as fileset patterns which are
      * relative to the input directory whose contents is being packaged into the JAR.
-     * 
+     *
      * @parameter
      */
     private String[] excludes;
 
     /**
      * Possible arguments that a library needs.
-     * 
+     *
      * @parameter expression="${argument}"
      */
     private String argument;
 
     /**
      * Specifies whether to generate HTML or XML output. The default value is HTML.
-     * 
+     *
      * @parameter expression="${format}"
      */
     private String format;
@@ -181,14 +180,14 @@ public class LibDocMojo
      * index is added after the '<name>' part. If the given path is not a directory, it is used directly and possible
      * existing files are overwritten. The default value for the path is the directory where the script is executed
      * from.
-     * 
+     *
      * @parameter expression="${output}" default-value="${project.build.directory}/robot"
      */
     private File output;
 
     /**
      * Sets the name of the documented library or resource.
-     * 
+     *
      * @parameter expression="${name}"
      */
     private String name;
@@ -196,7 +195,7 @@ public class LibDocMojo
     /**
      * Sets the title of the generated HTML documentation. Underscores in the given title are automatically converted to
      * spaces.
-     * 
+     *
      * @parameter expression="${title}"
      */
     private String title;
@@ -204,7 +203,7 @@ public class LibDocMojo
     /**
      * Overrides the default styles. If the given 'styles' is a path to an existing files, styles will be read from it.
      * If it is string a 'NONE', no styles will be used. Otherwise the given text is used as-is.
-     * 
+     *
      * @parameter expression="${styles}"
      */
     private String styles;
@@ -213,7 +212,7 @@ public class LibDocMojo
      * Fully qualified path to the Java class (source code) or the resource file.
      * <p/>
      * e.g. src/main/java/com/test/ExampleLib.java
-     * 
+     *
      * @parameter expression="${libraryOrResourceFile}"
      */
     private File libraryOrResourceFile;
@@ -222,7 +221,7 @@ public class LibDocMojo
      * Fully qualified path to the directory where the Java classes or resource files are located.
      * <p/>
      * e.g. src/main/java/com/test/
-     * 
+     *
      * @parameter expression="${libraryOrResourceDirectory}"
      */
     private File libraryOrResourceDirectory;
