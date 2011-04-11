@@ -103,7 +103,7 @@ public class RobotFrameworkMojo
         addListToArguments( generatedArguments, variableFiles, "V" );
         addListToArguments( generatedArguments, tagStatIncludes, "-tagstatinclude" );
         addListToArguments( generatedArguments, tagStatExcludes, "-tagstatexclude" );
-        addListToArguments( generatedArguments, tagStatCombines, "-tagstatcombine" );
+        addListToArguments( generatedArguments, combinedTagStats, "-tagstatcombine" );
         addListToArguments( generatedArguments, tagDocs, "-tagdoc" );
         addListToArguments( generatedArguments, tagStatLinks, "-tagstatlink" );
         addListToArguments( generatedArguments, listeners, "-listeners" );
@@ -357,7 +357,7 @@ public class RobotFrameworkMojo
      *
      * @parameter
      */
-    private List<String> tagStatCombines;
+    private List<String> combinedTagStats;
 
     /**
      * Adds documentation to the specified tags.
