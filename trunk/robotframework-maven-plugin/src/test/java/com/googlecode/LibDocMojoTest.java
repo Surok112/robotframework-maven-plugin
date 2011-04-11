@@ -1,8 +1,8 @@
 package com.googlecode;
 
-import java.io.File;
-
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+
+import java.io.File;
 
 public class LibDocMojoTest
     extends AbstractMojoTestCase
@@ -12,7 +12,7 @@ public class LibDocMojoTest
 
     private final String javaResourceLibDoc = "target/robot/com.googlecode.ExampleLib.html";
 
-    
+
     protected void setUp()
         throws Exception
     {
