@@ -22,6 +22,7 @@ import org.robotframework.RobotFramework;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -89,7 +90,6 @@ public class RobotFrameworkMojo
         addStringToArguments( generatedArguments, logLevel, "L" );
         addStringToArguments( generatedArguments, suiteStatLevel, "-suitestatlevel" );
         addStringToArguments( generatedArguments, monitorColors, "-monitorcolors" );
-        addStringToArguments( generatedArguments, pythonPath, "P" );
 
         addListToArguments( generatedArguments, metadata, "M" );
         addListToArguments( generatedArguments, tags, "G" );
@@ -108,7 +108,17 @@ public class RobotFrameworkMojo
         addListToArguments( generatedArguments, tagStatLinks, "-tagstatlink" );
         addListToArguments( generatedArguments, listeners, "-listeners" );
 
-        addFileToArguments( generatedArguments, extraTestLibraries, "P" );
+        if ( extraPathDirectories == null )
+        {
+            addFileToArguments( generatedArguments, defaultExtraPath, "P" );
+        }
+        else
+        {
+            addFileListToArguments( generatedArguments, Arrays.asList( extraPathDirectories), "P" );
+        }
+
+//        addStringToArguments( generatedArguments, pythonPath, "P" );
+//        addFileToArguments( generatedArguments, extraTestLibraries, "P" );
 
         if ( timestampOutputs )
         {
@@ -385,25 +395,45 @@ public class RobotFrameworkMojo
      */
     private File argumentFile;
 
-    /**
-     * Additional locations (directories, ZIPs, JARs) where to search test libraries from when they are imported, e.g.
-     * ${project.basedir}/src/test/resources/robot/libraries. Multiple paths can be given by separating them with a
-     * colon (':').
-     *
-     * @parameter default-value="${project.basedir}/src/test/resources/robot/libraries"
-     * @since 1.1
-     */
-    private String pythonPath;
+//    /**
+//     * Additional locations (directories, ZIPs, JARs) where to search test libraries from when they are imported, e.g.
+//     * ${project.basedir}/src/test/resources/robot/libraries. Multiple paths can be given by separating them with a
+//     * colon (':').
+//     *
+//     * @parameter default-value="${project.basedir}/src/test/resources/robot/libraries"
+//     * @since 1.1
+//     */
+//    private String pythonPath;
+//
+//    /**
+//     * Additional locations where to search tests libraries from when they are imported. A path to where your extra
+//     * tests libraries are located. e.g. ${project.basedir}/src/test/resources/robot/libraries
+//     *
+//     * @parameter default-value="${project.basedir}/src/test/resources/robot/libraries"
+//     * @since 1.1
+//     * @deprecated use pythonPath instead
+//     */
+//    private File extraTestLibraries;
+
 
     /**
-     * Additional locations where to search tests libraries from when they are imported. A path to where your extra
-     * tests libraries are located. e.g. ${project.basedir}/src/test/resources/robot/libraries
+     * Additional locations (directories, ZIPs, JARs) where to search test libraries from when they are imported.
+     * Otherwise if none is declared, the default location is ${project.basedir}/src/test/resources/robot/libraries.
+     *
+     * @parameter
+     * @since 1.1
+     */
+    private File[] extraPathDirectories;
+
+    /**
+     * The default location where extra packages will be searched. Effective if extraPath attribute is not used. Cannot
+     * be overridden.
      *
      * @parameter default-value="${project.basedir}/src/test/resources/robot/libraries"
-     * @since 1.1
-     * @deprecated use pythonPath instead
+     * @required
+     * @readonly
      */
-    private File extraTestLibraries;
+    private File defaultExtraPath;
 
     /**
      * Using ANSI colors in console. Normally colors work in unixes but not in Windows. Default is 'on'.

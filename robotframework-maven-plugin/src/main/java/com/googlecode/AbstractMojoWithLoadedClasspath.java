@@ -112,4 +112,17 @@ public abstract class AbstractMojoWithLoadedClasspath
         }
     }
 
+    protected void addFileListToArguments( List<String> arguments, List<File> variablesToAdd, String flag )
+    {
+        if ( variablesToAdd == null )
+        {
+            return;
+        }
+
+        for ( File variableToAdd : variablesToAdd )
+        {
+            addFileToArguments( arguments, variableToAdd, flag );
+        }
+    }
+
 }
