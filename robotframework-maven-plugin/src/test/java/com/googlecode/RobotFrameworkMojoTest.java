@@ -22,10 +22,18 @@ public class RobotFrameworkMojoTest
         mojo.execute();
     }
 
-    public void testShouldBeSkipped()
+    public void testSkipATs()
         throws Exception
     {
-        File pom = getTestFile( "src/test/resources/pom-skip.xml" );
+        File pom = getTestFile( "src/test/resources/pom-skip-ats.xml" );
+        RobotFrameworkMojo mojo = (RobotFrameworkMojo) lookupMojo( "run", pom );
+        mojo.execute();
+    }
+
+    public void testSkipITs()
+        throws Exception
+    {
+        File pom = getTestFile( "src/test/resources/pom-skip-its.xml" );
         RobotFrameworkMojo mojo = (RobotFrameworkMojo) lookupMojo( "run", pom );
         mojo.execute();
     }

@@ -189,7 +189,8 @@ def TimestampFromTicks(ticks):
 # DB-API 2.0 Module Interface connect constructor
 def connect(jclassname, *args):
     additional_classpath = os.getenv('CLASSPATH')
-    print "classpath:" + additional_classpath
+    if (additional_classpath is not None):
+        print "classpath:" + additional_classpath
     jconn = _jdbc_connect(jclassname, additional_classpath, *args)
     return Connection(jconn)
 
