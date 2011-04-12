@@ -7,14 +7,13 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import org.robotframework.RobotFramework;
 
-@RunWith(PowerMockRunner.class)
+@RunWith( PowerMockRunner.class )
 @PrepareForTest( RobotFramework.class )
 public class RobotFrameworkSkipTest
 {
@@ -27,6 +26,7 @@ public class RobotFrameworkSkipTest
         PowerMockito.mockStatic( RobotFramework.class );
         robotFrameworkMojo = new RobotFrameworkMojo();
     }
+
     @Test
     public void testSkipTests()
         throws MojoExecutionException, MojoFailureException
@@ -34,7 +34,7 @@ public class RobotFrameworkSkipTest
         Whitebox.setInternalState( robotFrameworkMojo, "skipTests", true );
         robotFrameworkMojo.execute();
     }
-    
+
     @Test
     public void testSkip()
         throws MojoExecutionException, MojoFailureException
@@ -43,8 +43,6 @@ public class RobotFrameworkSkipTest
         robotFrameworkMojo.execute();
     }
 
-    
-    
     @Test
     public void testSkipATs()
         throws MojoExecutionException, MojoFailureException
@@ -65,9 +63,10 @@ public class RobotFrameworkSkipTest
     public void testDontSkip()
         throws MojoExecutionException, MojoFailureException
     {
-        Whitebox.setInternalState( robotFrameworkMojo, "testCasesDirectory", new File( "tests" ) );
+        String testsFolder = "tests";
+        Whitebox.setInternalState( robotFrameworkMojo, "testCasesDirectory", new File( testsFolder ) );
         robotFrameworkMojo.execute();
         PowerMockito.verifyStatic();
-        RobotFramework.run( Mockito.<String[]> anyObject() );
+        RobotFramework.run( new String[] { testsFolder } );
     }
 }
