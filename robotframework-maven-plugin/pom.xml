@@ -140,6 +140,7 @@
         <version>1.9</version>
       </extension>
     </extensions>
+
     <plugins>
       <plugin>
         <inherited>true</inherited>
@@ -170,7 +171,7 @@
       <url>svn:https://robotframework-maven-plugin.googlecode.com/svn/maven/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
-  
+
   <reporting>
     <plugins>
       <plugin>

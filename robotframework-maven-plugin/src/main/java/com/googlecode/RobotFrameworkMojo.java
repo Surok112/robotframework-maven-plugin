@@ -111,7 +111,6 @@ public class RobotFrameworkMojo
         addListToArguments( generatedArguments, tagDocs, "-tagdoc" );
         addListToArguments( generatedArguments, tagStatLinks, "-tagstatlink" );
         addListToArguments( generatedArguments, listeners, "-listeners" );
-        addListToArguments( generatedArguments, escapes, "E" );
 
         if ( extraPathDirectories == null )
         {
@@ -121,9 +120,6 @@ public class RobotFrameworkMojo
         {
             addFileListToArguments( generatedArguments, Arrays.asList( extraPathDirectories ), "P" );
         }
-
-        // addStringToArguments( generatedArguments, pythonPath, "P" );
-        // addFileToArguments( generatedArguments, extraTestLibraries, "P" );
 
         if ( timestampOutputs )
         {
@@ -379,7 +375,7 @@ public class RobotFrameworkMojo
     private List<String> tagStatLinks;
 
     /**
-     * Sets a listeners for monitoring tests execution. Use the format "ListenerWithArgs:arg1:arg2" or simply
+     * Sets listeners for monitoring tests execution. Use the format "ListenerWithArgs:arg1:arg2" or simply
      * "ListenerWithoutArgs"
      * 
      * @parameter
@@ -416,7 +412,7 @@ public class RobotFrameworkMojo
     /**
      * Additional locations (directories, ZIPs, JARs) where to search test libraries from when they are imported. Maps
      * to Jybot's --pythonpath option. Otherwise if no locations are declared, the default location is
-     * ${project.basedir}/src/test/resources/robot/libraries.
+     * ${project.basedir}/src/test/resources/robotframework/libraries.
      * 
      * @parameter
      * @since 1.1
@@ -427,28 +423,11 @@ public class RobotFrameworkMojo
      * The default location where extra packages will be searched. Effective if extraPath attribute is not used. Cannot
      * be overridden.
      * 
-     * @parameter default-value="${project.basedir}/src/test/resources/robot/libraries"
+     * @parameter default-value="${project.basedir}/src/test/resources/robotframework/libraries"
      * @required
      * @readonly
      */
     private File defaultExtraPath;
-
-    /**
-     * Escape characters which are problematic in console. <p>Use the format "what:with" for each escape definition. <br>
-     * 'what' is the name of the character to escape and 'with' is the string to escape it with. </p>
-     * <p>Note that all given arguments, incl. data sources, are escaped so escape characters ought to be selected
-     * carefully.</p>
-     * <p>Available escapes: amp (&), apos ('), at (@), bslash (\), colon (:), comma (,), curly1 ({), curly2 (}), dollar
-     * ($), exclam (!), gt (>), hash (#), lt (<), paren1 ((), paren2 ()), percent (%), pipe (|), quest (?), quot ("),
-     * semic (;), slash (/), space ( ), square1 ([), square2 (]), star (*) </p>
-     * <p>Examples:</p>
-     * --escape space:_ (use in conjunction with metadata item X:Value_with_spaces)<br>
-     * -E space:SP -E quot:Q -v var:QhelloSPworldQ
-     * 
-     * @parameter
-     * @since 1.1
-     */
-    private List<String> escapes;
 
     /**
      * A text file to read more arguments from.
