@@ -46,7 +46,8 @@ public class RobotFrameworkMojo
     protected void subclassExecute()
         throws MojoExecutionException, MojoFailureException
     {
-        if ( skipTests || skipITs || skipATs || skip )
+        
+        if (skipTests || skipITs || skipATs || skip )
         {
             getLog().info( "RobotFramework tests are skipped." );
             return;
