@@ -66,6 +66,7 @@ public class RobotFrameworkSkipTest
         String testsFolder = "tests";
         Whitebox.setInternalState( robotFrameworkMojo, "testCasesDirectory", new File( testsFolder ) );
         robotFrameworkMojo.execute();
+        
         PowerMockito.verifyStatic();
         RobotFramework.run( new String[] { testsFolder } );
     }
