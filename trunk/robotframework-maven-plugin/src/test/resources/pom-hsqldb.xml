@@ -29,7 +29,6 @@
           <extraPathDirectories>
             <extraPathDirectory>src/test/resources/python</extraPathDirectory>
           </extraPathDirectories>
-          <!--<pythonPath>src/test/resources/python</pythonPath>-->
         </configuration>
         <dependencies>
           <dependency>

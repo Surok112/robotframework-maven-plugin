@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * Runs the Robot tests. Behaves like invoking the "jybot" command.
  * <p/>
@@ -32,7 +34,7 @@ import java.util.List;
  * the file or directory in question to the testCasesDirectory configuration. The given file or directory creates the
  * top-level tests suites, which gets its name, unless overridden with the "name" option, from the file or directory
  * name.
- *
+ * 
  * @goal run
  * @phase integration-test
  * @requiresDependencyResolution test
@@ -51,17 +53,18 @@ public class RobotFrameworkMojo
         }
         String[] runArguments = generateRunArguments();
 
+        getLog().debug( "robotframework arguments: " + StringUtils.join( runArguments, ' ' ) );
+
         int robotRunReturnValue = RobotFramework.run( runArguments );
 
         if ( robotRunReturnValue == 1 )
         {
-            throw new MojoFailureException(
-                "There are failing RobotFramework test cases. Check the logs for details." );
+            throw new MojoFailureException( "There are failing RobotFramework test cases. Check the logs for details." );
         }
         else if ( robotRunReturnValue > 1 )
         {
             throw new MojoExecutionException(
-                "Failed to execute RobotFramework test cases. Check the logs for details." );
+                                              "Failed to execute RobotFramework test cases. Check the logs for details." );
         }
 
     }
@@ -89,6 +92,7 @@ public class RobotFrameworkMojo
         addStringToArguments( generatedArguments, summaryTitle, "-summarytitle" );
         addStringToArguments( generatedArguments, logLevel, "L" );
         addStringToArguments( generatedArguments, suiteStatLevel, "-suitestatlevel" );
+        addStringToArguments( generatedArguments, monitorWidth, "-monitorwidth" );
         addStringToArguments( generatedArguments, monitorColors, "-monitorcolors" );
 
         addListToArguments( generatedArguments, metadata, "M" );
@@ -107,6 +111,7 @@ public class RobotFrameworkMojo
         addListToArguments( generatedArguments, tagDocs, "-tagdoc" );
         addListToArguments( generatedArguments, tagStatLinks, "-tagstatlink" );
         addListToArguments( generatedArguments, listeners, "-listeners" );
+        addListToArguments( generatedArguments, escapes, "E" );
 
         if ( extraPathDirectories == null )
         {
@@ -114,11 +119,11 @@ public class RobotFrameworkMojo
         }
         else
         {
-            addFileListToArguments( generatedArguments, Arrays.asList( extraPathDirectories), "P" );
+            addFileListToArguments( generatedArguments, Arrays.asList( extraPathDirectories ), "P" );
         }
 
-//        addStringToArguments( generatedArguments, pythonPath, "P" );
-//        addFileToArguments( generatedArguments, extraTestLibraries, "P" );
+        // addStringToArguments( generatedArguments, pythonPath, "P" );
+        // addFileToArguments( generatedArguments, extraTestLibraries, "P" );
 
         if ( timestampOutputs )
         {
@@ -135,85 +140,78 @@ public class RobotFrameworkMojo
     }
 
     /**
-     * Configures where generated reports are to be placed.
-     *
-     * @parameter default-value="${project.build.directory}/robotframework"
-     */
-    private File outputDirectory;
-
-    /**
      * The directory where the tests cases are located.
-     *
-     * @parameter default-value="${project.basedir}/src/test/resources/robot/tests"
+     * 
+     * @parameter default-value="${project.basedir}/src/test/resources/robotframework/tests"
      */
     private File testCasesDirectory;
 
     /**
      * Sets the name of the top-level tests suites.
-     *
+     * 
      * @parameter
      */
     private String name;
 
     /**
      * Sets the documentation of the top-level tests suites.
-     *
+     * 
      * @parameter
      */
     private String document;
 
     /**
      * Sets free metadata for the top level tests suites.
-     *
+     * 
      * @parameter
      */
     private List<String> metadata;
 
     /**
      * Sets the tags(s) to all executed tests cases.
-     *
+     * 
      * @parameter
      */
     private List<String> tags;
 
     /**
      * Selects the tests cases by name.
-     *
+     * 
      * @parameter
      */
     private List<String> tests;
 
     /**
      * Selects the tests suites by name.
-     *
+     * 
      * @parameter
      */
     private List<String> suites;
 
     /**
      * Selects the tests cases by tags.
-     *
+     * 
      * @parameter
      */
     private List<String> includes;
 
     /**
      * Selects the tests cases by tags.
-     *
+     * 
      * @parameter
      */
     private List<String> excludes;
 
     /**
      * Tests that have the given tags are considered critical.
-     *
+     * 
      * @parameter
      */
     private List<String> criticalTags;
 
     /**
      * Tests that have the given tags are not critical.
-     *
+     * 
      * @parameter
      */
     private List<String> nonCriticalTags;
@@ -221,154 +219,161 @@ public class RobotFrameworkMojo
     /**
      * Sets the execution mode for this tests run. Valid modes are ContinueOnFailure, ExitOnFailure, SkipTeardownOnExit,
      * DryRun, and Random:&lt;what&gt;.
-     *
+     * 
      * @parameter
      */
     private String runMode;
 
     /**
      * Sets individual variables. Use the format "name:value"
-     *
+     * 
      * @parameter
      */
     private List<String> variables;
 
     /**
      * Sets variables using variables files. Use the format "path:args"
-     *
+     * 
      * @parameter
      */
     private List<String> variableFiles;
 
     /**
+     * Configures where generated reports are to be placed.
+     * 
+     * @parameter default-value="${project.build.directory}/robotframework"
+     */
+    private File outputDirectory;
+
+    /**
      * Sets the path to the generated output file.
-     *
+     * 
      * @parameter
      */
     private File output;
 
     /**
      * Sets the path to the generated log file.
-     *
+     * 
      * @parameter
      */
     private File log;
 
     /**
      * Sets the path to the generated report file.
-     *
+     * 
      * @parameter
      */
     private File report;
 
     /**
      * Sets the path to the generated summary file.
-     *
+     * 
      * @parameter
      */
     private File summary;
 
     /**
-     * Sets the path to the generated XUnit compatible result file. New in Robot Framework 2.5.5.
-     *
+     * Sets the path to the generated XUnit compatible result file
+     * 
      * @parameter
      */
     private File xunitFile;
 
     /**
      * A debug file that is written during execution.
-     *
+     * 
      * @parameter
      */
     private File debugFile;
 
     /**
      * Adds a timestamp to all output files.
-     *
+     * 
      * @parameter
      */
     private boolean timestampOutputs;
 
     /**
      * Splits output and log files.
-     *
+     * 
      * @parameter
      */
     private String splitOutputs;
 
     /**
      * Sets a title for the generated tests log.
-     *
+     * 
      * @parameter
      */
     private String logTitle;
 
     /**
      * Sets a title for the generated tests report.
-     *
+     * 
      * @parameter
      */
     private String reportTitle;
 
     /**
-     * Sets background colors for the generated report and summary.
-     *
-     * @parameter
-     */
-    private String reportBackground;
-
-    /**
      * Sets a title for the generated summary report.
-     *
+     * 
      * @parameter
      */
     private String summaryTitle;
 
     /**
+     * Sets background colors for the generated report and summary.
+     * 
+     * @parameter
+     */
+    private String reportBackground;
+
+    /**
      * Sets the threshold level for logging.
-     *
+     * 
      * @parameter
      */
     private String logLevel;
 
     /**
+     * Defines how many levels to show in the Statistics by Suite table in outputs.
+     * 
+     * @parameter
+     */
+    private String suiteStatLevel;
+
+    /**
      * Includes only these tags in the Statistics by Tag and Test Details by Tag tables in outputs.
-     *
+     * 
      * @parameter
      */
     private List<String> tagStatIncludes;
 
     /**
      * Excludes these tags from the Statistics by Tag and Test Details by Tag tables in outputs.
-     *
+     * 
      * @parameter
      */
     private List<String> tagStatExcludes;
 
     /**
-     * Defines how many levels to show in the Statistics by Suite table in outputs.
-     *
-     * @parameter
-     */
-    private String suiteStatLevel;
-
-    /**
      * Creates combined statistics based on tags. Use the format "tags:title"
-     *
+     * 
      * @parameter
      */
     private List<String> combinedTagStats;
 
     /**
      * Adds documentation to the specified tags.
-     *
+     * 
      * @parameter
      */
     private List<String> tagDocs;
 
     /**
      * Adds external links to the Statistics by Tag table in outputs. Use the format "pattern:link:title"
-     *
+     * 
      * @parameter
      */
     private List<String> tagStatLinks;
@@ -376,64 +381,24 @@ public class RobotFrameworkMojo
     /**
      * Sets a listeners for monitoring tests execution. Use the format "ListenerWithArgs:arg1:arg2" or simply
      * "ListenerWithoutArgs"
-     *
+     * 
      * @parameter
      */
     private List<String> listeners;
 
     /**
      * Show a warning when an invalid file is skipped.
-     *
+     * 
      * @parameter
      */
     private boolean warnOnSkippedFiles;
 
     /**
-     * A text file to read more arguments from.
-     *
+     * Width of the monitor output. Default is 78.
+     * 
      * @parameter
      */
-    private File argumentFile;
-
-//    /**
-//     * Additional locations (directories, ZIPs, JARs) where to search test libraries from when they are imported, e.g.
-//     * ${project.basedir}/src/test/resources/robot/libraries. Multiple paths can be given by separating them with a
-//     * colon (':').
-//     *
-//     * @parameter default-value="${project.basedir}/src/test/resources/robot/libraries"
-//     * @since 1.1
-//     */
-//    private String pythonPath;
-//
-//    /**
-//     * Additional locations where to search tests libraries from when they are imported. A path to where your extra
-//     * tests libraries are located. e.g. ${project.basedir}/src/test/resources/robot/libraries
-//     *
-//     * @parameter default-value="${project.basedir}/src/test/resources/robot/libraries"
-//     * @since 1.1
-//     * @deprecated use pythonPath instead
-//     */
-//    private File extraTestLibraries;
-
-
-    /**
-     * Additional locations (directories, ZIPs, JARs) where to search test libraries from when they are imported.
-     * Otherwise if none is declared, the default location is ${project.basedir}/src/test/resources/robot/libraries.
-     *
-     * @parameter
-     * @since 1.1
-     */
-    private File[] extraPathDirectories;
-
-    /**
-     * The default location where extra packages will be searched. Effective if extraPath attribute is not used. Cannot
-     * be overridden.
-     *
-     * @parameter default-value="${project.basedir}/src/test/resources/robot/libraries"
-     * @required
-     * @readonly
-     */
-    private File defaultExtraPath;
+    private String monitorWidth;
 
     /**
      * Using ANSI colors in console. Normally colors work in unixes but not in Windows. Default is 'on'.
@@ -442,15 +407,59 @@ public class RobotFrameworkMojo
      * <li>'off' - never use colors</li>
      * <li>'force' - always use colors (also in Windows)</li>
      * </ul>
-     *
+     * 
      * @parameter
      * @since 1.1
      */
     private String monitorColors;
 
     /**
+     * Additional locations (directories, ZIPs, JARs) where to search test libraries from when they are imported. Maps
+     * to Jybot's --pythonpath option. Otherwise if no locations are declared, the default location is
+     * ${project.basedir}/src/test/resources/robot/libraries.
+     * 
+     * @parameter
+     * @since 1.1
+     */
+    private File[] extraPathDirectories;
+
+    /**
+     * The default location where extra packages will be searched. Effective if extraPath attribute is not used. Cannot
+     * be overridden.
+     * 
+     * @parameter default-value="${project.basedir}/src/test/resources/robot/libraries"
+     * @required
+     * @readonly
+     */
+    private File defaultExtraPath;
+
+    /**
+     * Escape characters which are problematic in console. <p>Use the format "what:with" for each escape definition. <br>
+     * 'what' is the name of the character to escape and 'with' is the string to escape it with. </p>
+     * <p>Note that all given arguments, incl. data sources, are escaped so escape characters ought to be selected
+     * carefully.</p>
+     * <p>Available escapes: amp (&), apos ('), at (@), bslash (\), colon (:), comma (,), curly1 ({), curly2 (}), dollar
+     * ($), exclam (!), gt (>), hash (#), lt (<), paren1 ((), paren2 ()), percent (%), pipe (|), quest (?), quot ("),
+     * semic (;), slash (/), space ( ), square1 ([), square2 (]), star (*) </p>
+     * <p>Examples:</p>
+     * --escape space:_ (use in conjunction with metadata item X:Value_with_spaces)<br>
+     * -E space:SP -E quot:Q -v var:QhelloSPworldQ
+     * 
+     * @parameter
+     * @since 1.1
+     */
+    private List<String> escapes;
+
+    /**
+     * A text file to read more arguments from.
+     * 
+     * @parameter
+     */
+    private File argumentFile;
+
+    /**
      * Skip tests.
-     *
+     * 
      * @parameter expression="${skipTests}"
      * @since 1.1
      */
@@ -458,7 +467,7 @@ public class RobotFrameworkMojo
 
     /**
      * Skip acceptance tests executed by this plugin.
-     *
+     * 
      * @parameter expression="${skipATs}"
      * @since 1.1
      */
@@ -467,16 +476,17 @@ public class RobotFrameworkMojo
     /**
      * Skip acceptance tests executed by this plugin together with other integration tests, e.g. tests run by the
      * maven-failsafe-plugin.
-     *
-     * @parameter expression="${skipATs}"
+     * 
+     * @parameter expression="${skipITs}"
      * @since 1.1
      */
     private boolean skipITs;
 
     /**
      * Skip tests, bound to -Dmaven.test.skip, which suppresses test compilation as well.
-     *
+     * 
      * @parameter default-value="false" expression="${maven.test.skip}"
+     * @since 1.1
      */
     private boolean skip;
 
