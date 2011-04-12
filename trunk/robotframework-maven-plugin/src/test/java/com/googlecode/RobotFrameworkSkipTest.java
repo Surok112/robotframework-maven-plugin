@@ -27,7 +27,24 @@ public class RobotFrameworkSkipTest
         PowerMockito.mockStatic( RobotFramework.class );
         robotFrameworkMojo = new RobotFrameworkMojo();
     }
+    @Test
+    public void testSkipTests()
+        throws MojoExecutionException, MojoFailureException
+    {
+        Whitebox.setInternalState( robotFrameworkMojo, "skipTests", true );
+        robotFrameworkMojo.execute();
+    }
+    
+    @Test
+    public void testSkip()
+        throws MojoExecutionException, MojoFailureException
+    {
+        Whitebox.setInternalState( robotFrameworkMojo, "skip", true );
+        robotFrameworkMojo.execute();
+    }
 
+    
+    
     @Test
     public void testSkipATs()
         throws MojoExecutionException, MojoFailureException
