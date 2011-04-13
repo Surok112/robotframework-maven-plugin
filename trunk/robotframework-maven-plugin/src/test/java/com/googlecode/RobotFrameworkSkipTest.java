@@ -1,7 +1,5 @@
 package com.googlecode;
 
-import java.io.File;
-
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.junit.Before;
@@ -12,6 +10,8 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import org.robotframework.RobotFramework;
+
+import java.io.File;
 
 @RunWith( PowerMockRunner.class )
 @PrepareForTest( RobotFramework.class )
@@ -66,8 +66,8 @@ public class RobotFrameworkSkipTest
         String testsFolder = "tests";
         Whitebox.setInternalState( robotFrameworkMojo, "testCasesDirectory", new File( testsFolder ) );
         robotFrameworkMojo.execute();
-        
+
         PowerMockito.verifyStatic();
-        RobotFramework.run( new String[] { testsFolder } );
+        RobotFramework.run( new String[]{ testsFolder } );
     }
 }
