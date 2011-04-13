@@ -11,7 +11,9 @@ public class RobotFrameworkMojoTest
 {
 
     public void setup()
+        throws Exception
     {
+        super.setUp();
     }
 
     public void testShouldSucceed()
@@ -34,7 +36,7 @@ public class RobotFrameworkMojoTest
         }
         catch ( MojoFailureException e )
         {
-            // expected
+            assertTrue( true );
         }
     }
 
@@ -59,7 +61,7 @@ public class RobotFrameworkMojoTest
         }
         catch ( MojoExecutionException e )
         {
-            // expected
+            assertTrue( true );
         }
 
     }
