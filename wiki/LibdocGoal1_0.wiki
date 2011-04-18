@@ -1,5 +1,5 @@
 #labels Deprecated
-= Libdoc Goal =
+= Libdoc Goal 1.0.x =
 
 Deprecated version. Valid only for 1.0.x branch
 
