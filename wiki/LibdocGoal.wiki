@@ -8,19 +8,21 @@ Documentation can be created for both test libraries and resource files. All lib
 
 == Usage ==
 
-You can invoke {{{mvn robotframework:libdoc -DlibraryOrResourceDirectory=src/main/java/com/example/keywords}}} to generate documentation for user libraries contained in that package. The documentation, by default, goes to _${project.build.directory}/robot_.
+You can invoke {{{mvn robotframework:libdoc -DlibraryOrResourceDirectory=src/main/java/com/example/keywords}}} to generate documentation for user libraries contained in that package. The documentation, by default, goes to _${project.build.directory}/robotframework_.
 
 == Plugin Parameters ==
 
-|| Name||	Type||	Since||	Description||
-||argument||	String||	-||	Possible arguments that a library needs.||
-||format||	String||	-	||Specifies whether to generate HTML or XML output. The default value is HTML.||
+||Name||	Type||	Since||	Description||
+||argument||	String||	-	||Possible arguments that a library needs.||
+||excludes||	String[]||	-||	List of files to exclude, in conjunction with libraryOrResourceDirectory. Specified as fileset patterns which are relative to the input directory whose contents is being packaged into the JAR.||
+||format||	String||	-||	Specifies whether to generate HTML or XML output. The default value is HTML.||
+||includes||	String[]||	-||	List of files to include, in conjunction with libraryOrResourceDirectory. Specified as fileset patterns which are relative to the input directory whose contents is being packaged into the JAR.||
 ||libraryOrResourceDirectory||	File||	-||	Fully qualified path to the directory where the Java classes or resource files are located. e.g. src/main/java/com/test/||
-|| libraryOrResourceFile||	File||	-||	Fully qualified path to the Java class (source code) or the resource file. e.g. src/main/java/com/test/ExampleLib.java||
-||name||	String||	-||	Sets the name of the documented library or resource.||
-||output||	File||	-||	Specifies where to write the generated documentation. If the given path is a directory, the documentation is written there using a file name like '{{{<name>.<format>}}}'. If a file with that name already exists, an index is added after the '{{{<name>}}}' part. If the given path is not a directory, it is used directly and possible existing files are overwritten. The default value for the path is the directory where the script is executed from. Default value is: ${project.build.directory}/robot.||
-||styles||	String||	-	||Overrides the default styles. If the given 'styles' is a path to an existing files, styles will be read from it. If it is string a 'NONE', no styles will be used. Otherwise the given text is used as-is.||
-||title	||String||	-	||Sets the title of the generated HTML documentation. Underscores in the given title are automatically converted to spaces.||
+||libraryOrResourceFile||	File||	-||	Fully qualified path to the Java class (source code) or the resource file. e.g. src/main/java/com/test/ExampleLib.java||
+||name||	String	||-||	Sets the name of the documented library or resource.||
+||output||	File||	-||	Specifies where to write the generated documentation. If the given path is a directory, the documentation is written there using a file name like '&lt;name&gt;.&lt;format&gt;'. If a file with that name already exists, an index is added after the '&lt;name&gt;' part. If the given path is not a directory, it is used directly and possible existing files are overwritten. The default value for the path is the directory where the script is executed from. Default value is: ${project.build.directory}/robot.||
+||styles||	String||	-||	Overrides the default styles. If the given 'styles' is a path to an existing files, styles will be read from it. If it is string a 'NONE', no styles will be used. Otherwise the given text is used as-is.||
+||title||	String||	-||	Sets the title of the generated HTML documentation. Underscores in the given title are automatically converted to spaces.||
 
 == Parameter Details ==
 
