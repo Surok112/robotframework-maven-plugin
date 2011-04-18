@@ -3,9 +3,9 @@
 
 _Since 1.1_
 
-Starting version 1.1, a _extraTestLibraries_ parameter has been added to the plugin. You can use this to add extra test libraries to your build. 
+Starting version 1.1, a _extraPathDirectories_ parameter has been added to the plugin. You can use this to add extra test libraries to your build. 
 
-By default, you should add them to _${project.basedir}/src/test/resources/robot/libraries_
+By default, you should add them to _${project.basedir}/src/test/resources/robotframework/libraries_
 
 
 
