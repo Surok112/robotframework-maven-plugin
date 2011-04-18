@@ -43,7 +43,7 @@ Generated reports are written to _${project.build.directory}/robot_ by default. 
 ||debugFile||	File||	-	||A debug file that is written during execution.||
 ||document||	String||	-||	Sets the documentation of the top-level tests suites.||
 ||excludes||	List||	-||	Selects the tests cases by tags.||
-||extraPathDirectories||	File[]	||1.1	||Additional locations (directories, ZIPs, JARs) where to search test libraries from when they are imported. Maps to Jybot's --pythonpath option. Otherwise if no locations are declared, the default location is ${project.basedir}/src/test/resources/robotframework/libraries.||
+||extraPathDirectories||	File{{{[]}}}	||1.1	||Additional locations (directories, ZIPs, JARs) where to search test libraries from when they are imported. Maps to Jybot's --pythonpath option. Otherwise if no locations are declared, the default location is ${project.basedir}/src/test/resources/robotframework/libraries.||
 ||includes||	List||	-||	Selects the tests cases by tags.||
 ||listeners||	List||	-||	Sets listeners for monitoring tests execution. Use the format "ListenerWithArgs:arg1:arg2" or simply "ListenerWithoutArgs"||
 ||log||	File||	-	||Sets the path to the generated log file.||
