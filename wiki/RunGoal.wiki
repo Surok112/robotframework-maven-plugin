@@ -1,0 +1,265 @@
+#labels Featured
+= Run Goal =
+
+Behaves like invoking the "jybot" command.
+
+Robot Framework test cases are created in files and directories, and they are executed by configuring the path to the file or directory in question to the _testCasesDirectory_ configuration. The given file or directory creates the top-level test suite, which gets its name, unless overridden with the "name" option, from the file or directory name.
+
+
+== Usage ==
+
+By default, test cases located at _${project.basedir}/src/test/resources/robotframework_ gets run during the _integration-test_ phase. 
+
+If for example you want to run test cases in a different path, say _${project.basedir}/src/main/resources/robot_, configure your pom as so:
+
+{{{
+      <plugin>
+        <groupId>com.googlecode</groupId>
+        <artifactId>robotframework-maven-plugin</artifactId>
+        <version>1.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <testCasesDirectory>${project.basedir}/src/main/resources/robot</testCasesDirectory>
+        </configuration>
+      </plugin>
+}}}
+
+Generated reports are written to _${project.build.directory}/robot_ by default. This could be overridden by configuring the _outputDirectory_ configuration.
+
+== Plugin Parameters ==
+
+|| Name  ||	Type ||	Since ||	Description ||
+|| argumentFile ||	File	|| -	|| A text file to read more arguments from. ||
+|| critical ||	List ||	-	|| Tests that have the given tag are considered critical.||
+|| debugFile	|| File	|| -|| 	A debug file that is written during execution.||
+|| document ||	String||	-	||Sets the documentation of the top-level test suite.||
+|| exclude||	List	||-	||Selects the test cases by tag.||
+|| include	||List||	-||	Selects the test cases by tag.||
+|| listener||	List	||-||	Sets a listener for monitoring test execution. Use the format "ListenerWithArgs:arg1:arg2" or simply "ListenerWithoutArgs"||
+|| log	||File||	-	||Sets the path to the generated log file.||
+|| logLevel||	String	||-	||Sets the threshold level for logging.||
+|| logTitle	||String||	-	||Sets a title for the generated test log.||
+|| metadata||	List||	-	||Sets free metadata for the top level test suite.||
+|| name	||String	||-	||Sets the name of the top-level test suite.||
+|| nonCritical	||List	||-||	Tests that have the given tag are not critical.||
+|| output ||	File	||-	||Sets the path to the generated output file. ||
+|| outputDirectory	|| File ||	- || Configures where generated reports are to be placed. Default value is: ${project.build.directory}/robot. ||
+|| report||	File||	- ||	Sets the path to the generated report file.||
+|| reportBackground	||String||	-||	Sets background colors for the generated report and summary.||
+|| reportTitle||	String||	-	||Sets a title for the generated test report.||
+|| runMode||	String	||-	||Sets the execution mode for this test run. Valid modes are ContinueOnFailure, ExitOnFailure, SkipTeardownOnExit, DryRun, and Random:{{{<what>}}}.||
+|| splitOutputs||	String||	-||	Splits output and log files.||
+|| suite||	List||	-	||Selects the test suites by name.||
+|| suiteStatLevel	||String||	-||	Defines how many levels to show in the Statistics by Suite table in outputs.||
+|| summary	||File	||-	||Sets the path to the generated summary file.||
+|| summaryTitle||	String||	-	||Sets a title for the generated summary report.||
+|| tag||	List||	-||	Sets the tag(s) to all executed test cases.||
+|| tagDoc||	List||	-||	Adds documentation to the specified tags.||
+|| tagStatCombine||	List	||-	||Creates combined statistics based on tags. Use the format "tags:title"||
+|| tagStatExclude	||List||	-	||Excludes these tags from the Statistics by Tag and Test Details by Tag tables in outputs.||
+|| tagStatInclude	||List||	-	||Includes only these tags in the Statistics by Tag and Test Details by Tag tables in outputs.||
+|| tagStatLink||	List||	-	||Adds external links to the Statistics by Tag table in outputs. Use the format "pattern:link:title"||
+|| test||	List||	-	||Selects the test cases by name.||
+|| testCasesDirectory||	File	||-	||The directory where the test cases are located. Default value is: ${project.basedir}/src/test/resources/robot.||
+|| timestampOuputs	||boolean||	-	||Adds a timestamp to all output files.||
+|| variable||	List||	-	||Sets individual variables. Use the format "name:value"||
+|| variableFile||	List||	-||	Sets variables using variable files. Use the format "path:args"||
+|| warnOnSkippedFiles||	boolean||	-	||Show a warning when an invalid file is skipped.||
+|| xunitFile||	File||	-	||Sets the path to the generated XUnit compatible result file. New in Robot Framework 2.5.5.||
+
+== Parameter Details ==
+
+        <p><strong><a name="argumentFile">argumentFile</a>:</strong></p> 
+        <div>A text file to read more arguments from.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.io.File</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="critical">critical</a>:</strong></p> 
+        <div>Tests that have the given tag are considered critical.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.util.List</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="debugFile">debugFile</a>:</strong></p> 
+        <div>A debug file that is written during execution.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.io.File</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="document">document</a>:</strong></p> 
+        <div>Sets the documentation of the top-level test suite.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.lang.String</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="exclude">exclude</a>:</strong></p> 
+        <div>Selects the test cases by tag.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.util.List</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="include">include</a>:</strong></p> 
+        <div>Selects the test cases by tag.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.util.List</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="listener">listener</a>:</strong></p> 
+        <div>Sets a listener for monitoring test execution. Use the format "ListenerWithArgs:arg1:arg2" or simply "ListenerWithoutArgs"</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.util.List</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="log">log</a>:</strong></p> 
+        <div>Sets the path to the generated log file.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.io.File</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="logLevel">logLevel</a>:</strong></p> 
+        <div>Sets the threshold level for logging.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.lang.String</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="logTitle">logTitle</a>:</strong></p> 
+        <div>Sets a title for the generated test log.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.lang.String</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="metadata">metadata</a>:</strong></p> 
+        <div>Sets free metadata for the top level test suite.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.util.List</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="name">name</a>:</strong></p> 
+        <div>Sets the name of the top-level test suite.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.lang.String</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="nonCritical">nonCritical</a>:</strong></p> 
+        <div>Tests that have the given tag are not critical.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.util.List</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="output">output</a>:</strong></p> 
+        <div>Sets the path to the generated output file.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.io.File</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="outputDirectory">outputDirectory</a>:</strong></p> 
+        <div>Configures where generated reports are to be placed.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.io.File</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+          <li><strong>Default</strong>: <code>${project.build.directory}/robot</code></li> 
+        </ul><hr/><p><strong><a name="report">report</a>:</strong></p> 
+        <div>Sets the path to the generated report file.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.io.File</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="reportBackground">reportBackground</a>:</strong></p> 
+        <div>Sets background colors for the generated report and summary.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.lang.String</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="reportTitle">reportTitle</a>:</strong></p> 
+        <div>Sets a title for the generated test report.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.lang.String</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="runMode">runMode</a>:</strong></p> 
+        <div>Sets the execution mode for this test run. Valid modes are ContinueOnFailure, ExitOnFailure, SkipTeardownOnExit, DryRun, and Random:&lt;what&gt;.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.lang.String</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="splitOutputs">splitOutputs</a>:</strong></p> 
+        <div>Splits output and log files.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.lang.String</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="suite">suite</a>:</strong></p> 
+        <div>Selects the test suites by name.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.util.List</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="suiteStatLevel">suiteStatLevel</a>:</strong></p> 
+        <div>Defines how many levels to show in the Statistics by Suite table in outputs.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.lang.String</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="summary">summary</a>:</strong></p> 
+        <div>Sets the path to the generated summary file.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.io.File</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="summaryTitle">summaryTitle</a>:</strong></p> 
+        <div>Sets a title for the generated summary report.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.lang.String</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="tag">tag</a>:</strong></p> 
+        <div>Sets the tag(s) to all executed test cases.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.util.List</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="tagDoc">tagDoc</a>:</strong></p> 
+        <div>Adds documentation to the specified tags.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.util.List</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="tagStatCombine">tagStatCombine</a>:</strong></p> 
+        <div>Creates combined statistics based on tags. Use the format  "tags:title"</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.util.List</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="tagStatExclude">tagStatExclude</a>:</strong></p> 
+        <div>Excludes these tags from the Statistics by Tag and Test Details by Tag tables in outputs.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.util.List</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="tagStatInclude">tagStatInclude</a>:</strong></p> 
+        <div>Includes only these tags in the Statistics by Tag and Test Details by Tag tables in outputs.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.util.List</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="tagStatLink">tagStatLink</a>:</strong></p> 
+        <div>Adds external links to the Statistics by Tag table in outputs. Use the format "pattern:link:title"</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.util.List</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="test">test</a>:</strong></p> 
+        <div>Selects the test cases by name.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.util.List</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="testCasesDirectory">testCasesDirectory</a>:</strong></p> 
+        <div>The directory where the test cases are located.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.io.File</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+          <li><strong>Default</strong>: <code>${project.basedir}/src/test/resources/robot</code></li> 
+        </ul><hr/><p><strong><a name="timestampOuputs">timestampOuputs</a>:</strong></p> 
+        <div>Adds a timestamp to all output files.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>boolean</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="variable">variable</a>:</strong></p> 
+        <div>Sets individual variables. Use the format "name:value"</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.util.List</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="variableFile">variableFile</a>:</strong></p> 
+        <div>Sets variables using variable files. Use the format "path:args"</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.util.List</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a        name="warnOnSkippedFiles">warnOnSkippedFiles</a>:</strong></p> 
+        <div>Show a warning when an invalid file is skipped.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>boolean</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul><hr/><p><strong><a name="xunitFile">xunitFile</a>:</strong></p> 
+        <div>Sets the path to the generated XUnit compatible result file.</div> 
+        <ul> 
+          <li><strong>Type</strong>: <code>java.io.File</code></li> 
+          <li><strong>Required</strong>: <code>No</code></li> 
+        </ul> 
