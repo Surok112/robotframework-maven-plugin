@@ -1,6 +1,8 @@
 #labels Featured
 = Libdoc Goal =
 
+_Available since 1.1_
+
 Runs the "libdoc" command to generate documentation of user libraries.
 This script can generate keyword documentation in HTML and XML formats. The former is suitable for humans and the latter for RIDE, RFDoc, and other tools. This script can also upload XML documentation to RFDoc system.
 
