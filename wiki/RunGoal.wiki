@@ -36,44 +36,26 @@ Generated reports are written to _${project.build.directory}/robot_ by default. 
 
 == Plugin Parameters ==
 
-|| Name  ||	Type ||	Since ||	Description ||
-|| argumentFile ||	File	|| -	|| A text file to read more arguments from. ||
-|| critical ||	List ||	-	|| Tests that have the given tag are considered critical.||
-|| debugFile	|| File	|| -|| 	A debug file that is written during execution.||
-|| document ||	String||	-	||Sets the documentation of the top-level test suite.||
-|| exclude||	List	||-	||Selects the test cases by tag.||
-|| include	||List||	-||	Selects the test cases by tag.||
-|| listener||	List	||-||	Sets a listener for monitoring test execution. Use the format "ListenerWithArgs:arg1:arg2" or simply "ListenerWithoutArgs"||
-|| log	||File||	-	||Sets the path to the generated log file.||
-|| logLevel||	String	||-	||Sets the threshold level for logging.||
-|| logTitle	||String||	-	||Sets a title for the generated test log.||
-|| metadata||	List||	-	||Sets free metadata for the top level test suite.||
-|| name	||String	||-	||Sets the name of the top-level test suite.||
-|| nonCritical	||List	||-||	Tests that have the given tag are not critical.||
-|| output ||	File	||-	||Sets the path to the generated output file. ||
-|| outputDirectory	|| File ||	- || Configures where generated reports are to be placed. Default value is: ${project.build.directory}/robot. ||
-|| report||	File||	- ||	Sets the path to the generated report file.||
-|| reportBackground	||String||	-||	Sets background colors for the generated report and summary.||
-|| reportTitle||	String||	-	||Sets a title for the generated test report.||
-|| runMode||	String	||-	||Sets the execution mode for this test run. Valid modes are ContinueOnFailure, ExitOnFailure, SkipTeardownOnExit, DryRun, and Random:{{{<what>}}}.||
-|| splitOutputs||	String||	-||	Splits output and log files.||
-|| suite||	List||	-	||Selects the test suites by name.||
-|| suiteStatLevel	||String||	-||	Defines how many levels to show in the Statistics by Suite table in outputs.||
-|| summary	||File	||-	||Sets the path to the generated summary file.||
-|| summaryTitle||	String||	-	||Sets a title for the generated summary report.||
-|| tag||	List||	-||	Sets the tag(s) to all executed test cases.||
-|| tagDoc||	List||	-||	Adds documentation to the specified tags.||
-|| tagStatCombine||	List	||-	||Creates combined statistics based on tags. Use the format "tags:title"||
-|| tagStatExclude	||List||	-	||Excludes these tags from the Statistics by Tag and Test Details by Tag tables in outputs.||
-|| tagStatInclude	||List||	-	||Includes only these tags in the Statistics by Tag and Test Details by Tag tables in outputs.||
-|| tagStatLink||	List||	-	||Adds external links to the Statistics by Tag table in outputs. Use the format "pattern:link:title"||
-|| test||	List||	-	||Selects the test cases by name.||
-|| testCasesDirectory||	File	||-	||The directory where the test cases are located. Default value is: ${project.basedir}/src/test/resources/robot.||
-|| timestampOuputs	||boolean||	-	||Adds a timestamp to all output files.||
-|| variable||	List||	-	||Sets individual variables. Use the format "name:value"||
-|| variableFile||	List||	-||	Sets variables using variable files. Use the format "path:args"||
-|| warnOnSkippedFiles||	boolean||	-	||Show a warning when an invalid file is skipped.||
-|| xunitFile||	File||	-	||Sets the path to the generated XUnit compatible result file. New in Robot Framework 2.5.5.||
+|| Name ||	Type	||Since||	Description
+||argumentFile||	File||	-	||A text file to read more arguments from.||
+||combinedTagStats||	List||	-	||Creates combined statistics based on tags. Use the format "tags:title"||
+||criticalTags||	List||	-||	Tests that have the given tags are considered critical.||
+||debugFile||	File||	-	||A debug file that is written during execution.||
+||document||	String||	-||	Sets the documentation of the top-level tests suites.||
+||excludes||	List||	-||	Selects the tests cases by tags.||
+||extraPathDirectories||	File[]	||1.1	||Additional locations (directories, ZIPs, JARs) where to search test libraries from when they are imported. Maps to Jybot's --pythonpath option. Otherwise if no locations are declared, the default location is ${project.basedir}/src/test/resources/robotframework/libraries.||
+||includes||	List||	-||	Selects the tests cases by tags.||
+||listeners||	List||	-||	Sets listeners for monitoring tests execution. Use the format "ListenerWithArgs:arg1:arg2" or simply "ListenerWithoutArgs"||
+||log||	File||	-	||Sets the path to the generated log file.||
+||logLevel||	String||	-||	Sets the threshold level for logging.||
+||logTitle	||String||	-||	Sets a title for the generated tests log.||
+||metadata||	List||	-||	Sets free metadata for the top level tests suites.||
+||monitorColors||	String||	1.1||	Using ANSI colors in console. Normally colors work in unixes but not in Windows. Default is 'on'. 'on' - use colors in unixes but not in Windows. 'off' - never use colors. 'force' - always use colors (also in Windows)||
+||monitorWidth||	String||	-||	Width of the monitor output. Default is 78.||
+||name||	String||	-	||Sets the name of the top-level tests suites.||
+||nonCriticalTags||	List||	-||	Tests that have the given tags are not critical.||
+||output||	File||	-||	Sets the path to the generated output file.||
+||outputDirectory||	File||	-||	Configures where generated reports are to be placed. Default value is: ${project.build.directory}/robotframework.||
 
 == Parameter Details ==
 
