@@ -13,9 +13,9 @@ By default, you should add them to _${project.basedir}/src/test/resources/robot/
 
 Download the tarball from the Selenium Library [http://code.google.com/p/robotframework-seleniumlibrary/downloads/list download page], e.g. robotframework-seleniumlibrary-2.6.tar.gz
 
-Extract the file and move the _SeleniumLibrary_ directory from _robotframework-seleniumLibrary/src_ to _${project.basedir}/src/test/resources/robot/libraries_.
+Extract the file and move the _SeleniumLibrary_ directory from _robotframework-seleniumLibrary/src_ to _${project.basedir}/src/test/resources/robotframework/libraries_.
 
-So your project will have _yourProject/src/test/resources/robot/libraries/SeleniumLibrary_
+So your project will have _yourProject/src/test/resources/robotframework/libraries/SeleniumLibrary_
 
 Now, you can use Selenium Library Keywords to your tests. 
 
@@ -32,35 +32,3 @@ Suite Tear Down  Stop Selenium Server
 My Test
    Open Browser  http://robotframework.googlecode.com
 }}}
-
-
-== Note ==
-No formal 1.1 Release yet, so please use the snapshot version.
-
-Use the snapshot version:
-
-{{{
-        <groupId>com.googlecode</groupId>
-        <artifactId>robotframework-maven-plugin</artifactId>
-        <version>1.1-SNAPSHOT</version>
-}}}
-
-Add the following to your pom:
-{{{
-    <pluginRepository>
-      <id>robotframework-maven-plugin-snapshots</id>
-      <url>http://robotframework-maven-plugin.googlecode.com/svn/maven/snapshots</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </pluginRepository>
-}}}
-This would enable you to grab the snapshot artifact.
-
-Starting with 1.1, _jybot_ goal is no longer available. You should now use _run_:
-{{{
-            <goals> 
-              <goal>run</goal>
-            </goals>
-}}}
-Also take note that by this version, the default directory of where your test cases should reside is already at: _${project.basedir}/src/test/resources/robot/tests_
