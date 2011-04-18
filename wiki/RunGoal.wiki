@@ -36,7 +36,7 @@ Generated reports are written to _${project.build.directory}/robot_ by default. 
 
 == Plugin Parameters ==
 
-|| Name ||	Type	||Since||	Description
+|| Name ||	Type	||Since||	Description||
 ||argumentFile||	File||	-	||A text file to read more arguments from.||
 ||combinedTagStats||	List||	-	||Creates combined statistics based on tags. Use the format "tags:title"||
 ||criticalTags||	List||	-||	Tests that have the given tags are considered critical.||
