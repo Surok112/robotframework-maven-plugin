@@ -1,3 +1,4 @@
+#labels Featured
 #Release notes for 1.1
 
 = Release Notes Version 1.1 =
@@ -6,3 +7,4 @@
   * Added the use of excludes and includes for Libdoc goal
   * Pluralized some Run goal attributes in order to accommodate proper Maven convention
   * Added more Run goal attributes to accommodate all Robot Framework command line parameters
+  * Added support for Java 5
