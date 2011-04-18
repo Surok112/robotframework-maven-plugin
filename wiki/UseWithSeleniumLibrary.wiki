@@ -1,7 +1,7 @@
 #labels Featured
 = Using the Robot Framework Maven Plugin with Selenium Library =
 
-_*Note: Only available starting version 1.1. Please see Note below*_
+_Since 1.1_
 
 Starting version 1.1, a _extraTestLibraries_ parameter has been added to the plugin. You can use this to add extra test libraries to your build. 
 
