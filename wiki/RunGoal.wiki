@@ -57,6 +57,32 @@ Generated reports are written to _${project.build.directory}/robot_ by default. 
 ||output||	File||	-||	Sets the path to the generated output file.||
 ||outputDirectory||	File||	-||	Configures where generated reports are to be placed. Default value is: ${project.build.directory}/robotframework.||
 
+||report||	File||	-||	Sets the path to the generated report file.||
+||reportBackground||	String||	-||	Sets background colors for the generated report and summary.||
+||reportTitle||	String||	-||	Sets a title for the generated tests report.||
+||runMode||	String||	-||	Sets the execution mode for this tests run. Valid modes are ContinueOnFailure, ExitOnFailure, SkipTeardownOnExit, DryRun, and Random:<what>.||
+||skip||	boolean||	1.1||	Skip tests, bound to -Dmaven.test.skip, which suppresses test compilation as well. Default value is: false.||
+||skipATs	||boolean||	1.1||	Skip acceptance tests executed by this plugin.||
+||skipITs	||boolean||	1.1||	Skip acceptance tests executed by this plugin together with other integration tests, e.g. tests run by the maven-failsafe-plugin.||
+||skipTests||	boolean||	1.1||	Skip tests.||
+||splitOutputs||	String||	-||	Splits output and log files.||
+||suiteStatLevel||	String||	-||	Defines how many levels to show in the Statistics by Suite table in outputs.||
+||suites||	List||	-||	Selects the tests suites by name.||
+||summary||	File||	-||	Sets the path to the generated summary file.||
+||summaryTitle||	String||	-||	Sets a title for the generated summary report.||
+||tagDocs||	List||	-||	Adds documentation to the specified tags.||
+||tagStatExcludes||	List||	-||	Excludes these tags from the Statistics by Tag and Test Details by Tag tables in outputs.||
+||tagStatIncludes||	List||	-||	Includes only these tags in the Statistics by Tag and Test Details by Tag tables in outputs.||
+||tagStatLinks||	List||	-||	Adds external links to the Statistics by Tag table in outputs. Use the format "pattern:link:title"||
+||tags||	List||	-||	Sets the tags(s) to all executed tests cases.||
+||testCasesDirectory||	File||	-||	The directory where the tests cases are located. Default value is: ${project.basedir}/src/test/resources/robotframework/tests.||
+||tests||	List||	-||	Selects the tests cases by name.||
+||timestampOutputs	||boolean||	-||	Adds a timestamp to all output files.||
+||variableFiles||	List||	-||	Sets variables using variables files. Use the format "path:args"||
+||variables||	List||	-||	Sets individual variables. Use the format "name:value"||
+||warnOnSkippedFiles||	boolean||	-||	Show a warning when an invalid file is skipped.||
+||xunitFile	||File||	-	||Sets the path to the generated XUnit compatible result file||
+
 == Parameter Details ==
 
         <p><strong><a name="argumentFile">argumentFile</a>:</strong></p> 
