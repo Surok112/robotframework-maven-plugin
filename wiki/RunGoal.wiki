@@ -152,11 +152,12 @@ Generated reports are written to _${project.build.directory}/robot_ by default. 
           <li><strong>Required</strong>: <code>No</code></li> 
         </ul><hr/><p><strong><a name="monitorColors">monitorColors</a>:</strong></p> 
         <div>Using ANSI colors in console. Normally colors work in unixes but not in Windows. Default is 'on'. 
-        <ul> 
-         <li>'on' - use colors in unixes but not in Windows</li> 
-         <li>'off' - never use colors</li> 
-         <li>'force' - always use colors (also in Windows)</li> 
-       </ul></div> 
+          <ul> 
+           <li>'on' - use colors in unixes but not in Windows</li> 
+           <li>'off' - never use colors</li> 
+           <li>'force' - always use colors (also in Windows)</li> 
+         </ul>
+        </div> 
         <ul> 
           <li><strong>Type</strong>: <code>java.lang.String</code></li> 
           <li><strong>Since</strong>: <code>1.1</code></li> 
