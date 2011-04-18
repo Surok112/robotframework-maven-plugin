@@ -117,7 +117,7 @@ Generated reports are written to _${project.build.directory}/robot_ by default. 
         </ul><hr/><p><strong><a name="extraPathDirectories">extraPathDirectories</a>:</strong></p> 
         <div>Additional locations (directories, ZIPs, JARs) where to search test libraries from when they are imported. Maps to Jybot's --pythonpath option. Otherwise if no locations are declared, the default location is ${project.basedir}/src/test/resources/robotframework/libraries.</div> 
         <ul> 
-          <li><strong>Type</strong>: <code>java.io.File[]</code></li> 
+          <li><strong>Type</strong>: <code>java.io.File{{{[]}}}</code></li> 
           <li><strong>Since</strong>: <code>1.1</code></li> 
           <li><strong>Required</strong>: <code>No</code></li> 
         </ul><hr/><p><strong><a name="includes">includes</a>:</strong></p> 
