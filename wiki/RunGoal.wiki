@@ -1,7 +1,7 @@
 #labels Featured
 = Run Goal =
 
-Available since version 1.1. Drop in replacement for the "jybot" goal in the 1.0.x branch.
+_Available since version 1.1. Drop in replacement for the "jybot" goal in the 1.0.x branch._
 
 Behaves like invoking the "jybot" command.
 
