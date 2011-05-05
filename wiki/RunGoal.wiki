@@ -32,7 +32,7 @@ If for example you want to run test cases in a different path, say _${project.ba
       </plugin>
 }}}
 
-Generated reports are written to _${project.build.directory}/robot_ by default. This could be overridden by configuring the _outputDirectory_ configuration.
+Generated reports are written to _${project.build.directory}/robotframework_ by default. This could be overridden by configuring the _outputDirectory_ configuration.
 
 == Plugin Parameters ==
 
