@@ -10,7 +10,31 @@ Documentation can be created for both test libraries and resource files. All lib
 
 == Usage ==
 
-This goal is not bound to any lifecycle phase. You can invoke {{{mvn robotframework:libdoc -DlibraryOrResourceDirectory=src/main/java/com/example/keywords}}} to generate documentation for user libraries contained in that package. The documentation, by default, goes to _${project.build.directory}/robotframework_.
+You can invoke {{{mvn robotframework:libdoc -DlibraryOrResourceDirectory=src/main/java/com/example/keywords}}} to generate documentation for user libraries contained in that package. The documentation output, by default, goes to _${project.build.directory}/robotframework_. 
+
+You can use file resource patterns such as **/*.java with the includes/excludes options to include or exclude files during a libdoc run.
+
+{{{
+<plugin>
+ <groupId>com.googlecode</groupId>
+ <artifactId>robotframework-maven-plugin</artifactId>
+ <version>1.0.1</version>
+ <configuration>
+  <libraryOrResourceDirectory>src/test/resources/libraries</libraryOrResourceDirectory>
+  <includes>
+    <include>**/*.py</include>
+    <include>**/*.java</include>
+  </includes>
+ </configuration>
+ <executions>
+  <execution>
+   <goals>
+    <goal>libdoc</goal>
+   </goals>
+  </execution>
+ </executions>
+</plugin> 
+}}}
 
 == Plugin Parameters ==
 
