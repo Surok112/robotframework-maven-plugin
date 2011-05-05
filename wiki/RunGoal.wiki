@@ -18,7 +18,7 @@ If for example you want to run test cases in a different path, say _${project.ba
       <plugin>
         <groupId>com.googlecode.robotframework-maven-plugin</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
-        <version>1.1</version>
+        <version>1.1.1</version>
         <executions>
           <execution>
             <goals>
