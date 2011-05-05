@@ -10,7 +10,7 @@ Robot Framework test cases are created in files and directories, and they are ex
 
 == Usage ==
 
-By default, test cases located at _${project.basedir}/src/test/resources/robotframework_ gets run during the _integration-test_ phase. 
+By default, test cases located at _${project.basedir}/src/test/resources/robotframework_ will run during the _integration-test_ phase. 
 
 If for example you want to run test cases in a different path, say _${project.basedir}/src/main/resources/robot_, configure your pom as so:
 
