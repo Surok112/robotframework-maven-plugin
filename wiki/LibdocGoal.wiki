@@ -20,7 +20,7 @@ You can use fileset patterns such as {{{**/*.java}}} with the includes/excludes 
 
 {{{
 <plugin>
- <groupId>com.googlecode</groupId>
+ <groupId>com.googlecode.robotframework-maven-plugin</groupId>
  <artifactId>robotframework-maven-plugin</artifactId>
  <version>1.0.1</version>
  <configuration>
