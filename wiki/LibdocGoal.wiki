@@ -16,7 +16,7 @@ The libdoc goal is not bound to any particular maven lifecycle phase, but you ca
 
 The documentation output, by default, goes to _${project.build.directory}/robotframework_. 
 
-You can use file resource patterns such as {{{**/*.java}}} with the includes/excludes options to include or exclude files during a libdoc run.
+You can use fileset patterns such as {{{**/*.java}}} with the includes/excludes options to include or exclude files during a libdoc run.
 
 {{{
 <plugin>
