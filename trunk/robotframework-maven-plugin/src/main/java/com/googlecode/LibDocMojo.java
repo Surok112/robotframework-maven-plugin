@@ -42,6 +42,8 @@ import java.util.Iterator;
 public class LibDocMojo
     extends AbstractMojoWithLoadedClasspath
 {
+    private WildCardUtil wildCardUtil = new WildCardUtil();
+
     protected void subclassExecute()
         throws MojoExecutionException, MojoFailureException
     {
@@ -128,20 +130,7 @@ public class LibDocMojo
             return Collections.<PlexusIoFileResource>emptyList().iterator();
         }
 
-        WildCardUtil wildCardUtil = new WildCardUtil();
-        final Iterator<PlexusIoFileResource> ret;
-        if ( includes != null || excludes != null )
-        {
-            ret = wildCardUtil.listFiles( directoryToRecurse, includes, excludes );
-        }
-        else
-        {
-            final String[] defaultIncludes =
-                { "**/*.txt", "**/*.java", "**/*.html", "**/*.htm", "**/*.xhtml", "**/*.tsv", "**/*.rst", "**/*.rest",
-                    "**/*.py", };
-            ret = wildCardUtil.listFiles( directoryToRecurse, defaultIncludes, excludes );
-        }
-        return ret;
+        return wildCardUtil.listFiles( directoryToRecurse, includes, excludes );
     }
 
     /**
