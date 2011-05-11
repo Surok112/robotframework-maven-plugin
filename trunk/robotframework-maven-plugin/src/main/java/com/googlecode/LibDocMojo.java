@@ -53,11 +53,19 @@ public class LibDocMojo
 
             if ( libraryOrResourceDirectory != null )
             {
-                Iterator<PlexusIoFileResource> fileResources =
-                    extractFilesFromLibraryOrResourceDirectory( libraryOrResourceDirectory );
-                while ( fileResources.hasNext() )
+                if ( doExcludesOrIncludesExist() )
                 {
-                    runLibDoc( fileResources.next().getFile() );
+
+                    Iterator<PlexusIoFileResource> fileResources =
+                        extractFilesFromLibraryOrResourceDirectory( libraryOrResourceDirectory );
+                    while ( fileResources.hasNext() )
+                    {
+                        runLibDoc( fileResources.next().getFile() );
+                    }
+                }
+                else
+                {
+                    runLibDoc( libraryOrResourceDirectory );
                 }
 
             }
@@ -214,5 +222,10 @@ public class LibDocMojo
      * @parameter expression="${libraryOrResourceDirectory}"
      */
     private File libraryOrResourceDirectory;
+
+    private boolean doExcludesOrIncludesExist()
+    {
+        return ( excludes != null && excludes.length > 0 ) || ( includes != null && includes.length > 0 );
+    }
 
 }
