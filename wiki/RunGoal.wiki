@@ -34,6 +34,8 @@ If for example you want to run test cases in a different path, say _${project.ba
 
 Generated reports are written to _${project.build.directory}/robotframework_ by default. This could be overridden by configuring the _outputDirectory_ configuration.
 
+Check out [http://code.google.com/p/robotframework-maven-plugin/wiki/UseWithSeleniumLibrary this page] for instructions on using with third-party plugins.
+
 == Plugin Parameters ==
 
 || Name ||	Type	||Since||	Description||
