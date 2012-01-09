@@ -133,6 +133,8 @@ class Query(object):
                 cur.execute(sqlStatement)
                 
             self._dbconnection.commit()
+        except:
+			self._dbconnection.rollback()
         finally:
             if cur :
                 cur.close()

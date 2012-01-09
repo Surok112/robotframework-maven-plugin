@@ -46,8 +46,8 @@ public class RobotFrameworkMojo
     protected void subclassExecute()
         throws MojoExecutionException, MojoFailureException
     {
-        
-        if (skipTests || skipITs || skipATs || skip )
+
+        if ( skipTests || skipITs || skipATs || skip )
         {
             getLog().info( "RobotFramework tests are skipped." );
             return;
@@ -74,52 +74,52 @@ public class RobotFrameworkMojo
     {
         ArrayList<String> generatedArguments = new ArrayList<String>();
 
-        addFileToArguments( generatedArguments, outputDirectory, "d" );
-        addFileToArguments( generatedArguments, output, "o" );
-        addFileToArguments( generatedArguments, log, "l" );
-        addFileToArguments( generatedArguments, report, "r" );
-        addFileToArguments( generatedArguments, summary, "S" );
-        addFileToArguments( generatedArguments, xunitFile, "x" );
-        addFileToArguments( generatedArguments, debugFile, "b" );
-        addFileToArguments( generatedArguments, argumentFile, "A" );
+        addFileToArguments( generatedArguments, outputDirectory, "-d" );
+        addFileToArguments( generatedArguments, output, "-o" );
+        addFileToArguments( generatedArguments, log, "-l" );
+        addFileToArguments( generatedArguments, report, "-r" );
+        addFileToArguments( generatedArguments, summary, "-S" );
+        addFileToArguments( generatedArguments, xunitFile, "-x" );
+        addFileToArguments( generatedArguments, debugFile, "-b" );
+        addFileToArguments( generatedArguments, argumentFile, "-A" );
 
-        addStringToArguments( generatedArguments, name, "N" );
-        addStringToArguments( generatedArguments, document, "D" );
-        addStringToArguments( generatedArguments, runMode, "-runmode" );
-        addStringToArguments( generatedArguments, splitOutputs, "-splitoutputs" );
-        addStringToArguments( generatedArguments, logTitle, "-logtitle" );
-        addStringToArguments( generatedArguments, reportTitle, "-reporttitle" );
-        addStringToArguments( generatedArguments, reportBackground, "-reportbackground" );
-        addStringToArguments( generatedArguments, summaryTitle, "-summarytitle" );
-        addStringToArguments( generatedArguments, logLevel, "L" );
-        addStringToArguments( generatedArguments, suiteStatLevel, "-suitestatlevel" );
-        addStringToArguments( generatedArguments, monitorWidth, "-monitorwidth" );
-        addStringToArguments( generatedArguments, monitorColors, "-monitorcolors" );
+        addNonEmptyStringToArguments( generatedArguments, name, "-N" );
+        addNonEmptyStringToArguments( generatedArguments, document, "-D" );
+        addNonEmptyStringToArguments( generatedArguments, runMode, "--runmode" );
+        addNonEmptyStringToArguments( generatedArguments, splitOutputs, "--splitoutputs" );
+        addNonEmptyStringToArguments( generatedArguments, logTitle, "--logtitle" );
+        addNonEmptyStringToArguments( generatedArguments, reportTitle, "--reporttitle" );
+        addNonEmptyStringToArguments( generatedArguments, reportBackground, "--reportbackground" );
+        addNonEmptyStringToArguments( generatedArguments, summaryTitle, "--summarytitle" );
+        addNonEmptyStringToArguments( generatedArguments, logLevel, "-L" );
+        addNonEmptyStringToArguments( generatedArguments, suiteStatLevel, "--suitestatlevel" );
+        addNonEmptyStringToArguments( generatedArguments, monitorWidth, "--monitorwidth" );
+        addNonEmptyStringToArguments( generatedArguments, monitorColors, "--monitorcolors" );
 
-        addListToArguments( generatedArguments, metadata, "M" );
-        addListToArguments( generatedArguments, tags, "G" );
-        addListToArguments( generatedArguments, tests, "t" );
-        addListToArguments( generatedArguments, suites, "s" );
-        addListToArguments( generatedArguments, includes, "i" );
-        addListToArguments( generatedArguments, excludes, "e" );
-        addListToArguments( generatedArguments, criticalTags, "c" );
-        addListToArguments( generatedArguments, nonCriticalTags, "n" );
-        addListToArguments( generatedArguments, variables, "v" );
-        addListToArguments( generatedArguments, variableFiles, "V" );
-        addListToArguments( generatedArguments, tagStatIncludes, "-tagstatinclude" );
-        addListToArguments( generatedArguments, tagStatExcludes, "-tagstatexclude" );
-        addListToArguments( generatedArguments, combinedTagStats, "-tagstatcombine" );
-        addListToArguments( generatedArguments, tagDocs, "-tagdoc" );
-        addListToArguments( generatedArguments, tagStatLinks, "-tagstatlink" );
-        addListToArguments( generatedArguments, listeners, "-listeners" );
+        addListToArguments( generatedArguments, metadata, "-M" );
+        addListToArguments( generatedArguments, tags, "-G" );
+        addListToArguments( generatedArguments, tests, "-t" );
+        addListToArguments( generatedArguments, suites, "-s" );
+        addListToArguments( generatedArguments, includes, "-i" );
+        addListToArguments( generatedArguments, excludes, "-e" );
+        addListToArguments( generatedArguments, criticalTags, "-c" );
+        addListToArguments( generatedArguments, nonCriticalTags, "-n" );
+        addListToArguments( generatedArguments, variables, "-v" );
+        addListToArguments( generatedArguments, variableFiles, "-V" );
+        addListToArguments( generatedArguments, tagStatIncludes, "--tagstatinclude" );
+        addListToArguments( generatedArguments, tagStatExcludes, "--tagstatexclude" );
+        addListToArguments( generatedArguments, combinedTagStats, "--tagstatcombine" );
+        addListToArguments( generatedArguments, tagDocs, "--tagdoc" );
+        addListToArguments( generatedArguments, tagStatLinks, "--tagstatlink" );
+        addListToArguments( generatedArguments, listeners, "--listeners" );
 
         if ( extraPathDirectories == null )
         {
-            addFileToArguments( generatedArguments, defaultExtraPath, "P" );
+            addFileToArguments( generatedArguments, defaultExtraPath, "-P" );
         }
         else
         {
-            addFileListToArguments( generatedArguments, Arrays.asList( extraPathDirectories ), "P" );
+            addFileListToArguments( generatedArguments, Arrays.asList( extraPathDirectories ), "-P" );
         }
 
         if ( timestampOutputs )

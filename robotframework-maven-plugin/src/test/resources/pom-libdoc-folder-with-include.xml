@@ -19,7 +19,7 @@
           <includes>
             <include>**/*resource.txt</include>
           </includes>
-          <output>target/robot</output>
+          <output>target/robotframework</output>
         </configuration>
       </plugin>
     </plugins>

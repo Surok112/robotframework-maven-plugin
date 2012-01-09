@@ -16,50 +16,11 @@
         <artifactId>robotframework-maven-plugin</artifactId>
         <configuration>
           <libraryOrResourceFile>src/test/java/com/googlecode/ExampleLib.java</libraryOrResourceFile>
-          <output>target/robot</output>
+          <output>target/robotframework</output>
         </configuration>
       </plugin>
     </plugins>
   </build>
-
-  <!-- <profiles>
-    <profile>
-    <id>default-tools.jar</id>
-    <activation>
-    <property>
-    <name>java.vendor</name>
-    <value>Sun Microsystems Inc.</value>
-    </property>
-    </activation>
-    <build>
-    <plugins>
-    <plugin>
-    <groupId>com.googlecode</groupId>
-    <artifactId>robotframework-maven-plugin</artifactId>
-    <configuration>
-    <libraryOrResourceFile>src/test/java/com/googlecode/ExampleLib.java</libraryOrResourceFile>
-    </configuration>
-    <dependencies>
-    <dependency>
-    <groupId>com.sun</groupId>
-    <artifactId>tools</artifactId>
-    <version>1.6</version>
-    <scope>system</scope>
-    <systemPath>${java.home}/lib/tools.jar</systemPath>
-    </dependency>
-    <dependency>
-    <groupId>com.sun</groupId>
-    <artifactId>tools</artifactId>
-    <version>1.5</version>
-    <scope>system</scope>
-    <systemPath>C:/AZ_DATEN/sso-ide-1.2/jdk1.5.0_22/lib/tools.jar</systemPath>
-    </dependency>
-    </dependencies>
-    </plugin>
-    </plugins>
-    </build>
-    </profile>
-    </profiles> -->
 
 </project>
 

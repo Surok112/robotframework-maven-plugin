@@ -81,18 +81,24 @@ public abstract class AbstractMojoWithLoadedClasspath
     {
         if ( file != null && file.getPath() != null && file.getPath() != null && !file.getPath().equals( "" ) )
         {
-            arguments.add( "-" + flag );
+            arguments.add( flag );
             arguments.add( file.getPath() );
+        }
+    }
+
+    protected void addNonEmptyStringToArguments( List<String> arguments, String variableToAdd, String flag )
+    {
+        if ( !StringUtils.isEmpty( variableToAdd ) )
+        {
+            addStringToArguments(arguments, variableToAdd, flag);
         }
     }
 
     protected void addStringToArguments( List<String> arguments, String variableToAdd, String flag )
     {
-        if ( !StringUtils.isEmpty( variableToAdd ) )
-        {
-            arguments.add( "-" + flag );
-            arguments.add( variableToAdd );
-        }
+        arguments.add( flag );
+        arguments.add( variableToAdd );
+
     }
 
     protected void addListToArguments( List<String> arguments, List<String> variablesToAdd, String flag )
@@ -106,7 +112,7 @@ public abstract class AbstractMojoWithLoadedClasspath
         {
             if ( !StringUtils.isEmpty( variableToAdd ) )
             {
-                arguments.add( "-" + flag );
+                arguments.add( flag );
                 arguments.add( variableToAdd );
             }
         }
