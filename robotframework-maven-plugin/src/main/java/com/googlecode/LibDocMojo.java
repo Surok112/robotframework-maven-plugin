@@ -45,6 +45,8 @@ import com.googlecode.util.WildCardUtil;
  * <p/>
  * Documentation can be created for both test libraries and resource files. All library and resource file types are
  * supported, and also earlier generated documentation in XML format can be used as input.
+ * <p/>
+ * Tries to find libdoc.py on the PYTHONPATH, otherwise uses libdoc version 2.6.3.
  * 
  * @goal libdoc
  * @requiresDependencyResolution test
