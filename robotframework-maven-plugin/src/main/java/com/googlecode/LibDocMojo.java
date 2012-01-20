@@ -47,7 +47,7 @@ import com.googlecode.util.WildCardUtil;
  * supported, and also earlier generated documentation in XML format can be used as input.
  * <p/>
  * Tries to find libdoc.py on the PYTHONPATH, otherwise uses libdoc version 2.6.3.
- * 
+ *
  * @goal libdoc
  * @requiresDependencyResolution test
  */
@@ -124,7 +124,7 @@ public class LibDocMojo
                                               "excludes or includes are only allowed when libraryOrResourceDirectory is given" );
         }
     }
-    
+
     private boolean doExcludesOrIncludesExist()
     {
         return ( excludes != null && excludes.length > 0 ) || ( includes != null && includes.length > 0 );
@@ -255,30 +255,39 @@ public class LibDocMojo
 
     /**
      * List of files to include, in conjunction with libraryOrResourceDirectory. Specified as fileset patterns which are
-     * relative to the input directory whose contents is being packaged into the JAR.
-     * 
+     * relative to the libraryOrResourceDirectory. Example configuration:
+     *
+     * <pre>
+     *   &lt;libraryOrResourceDirectory&gt;src/test/resources/tests&lt;/libraryOrResourceDirectory&gt;
+     *   &lt;includes&gt;
+     *     &lt;include&gt;**&#x2F;*resource.txt&lt;/include&gt;
+     *   &lt;/includes&gt;
+     * </pre>
+     *
+     * Documents all test resources ending in resource.txt found recursively below the libraryOrResourceDirectory.
+     *
      * @parameter
      */
     private String[] includes;
 
     /**
      * List of files to exclude, in conjunction with libraryOrResourceDirectory. Specified as fileset patterns which are
-     * relative to the input directory whose contents is being packaged into the JAR.
-     * 
+     * relative to the libraryOrResourceDirectory.
+     *
      * @parameter
      */
     private String[] excludes;
 
     /**
      * Possible arguments that a library needs.
-     * 
+     *
      * @parameter expression="${argument}"
      */
     private String argument;
 
     /**
      * Specifies whether to generate HTML or XML output. The default value is HTML.
-     * 
+     *
      * @parameter expression="${format}"
      */
     private String format;
@@ -286,17 +295,17 @@ public class LibDocMojo
     /**
      * Specifies where to write the generated documentation. If the given path is a directory, the documentation is
      * written there using a file name like '&lt;name&gt;.&lt;format&gt;'. If a file with that name already exists, an
-     * index is added after the '<name>' part. If the given path is not a directory, it is used directly and possible
+     * index is added after the '&lt;name&gt;' part. If the given path is not a directory, it is used directly and possible
      * existing files are overwritten. The default value for the path is the directory where the script is executed
      * from.
-     * 
+     *
      * @parameter expression="${output}" default-value="${project.build.directory}/robotframework"
      */
     private File output;
 
     /**
      * Sets the name of the documented library or resource.
-     * 
+     *
      * @parameter expression="${name}"
      */
     private String name;
@@ -304,7 +313,7 @@ public class LibDocMojo
     /**
      * Sets the title of the generated HTML documentation. Underscores in the given title are automatically converted to
      * spaces.
-     * 
+     *
      * @parameter expression="${title}"
      */
     private String title;
@@ -312,7 +321,7 @@ public class LibDocMojo
     /**
      * Overrides the default styles. If the given 'styles' is a path to an existing files, styles will be read from it.
      * If it is string a 'NONE', no styles will be used. Otherwise the given text is used as-is.
-     * 
+     *
      * @parameter expression="${styles}"
      */
     private String styles;
@@ -321,7 +330,7 @@ public class LibDocMojo
      * Fully qualified path to the Java class (source code) or the resource file.
      * <p/>
      * e.g. src/main/java/com/test/ExampleLib.java
-     * 
+     *
      * @parameter expression="${libraryOrResourceFile}"
      */
     private File libraryOrResourceFile;
@@ -330,7 +339,7 @@ public class LibDocMojo
      * Fully qualified path to the directory where Java classes or resource files are located.
      * <p/>
      * e.g. src/main/java/com/test/
-     * 
+     *
      * @parameter expression="${libraryOrResourceDirectory}"
      */
     private File libraryOrResourceDirectory;
@@ -341,7 +350,7 @@ public class LibDocMojo
      * For details about PYTHONPATH see {@link #extraPathDirectories}.
      * <p/>
      * e.g. MyCustomLibrary
-     * 
+     *
      * @parameter expression="${libraryName}"
      */
     private String libraryName;
@@ -350,7 +359,7 @@ public class LibDocMojo
      * Additional locations (directories, ZIPs, JARs) where to search test libraries from when they are imported. Maps
      * to Libdoc's --pythonpath option. Otherwise if no locations are declared, the default location is
      * ${project.basedir}/src/test/resources/robotframework/libraries.
-     * 
+     *
      * @parameter
      * @since 1.1
      */
@@ -359,7 +368,7 @@ public class LibDocMojo
     /**
      * The default location where extra packages will be searched. Effective if extraPathDirectories attribute is not
      * used. Cannot be overridden.
-     * 
+     *
      * @parameter default-value="${project.basedir}/src/test/resources/robotframework/libraries"
      * @required
      * @readonly
