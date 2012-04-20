@@ -111,7 +111,7 @@ public class RobotFrameworkMojo
         addListToArguments( generatedArguments, combinedTagStats, "--tagstatcombine" );
         addListToArguments( generatedArguments, tagDocs, "--tagdoc" );
         addListToArguments( generatedArguments, tagStatLinks, "--tagstatlink" );
-        addListToArguments( generatedArguments, listeners, "--listeners" );
+        addListToArguments( generatedArguments, listeners, "--listener" );
 
         if ( extraPathDirectories == null )
         {
