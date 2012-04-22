@@ -30,6 +30,8 @@ import java.util.List;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.components.io.resources.PlexusIoFileResource;
+import org.python.core.PyException;
+import org.python.core.PyObject;
 import org.python.core.PyString;
 import org.python.core.PyStringMap;
 import org.python.core.PySystemState;
@@ -130,14 +132,68 @@ public class LibDocMojo
         return ( excludes != null && excludes.length > 0 ) || ( includes != null && includes.length > 0 );
     }
 
-    private void runLibDoc( String libraryOrResource )
+    private void runLibDoc0( String libraryOrResource )
         throws IOException
     {
         checkIfOutputDirectoryExists();
 
         String[] runArguments = generateRunArguments( libraryOrResource );
         PythonInterpreter pythonInterpreter = getPythonInterpreter( runArguments );
+
         pythonInterpreter.execfile( getLibdocScriptAsStream() );
+    }
+
+    private void runLibDoc( String libraryOrResource )
+        throws IOException
+    {
+        checkIfOutputDirectoryExists();
+
+        List<KeyVal> opts = generateArgumentsList();
+        PySystemState pySystemState = new PySystemState();
+
+        // pySystemState.argv.set( 0, new PyString("robot.libdoc") );
+        for ( KeyVal argument : opts )
+        {
+            pySystemState.argv.append( new PyString( argument.key ) );
+            pySystemState.argv.append( new PyString( argument.val ) );
+        }
+        pySystemState.argv.append( new PyString( libraryOrResource ) );
+
+        // for output
+        final String extension;
+        if (output.getPath().endsWith( "html" )) {
+            extension = ".html";
+        } else if (output.getParent().endsWith( "xml" )) {
+            extension = ".xml";
+        } else {
+            extension = "." + format.toLowerCase();
+        }
+
+        // remove .java and add extension, route to output folder
+        // output was a folder, not a file, make that configurable as docroot and outputfiles or so
+
+
+        pySystemState.argv.append( new PyString( libraryOrResource + ".html" ) );
+
+        PythonInterpreter interp = new PythonInterpreter( new PyStringMap(), pySystemState );
+
+        try
+        {
+            interp.exec( "import runpy" );
+            interp.exec( "runpy.run_module('robot.libdoc', run_name='__main__')" );
+            interp.cleanup();
+        }
+        catch ( PyException pyException )
+        {
+            String traceback = pyException.toString();
+            if ( !traceback.endsWith( "SystemExit: 0" ) )
+            {
+                getLog().warn( "Jython runtime does not support SystemExit: 0" );
+            } else {
+                throw pyException;
+            }
+        }
+
     }
 
     private InputStream getLibdocScriptAsStream()
@@ -184,6 +240,46 @@ public class LibDocMojo
         PyStringMap dict = new PyStringMap();
         PythonInterpreter pythonInterpreter = new PythonInterpreter( dict, pySystemState );
         return pythonInterpreter;
+    }
+
+    class KeyVal
+    {
+        public final String key;
+
+        public final String val;
+
+        public KeyVal( String key, String val )
+        {
+            this.key = key;
+            this.val = val;
+        }
+
+    }
+
+    private List<KeyVal> generateArgumentsList()
+    {
+        List<KeyVal> args = new ArrayList<KeyVal>();
+
+        addNonEmptyArg( args, "--argument", argument );
+        addNonEmptyArg( args, "--name", name );
+        // addNonEmptyArg( args, "--output", output.getPath() );
+        addNonEmptyArg( args, "--format", format );
+        addNonEmptyArg( args, "--title", title );
+        addNonEmptyArg( args, "--styles", styles );
+        List<File> pythonPaths = getExtraPathDirectoriesWithDefault();
+        for ( File file : pythonPaths )
+        {
+            addNonEmptyArg( args, "--pythonpath", file.getPath() );
+        }
+        return args;
+    }
+
+    void addNonEmptyArg( List<KeyVal> args, String flag, String val )
+    {
+        if ( val != null && val.length() > 0 )
+        {
+            args.add( new KeyVal( flag, val ) );
+        }
     }
 
     private String[] generateRunArguments( String libraryOrResource )
@@ -295,11 +391,11 @@ public class LibDocMojo
     /**
      * Specifies where to write the generated documentation. If the given path is a directory, the documentation is
      * written there using a file name like '&lt;name&gt;.&lt;format&gt;'. If a file with that name already exists, an
-     * index is added after the '&lt;name&gt;' part. If the given path is not a directory, it is used directly and possible
-     * existing files are overwritten. The default value for the path is the directory where the script is executed
-     * from.
+     * index is added after the '&lt;name&gt;' part. If the given path is not a directory, it is used directly and
+     * possible existing files are overwritten. The default value for the path is the directory where the script is
+     * executed from.
      *
-     * @parameter expression="${output}" default-value="${project.build.directory}/robotframework"
+     * @parameter expression="${output}" default-value="${project.build.directory}/robotframework-reports"
      */
     private File output;
 

@@ -24,9 +24,9 @@
         <groupId>com.googlecode</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
         <configuration>
-          <testCasesDirectory>nothing/here</testCasesDirectory>
-          <outputDirectory>target/robot</outputDirectory>
-          <xunitFile>TEST-robot-error-errorsInTest.xml</xunitFile>
+          <testCasesDirectory>src/test/resources/nothing-here</testCasesDirectory>
+          <outputDirectory>target/robotframework-reports</outputDirectory>
+          <xunitFile>TEST-nothing-here.xml</xunitFile>
         </configuration>
       </plugin>
     </plugins>

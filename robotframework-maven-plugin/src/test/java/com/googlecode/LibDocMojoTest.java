@@ -23,6 +23,7 @@ public class LibDocMojoTest
         deleteDocument( htmlResourceLibDoc );
         deleteDocument( javalibLibDoc );
         deleteDocument( mylibLibDoc );
+        deleteDocument( mypackageMylibLibDoc );
     }
 
     protected void tearDown()
@@ -95,7 +96,7 @@ public class LibDocMojoTest
         assertTrue( mylibLibDoc + " not found", new File( mylibLibDoc ).exists() );
 
     }
-    
+
     public void testLibDocForLibraryNamePythonWithPackage()
     throws Exception
 {

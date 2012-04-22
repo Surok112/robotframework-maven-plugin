@@ -102,9 +102,27 @@
     </dependency>
 
     <dependency>
+      <groupId>org.apache.maven.reporting</groupId>
+      <artifactId>maven-reporting-api</artifactId>
+      <version>3.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.maven.reporting</groupId>
+      <artifactId>maven-reporting-impl</artifactId>
+      <version>2.1</version>
+    </dependency>
+
+    <!-- <dependency> -->
+    <!-- <groupId>org.apache.maven.doxia</groupId> -->
+    <!-- <artifactId>doxia-site-renderer</artifactId> -->
+    <!-- <version>1.2</version> -->
+    <!-- </dependency> -->
+
+    <dependency>
       <groupId>org.robotframework</groupId>
       <artifactId>robotframework</artifactId>
-      <version>2.6.3</version>
+      <version>2.7.1</version>
     </dependency>
 
     <dependency>
@@ -130,6 +148,19 @@
       <artifactId>junit-dep</artifactId>
       <version>4.8.2</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>hamcrest-core</artifactId>
+          <groupId>org.hamcrest</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-library</artifactId>
+      <version>1.2.1</version>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -144,6 +175,12 @@
       <artifactId>mockito-core</artifactId>
       <version>1.8.5</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>hamcrest-core</artifactId>
+          <groupId>org.hamcrest</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.powermock</groupId>
@@ -161,6 +198,13 @@
     <dependency>
       <groupId>org.apache.maven.plugin-testing</groupId>
       <artifactId>maven-plugin-testing-harness</artifactId>
+      <version>1.2</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.maven.shared</groupId>
+      <artifactId>maven-verifier</artifactId>
       <version>1.2</version>
       <scope>test</scope>
     </dependency>
@@ -186,6 +230,40 @@
         <configuration>
           <siteDirectory>${basedir}/src/main/site</siteDirectory>
         </configuration>
+      </plugin>
+      <plugin>
+        <!-- integration tests can be skipped using -DskipITs, or -Darguments="-DskipITs"
+          in a release build, note that you need -D twice in the latter case -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.7.1</version>
+        <executions>
+          <execution>
+            <id>integration-test</id>
+            <goals>
+              <goal>integration-test</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>verify</id>
+            <goals>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
     <!-- For scm deployment of site -->
