@@ -79,19 +79,47 @@ public abstract class AbstractMojoWithLoadedClasspath
 
     protected void addFileToArguments( List<String> arguments, File file, String flag )
     {
-        if ( file != null && file.getPath() != null && file.getPath() != null && !file.getPath().equals( "" ) )
+        if ( isFileValid(file) )
         {
             arguments.add( flag );
             arguments.add( file.getPath() );
         }
     }
 
+
+    protected boolean isFileValid( File file )
+    {
+        return file != null && file.getPath() != null && file.getPath() != null && !file.getPath().equals( "" );
+    }
+
+    public File makeAbsolute(File folder, File file)
+    {
+        final File output;
+        if ( file.isAbsolute() )
+        {
+            output = file;
+        }
+        else
+        {
+            output = new File( folder, file.getName() );
+        }
+        return output;
+    }
+
     protected void addNonEmptyStringToArguments( List<String> arguments, String variableToAdd, String flag )
     {
         if ( !StringUtils.isEmpty( variableToAdd ) )
         {
-            addStringToArguments(arguments, variableToAdd, flag);
+            addStringToArguments( arguments, variableToAdd, flag );
         }
+    }
+
+    protected void addFlagToArguments( ArrayList<String> arguments, boolean flag, String argument )
+    {
+        if (flag == true) {
+            arguments.add( argument );
+        }
+
     }
 
     protected void addStringToArguments( List<String> arguments, String variableToAdd, String flag )

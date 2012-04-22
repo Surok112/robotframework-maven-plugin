@@ -68,6 +68,6 @@ public class RobotFrameworkSkipTest
         robotFrameworkMojo.execute();
 
         PowerMockito.verifyStatic();
-        RobotFramework.run( new String[]{ testsFolder } );
+        RobotFramework.run( new String[]{ "-x", "TEST-tests.xml", testsFolder } );
     }
 }

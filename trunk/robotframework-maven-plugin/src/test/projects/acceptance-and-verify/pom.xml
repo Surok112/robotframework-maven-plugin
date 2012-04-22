@@ -9,21 +9,24 @@
   <packaging>jar</packaging>
   <name>Test Mojo</name>
 
+
   <build>
     <plugins>
       <plugin>
-        <groupId>com.googlecode</groupId>
+        <groupId>com.googlecode.robotframework-maven-plugin</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
-        <configuration>
-          <libraryOrResourceFile>src/test/java/com/googlecode/ExampleLib.java</libraryOrResourceFile>
-          <output>target/robotframework</output>
-          <defaultExtraPath>src/test/resources/robotframework/libraries</defaultExtraPath>
-          <format>HTML</format>
-        </configuration>
+        <version>1.1.2-SNAPSHOT</version>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>acceptance-test</goal>
+                    <goal>verify</goal>
+                </goals>
+            </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
-
 </project>
 
 

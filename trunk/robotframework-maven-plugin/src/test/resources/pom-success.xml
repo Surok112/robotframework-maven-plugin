@@ -16,7 +16,7 @@
         <artifactId>robotframework-maven-plugin</artifactId>
         <configuration>
           <testCasesDirectory>src/test/resources/robot-success</testCasesDirectory>
-          <outputDirectory>target/robot-success</outputDirectory>
+          <outputDirectory>target/robotframework-reports</outputDirectory>
           <xunitFile>TEST-robot-success.xml</xunitFile>
         </configuration>
       </plugin>

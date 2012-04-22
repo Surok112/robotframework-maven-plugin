@@ -25,8 +25,8 @@
         <artifactId>robotframework-maven-plugin</artifactId>
         <configuration>
           <testCasesDirectory>src/test/resources/robot-fail</testCasesDirectory>
-          <outputDirectory>target/robot-fail</outputDirectory>
-          <xunitFile>TEST-robot-fail-failingTest.xml</xunitFile>
+          <outputDirectory>target/robotframework-reports</outputDirectory>
+          <xunitFile>TEST-robot-fail.xml</xunitFile>
         </configuration>
       </plugin>
     </plugins>

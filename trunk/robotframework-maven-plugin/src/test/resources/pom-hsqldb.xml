@@ -25,7 +25,7 @@
         <artifactId>robotframework-maven-plugin</artifactId>
         <configuration>
           <testCasesDirectory>src/test/resources/robot-hsqldb</testCasesDirectory>
-          <outputDirectory>target/robot</outputDirectory>
+          <outputDirectory>target/robotframework-reports</outputDirectory>
           <extraPathDirectories>
             <extraPathDirectory>src/test/resources/python</extraPathDirectory>
           </extraPathDirectories>
