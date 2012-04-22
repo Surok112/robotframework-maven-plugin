@@ -189,7 +189,7 @@
       </plugin>
     </plugins>
     <!-- For scm deployment of site -->
-    <extensions>
+<!--    <extensions>
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
         <artifactId>wagon-scm</artifactId>
@@ -205,7 +205,7 @@
         <artifactId>maven-scm-provider-svnexe</artifactId>
         <version>1.0</version>
       </extension>
-    </extensions>
+    </extensions>-->
 
   </build>
 
