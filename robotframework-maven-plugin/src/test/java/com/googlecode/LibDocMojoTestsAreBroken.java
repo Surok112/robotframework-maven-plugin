@@ -16,6 +16,11 @@ public class LibDocMojoTestsAreBroken
 
     private final String mypackageMylibLibDoc = "target/robotframework/mypackage.mylib.html";
 
+    // TODO libdoc should not write to same folder
+    // output must be the target folder, we want to use only the source filename minus extension
+    // and add the format as extension
+
+
     protected void setUp()
         throws Exception
     {

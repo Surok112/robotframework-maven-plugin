@@ -17,6 +17,7 @@
         <configuration>
           <libraryOrResourceFile>src/test/resources/robot-libdoc/html_resource.txt</libraryOrResourceFile>
           <output>target/robotframework</output>
+          <defaultExtraPath>src/test/resources/robotframework/libraries</defaultExtraPath>
         </configuration>
       </plugin>
     </plugins>

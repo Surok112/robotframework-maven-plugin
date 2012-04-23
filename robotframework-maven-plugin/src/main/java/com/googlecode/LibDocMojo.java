@@ -157,23 +157,43 @@ public class LibDocMojo
             pySystemState.argv.append( new PyString( argument.key ) );
             pySystemState.argv.append( new PyString( argument.val ) );
         }
+        // libraryOrResource source
         pySystemState.argv.append( new PyString( libraryOrResource ) );
 
-        // for output
+        // output file
+        // for python lib add output folder as parent to output file
+        // for java lib, use base output folder and transform subpackages to dots, replace java by format extension
+        // for text lib, add output folder, remove extension, replace by format extension
+        // how to recognize which is what?
         final String extension;
         if (output.getPath().endsWith( "html" )) {
             extension = ".html";
         } else if (output.getParent().endsWith( "xml" )) {
             extension = ".xml";
         } else {
+            if (format == null) {
+                format = "HTML";
+            }
             extension = "." + format.toLowerCase();
         }
+        final String outputFile;
+        if (libraryOrResource.endsWith( ".java" )) {
+            outputFile = libraryOrResource.replaceAll( "\\.java", extension );
+        } else if (!new File(libraryOrResource).isAbsolute()) {
+            outputFile = new File (output, libraryOrResource + extension).getAbsolutePath();
+        } else {
+            int dot = libraryOrResource.lastIndexOf( '.' );
+            outputFile = libraryOrResource.substring( 0, dot ) + extension;
+
+        }
+
+
 
         // remove .java and add extension, route to output folder
         // output was a folder, not a file, make that configurable as docroot and outputfiles or so
 
 
-        pySystemState.argv.append( new PyString( libraryOrResource + ".html" ) );
+        pySystemState.argv.append( new PyString( outputFile ) );
 
         PythonInterpreter interp = new PythonInterpreter( new PyStringMap(), pySystemState );
 
