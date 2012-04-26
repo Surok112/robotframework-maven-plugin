@@ -1,3 +1,0 @@
-#summary Current release
-
-= Version 1.1.2 for Robotframework 2.6.3 is out  =
