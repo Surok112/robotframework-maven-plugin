@@ -1,0 +1,6 @@
+#labels Featured
+# Release notes
+
+= Version 1.1.2 =
+ * Support for Robotframework 2.6.3
+ * Fixed wrong listener argument name (Thanks to Gaurav Arora)
