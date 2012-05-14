@@ -1,7 +1,6 @@
 package com.googlecode;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsString;
 
 import java.io.File;
@@ -10,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.apache.maven.plugin.Mojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
@@ -107,14 +105,10 @@ public class VerifyMojoTest
 
     private File getXunitOutput( File outputDirectory, File xunitFile )
     {
-        File xunitOutput;
+        outputDirectory.mkdirs();
         if ( !xunitFile.isAbsolute() )
-            xunitOutput = new File( outputDirectory, xunitFile.getName() );
-        else
-            xunitOutput = xunitFile;
-
-        xunitOutput.mkdirs();
-        return xunitOutput;
+            return new File( outputDirectory, xunitFile.getName() );
+        return xunitFile;
     }
 
 }
