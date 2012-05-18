@@ -15,16 +15,13 @@
         <groupId>com.googlecode</groupId>
         <artifactId>robotframework-maven-plugin</artifactId>
         <configuration>
-          <libraryName>mypackage.mylib</libraryName>
+          <libraryOrResourceFile>mypackage.mylib</libraryOrResourceFile>
           <extraPathDirectories>
             <extraPathDirectory>src/test/resources/robot-libdoc-libraryname</extraPathDirectory>
           </extraPathDirectories>
-          <output>target/robotframework</output>
+          <outputFile>target/robotframework/mypackage.mylib.html</outputFile>
         </configuration>
       </plugin>
     </plugins>
   </build>
 </project>
-
-
-
