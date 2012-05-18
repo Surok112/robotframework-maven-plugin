@@ -10,7 +10,7 @@ public class LibDocMojoTest
     extends AbstractMojoTestCase
 {
 
-    private final String outputDirectory = "target/robotframework/";
+    private final String outputDirectory = "target/robotframework/libdoc/";
     private final String htmlResourceLibDoc =  outputDirectory + "html_resource.html";
     private final String javalibLibDoc = outputDirectory + "com.googlecode.ExampleLib.html";
     private final String mylibLibDoc = outputDirectory + "mylib.html";

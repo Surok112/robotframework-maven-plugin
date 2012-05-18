@@ -23,15 +23,17 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.robotframework.RobotFramework;
 
 /**
- * Runs the "libdoc" command to generate documentation of user libraries.
- * <p/>
- * Uses the libdoc bundled in Robot Framework jar distribution. For more help, run
- * <code>java -jar robotframework.jar libdoc --help</code>.
+ * Create documentation of test libraries or resource files using the Robot Framework
+ * <code>libdoc</code> tool.
+ * <p>
+ * Uses the <code>libdoc</code> bundled in Robot Framework jar distribution.
+ * For more help, run <code>java -jar robotframework.jar libdoc --help</code>.
  * 
  * @goal libdoc
  * @requiresDependencyResolution test
@@ -45,105 +47,112 @@ public class LibDocMojo
     {
         try
         {
-            documentLibraryOrResourceFile();
+            runLibDoc();
         }
-        catch ( Exception e )
+        catch ( IOException e )
         {
-            throw new MojoExecutionException( "Failed to execute libdoc script", e );
+            throw new MojoExecutionException( "Failed to execute libdoc script: " + e.getMessage());
         }
     }
 
-    private void documentLibraryOrResourceFile()
-        throws MojoExecutionException, IOException
+    public void runLibDoc() throws IOException
     {
-        if ( libraryOrResourceFile != null )
+        ensureOutputDirectoryExists();
+        RobotFramework.run(generateRunArguments());
+    }
+
+    private void ensureOutputDirectoryExists()
+            throws IOException
         {
-            File libOrResource = new File(libraryOrResourceFile);
-            if ( libOrResource.exists() )
+            if ( outputDirectory == null )
             {
-                runLibDoc( libOrResource.getAbsolutePath() );
-            } else 
-            {
-                runLibDoc( libraryOrResourceFile );
+                outputDirectory = new File(joinPaths(System.getProperty("basedir"), "target", "robotframework", "libdoc"));
             }
-            
+
+            if ( !outputDirectory.exists() )
+            {
+                if ( !outputDirectory.mkdirs() )
+                {
+                    throw new IOException( "Target output directory cannot be created: " + outputDirectory.getAbsolutePath() );
+                }
+            }
         }
+
+    private String joinPaths(String... parts) {
+        return StringUtils.join(parts, File.separator);
     }
 
-    public void runLibDoc( String libraryOrResource )
-        throws IOException
+    private String[] generateRunArguments()
     {
-        checkIfOutputDirectoryExists();
-
-        String[] runArguments = generateRunArguments( libraryOrResource );
-        
-        RobotFramework.run(runArguments);
-    }
-
-
-    private String[] generateRunArguments( String libraryOrResource )
-    {
-        // options must come before arguments, see arguments below
         ArrayList<String> generatedArguments = new ArrayList<String>();
         generatedArguments.add("libdoc");
         addNonEmptyStringToArguments( generatedArguments, name, "--name" );
         addNonEmptyStringToArguments( generatedArguments, format, "--format" );
         addFileListToArguments( generatedArguments, getExtraPathDirectoriesWithDefault(), "--pythonpath" );
-
-        // arguments:
-        generatedArguments.add( libraryOrResource );
-        generatedArguments.add( outputFile.toString() );
-        System.out.println(generatedArguments);
+        generatedArguments.add( getLibraryOrResource() );
+        generatedArguments.add( getOutputPath() );
         return generatedArguments.toArray( new String[generatedArguments.size()] );
+    }
+
+    private String getLibraryOrResource()
+    {
+        File libOrResource = new File(libraryOrResourceFile);
+        if ( libOrResource.exists() )
+        {
+            return libOrResource.getAbsolutePath();
+        }
+        else
+        {
+            return libraryOrResourceFile;
+        }
+
+    }
+
+    private String getOutputPath() {
+        return outputDirectory + File.separator + outputFile.getPath();
     }
 
     private List<File> getExtraPathDirectoriesWithDefault()
     {
-        final List<File> ret;
         if ( extraPathDirectories == null )
         {
-            ret = Collections.singletonList( defaultExtraPath );
+            return Collections.singletonList( defaultExtraPath );
         }
         else
         {
-            ret = Arrays.asList( extraPathDirectories );
-        }
-        return ret;
-    }
-
-    private void checkIfOutputDirectoryExists()
-        throws IOException
-    {
-        if ( output == null )
-        {
-            return;
-        }
-
-        if ( !output.exists() )
-        {
-            if ( !output.mkdirs() )
-            {
-                throw new IOException( "Target output directory cannot be created." );
-            }
+            return Arrays.asList( extraPathDirectories );
         }
     }
 
+    /**
+     * The format of the created documentation.
+     * May be either <code>HTML</code> or <code>XML</code>.
+     * <p>
+     * If not specified, the format is gotten from the extension of the
+     * {@link #outputFile}.
+     *
+     * @parameter expression="${format}"
+     */
 
     private String format;
 
     /**
-     * Specifies where to write the generated documentation. If the given path is a directory, the documentation is
-     * written there using a file name like '&lt;name&gt;.&lt;format&gt;'. If a file with that name already exists, an
-     * index is added after the '&lt;name&gt;' part. If the given path is not a directory, it is used directly and
-     * possible existing files are overwritten. The default value for the path is the directory where the script is
-     * executed from.
+     * Specifies the directory where documentation files are written. Considered to be relative to the
+     * ${basedir} of the project.
      *
-     * @parameter expression="${output}" default-value="${project.build.directory}/robotframework-reports"
+     * @parameter expression="${output}" default-value="${project.build.directory}/robotframework/libdoc"
      */
-    private File output;
+    private File outputDirectory;
     
     
-    
+    /**
+     * Specifies the filename of the created documentation. Considered to be relative to
+     * the {@link #outputDirectory} of the project.
+     *
+     *  @parameter expression="${outputFile}"
+     *  @required
+     *
+     */
     private File outputFile;
 
     /**
@@ -166,11 +175,12 @@ public class LibDocMojo
      * <code>src/main/java/com/test/ExampleLib.java</code>
      *
      * @parameter expression="${libraryOrResourceFile}"
+     * @required
      */
     private String libraryOrResourceFile;
 
     /**
-     * Fully qualified path to the directory where Java classes or resource files are located.
+     * A directory to be added to the PYTHONPATH/CLASSPATH when creating documentation.
      * <p/>
      * e.g. src/main/java/com/test/
      *

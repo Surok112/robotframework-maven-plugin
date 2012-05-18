@@ -16,7 +16,7 @@
         <artifactId>robotframework-maven-plugin</artifactId>
         <configuration>
           <libraryOrResourceFile>src/test/java/com/googlecode/ExampleLib.java</libraryOrResourceFile>
-          <outputFile>target/robotframework/com.googlecode.ExampleLib.html</outputFile>
+          <outputFile>com.googlecode.ExampleLib.html</outputFile>
           <defaultExtraPath>src/test/resources/robotframework/libraries</defaultExtraPath>
           <format>HTML</format>
         </configuration>
