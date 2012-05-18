@@ -17,68 +17,39 @@ package com.googlecode;
  */
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.codehaus.plexus.components.io.resources.PlexusIoFileResource;
-import org.python.core.PyException;
-import org.python.core.PyObject;
-import org.python.core.PyString;
-import org.python.core.PyStringMap;
-import org.python.core.PySystemState;
-import org.python.util.PythonInterpreter;
-
-import com.googlecode.util.WildCardUtil;
+import org.robotframework.RobotFramework;
 
 /**
  * Runs the "libdoc" command to generate documentation of user libraries.
  * <p/>
- * This script can generate keyword documentation in HTML and XML formats. The former is suitable for humans and the
- * latter for RIDE, RFDoc, and other tools. This script can also upload XML documentation to RFDoc system.
- * <p/>
- * Documentation can be created for both test libraries and resource files. All library and resource file types are
- * supported, and also earlier generated documentation in XML format can be used as input.
- * <p/>
- * Tries to find libdoc.py on the PYTHONPATH, otherwise uses libdoc version 2.6.3.
- *
+ * Uses the libdoc bundled in Robot Framework jar distribution. For more help, run
+ * <code>java -jar robotframework.jar libdoc --help</code>.
+ * 
  * @goal libdoc
  * @requiresDependencyResolution test
  */
 public class LibDocMojo
     extends AbstractMojoWithLoadedClasspath
 {
-    private WildCardUtil wildCardUtil = new WildCardUtil();
 
     protected void subclassExecute()
         throws MojoExecutionException, MojoFailureException
     {
         try
         {
-            documentLibraryOrResourceDirectory();
             documentLibraryOrResourceFile();
-            documentLibraryName();
         }
         catch ( Exception e )
         {
             throw new MojoExecutionException( "Failed to execute libdoc script", e );
-        }
-    }
-
-    private void documentLibraryName()
-        throws IOException
-    {
-        if ( libraryName != null )
-        {
-            runLibDoc( libraryName );
         }
     }
 
@@ -87,236 +58,42 @@ public class LibDocMojo
     {
         if ( libraryOrResourceFile != null )
         {
-            if ( libraryOrResourceFile.isDirectory() )
-                throw new MojoExecutionException( "libraryOrResourceFile '" + libraryOrResourceFile
-                    + "' must not be a directory" );
-
-            runLibDoc( libraryOrResourceFile.getAbsolutePath() );
-        }
-    }
-
-    private void documentLibraryOrResourceDirectory()
-        throws MojoExecutionException, IOException
-    {
-        if ( libraryOrResourceDirectory != null )
-        {
-            if ( includes == null || includes.length == 0 )
+            File libOrResource = new File(libraryOrResourceFile);
+            if ( libOrResource.exists() )
             {
-                includes = new String[] { "**/*.*" };
-            }
-            Iterator<PlexusIoFileResource> fileResources =
-                extractFilesFromLibraryOrResourceDirectory( libraryOrResourceDirectory );
-            while ( fileResources.hasNext() )
+                runLibDoc( libOrResource.getAbsolutePath() );
+            } else 
             {
-                runLibDoc( fileResources.next().getFile().getAbsolutePath() );
+                runLibDoc( libraryOrResourceFile );
             }
-        }
-        else
-        {
-            allowNoExcludesOrIncludes();
+            
         }
     }
 
-    private void allowNoExcludesOrIncludes()
-        throws MojoExecutionException
-    {
-        if ( doExcludesOrIncludesExist() )
-        {
-            throw new MojoExecutionException(
-                                              "excludes or includes are only allowed when libraryOrResourceDirectory is given" );
-        }
-    }
-
-    private boolean doExcludesOrIncludesExist()
-    {
-        return ( excludes != null && excludes.length > 0 ) || ( includes != null && includes.length > 0 );
-    }
-
-    private void runLibDoc0( String libraryOrResource )
+    public void runLibDoc( String libraryOrResource )
         throws IOException
     {
         checkIfOutputDirectoryExists();
 
         String[] runArguments = generateRunArguments( libraryOrResource );
-        PythonInterpreter pythonInterpreter = getPythonInterpreter( runArguments );
-
-        pythonInterpreter.execfile( getLibdocScriptAsStream() );
+        
+        RobotFramework.run(runArguments);
     }
 
-    private void runLibDoc( String libraryOrResource )
-        throws IOException
-    {
-        checkIfOutputDirectoryExists();
-
-        List<KeyVal> opts = generateArgumentsList();
-        PySystemState pySystemState = new PySystemState();
-
-        // pySystemState.argv.set( 0, new PyString("robot.libdoc") );
-        for ( KeyVal argument : opts )
-        {
-            pySystemState.argv.append( new PyString( argument.key ) );
-            pySystemState.argv.append( new PyString( argument.val ) );
-        }
-        // libraryOrResource source
-        pySystemState.argv.append( new PyString( libraryOrResource ) );
-
-        // output file
-        // for python lib add output folder as parent to output file
-        // for java lib, use base output folder and transform subpackages to dots, replace java by format extension
-        // for text lib, add output folder, remove extension, replace by format extension
-        // how to recognize which is what?
-        final String extension;
-        if (output.getPath().endsWith( "html" )) {
-            extension = ".html";
-        } else if (output.getParent().endsWith( "xml" )) {
-            extension = ".xml";
-        } else {
-            if (format == null) {
-                format = "HTML";
-            }
-            extension = "." + format.toLowerCase();
-        }
-        final String outputFile;
-        if (libraryOrResource.endsWith( ".java" )) {
-            outputFile = libraryOrResource.replaceAll( "\\.java", extension );
-        } else if (!new File(libraryOrResource).isAbsolute()) {
-            outputFile = new File (output, libraryOrResource + extension).getAbsolutePath();
-        } else {
-            int dot = libraryOrResource.lastIndexOf( '.' );
-            outputFile = libraryOrResource.substring( 0, dot ) + extension;
-
-        }
-
-
-
-        // remove .java and add extension, route to output folder
-        // output was a folder, not a file, make that configurable as docroot and outputfiles or so
-
-
-        pySystemState.argv.append( new PyString( outputFile ) );
-
-        PythonInterpreter interp = new PythonInterpreter( new PyStringMap(), pySystemState );
-
-        try
-        {
-            interp.exec( "import runpy" );
-            interp.exec( "runpy.run_module('robot.libdoc', run_name='__main__')" );
-            interp.cleanup();
-        }
-        catch ( PyException pyException )
-        {
-            String traceback = pyException.toString();
-            if ( !traceback.endsWith( "SystemExit: 0" ) )
-            {
-                getLog().warn( "Jython runtime does not support SystemExit: 0" );
-            } else {
-                throw pyException;
-            }
-        }
-
-    }
-
-    private InputStream getLibdocScriptAsStream()
-        throws FileNotFoundException
-    {
-        final InputStream ret;
-        File libdocOnPythonPath = findOnPythonPath();
-        if ( libdocOnPythonPath != null )
-        {
-            ret = new FileInputStream( libdocOnPythonPath );
-        }
-        else
-        {
-            String libdocScript = "/libdoc-2.6.3.py";
-            ret = getClass().getResourceAsStream( libdocScript );
-        }
-        return ret;
-    }
-
-    private File findOnPythonPath()
-    {
-        File ret = null;
-        List<File> extraPathDirectoriesWithDefault = getExtraPathDirectoriesWithDefault();
-        for ( File dir : extraPathDirectoriesWithDefault )
-        {
-            File file = new File( dir, "libdoc.py" );
-            if ( file.exists() )
-            {
-                ret = file;
-                break;
-            }
-        }
-        return ret;
-    }
-
-    private PythonInterpreter getPythonInterpreter( String[] runArguments )
-    {
-        PySystemState pySystemState = new PySystemState();
-        for ( String argument : runArguments )
-        {
-            PyString pyString = new PyString( argument );
-            pySystemState.argv.append( pyString );
-        }
-        PyStringMap dict = new PyStringMap();
-        PythonInterpreter pythonInterpreter = new PythonInterpreter( dict, pySystemState );
-        return pythonInterpreter;
-    }
-
-    class KeyVal
-    {
-        public final String key;
-
-        public final String val;
-
-        public KeyVal( String key, String val )
-        {
-            this.key = key;
-            this.val = val;
-        }
-
-    }
-
-    private List<KeyVal> generateArgumentsList()
-    {
-        List<KeyVal> args = new ArrayList<KeyVal>();
-
-        addNonEmptyArg( args, "--argument", argument );
-        addNonEmptyArg( args, "--name", name );
-        // addNonEmptyArg( args, "--output", output.getPath() );
-        addNonEmptyArg( args, "--format", format );
-        addNonEmptyArg( args, "--title", title );
-        addNonEmptyArg( args, "--styles", styles );
-        List<File> pythonPaths = getExtraPathDirectoriesWithDefault();
-        for ( File file : pythonPaths )
-        {
-            addNonEmptyArg( args, "--pythonpath", file.getPath() );
-        }
-        return args;
-    }
-
-    void addNonEmptyArg( List<KeyVal> args, String flag, String val )
-    {
-        if ( val != null && val.length() > 0 )
-        {
-            args.add( new KeyVal( flag, val ) );
-        }
-    }
 
     private String[] generateRunArguments( String libraryOrResource )
     {
         // options must come before arguments, see arguments below
         ArrayList<String> generatedArguments = new ArrayList<String>();
-        addNonEmptyStringToArguments( generatedArguments, argument, "--argument" );
+        generatedArguments.add("libdoc");
         addNonEmptyStringToArguments( generatedArguments, name, "--name" );
-        addFileToArguments( generatedArguments, output, "--output" );
         addNonEmptyStringToArguments( generatedArguments, format, "--format" );
-        addNonEmptyStringToArguments( generatedArguments, title, "--title" );
-        addNonEmptyStringToArguments( generatedArguments, styles, "--styles" );
         addFileListToArguments( generatedArguments, getExtraPathDirectoriesWithDefault(), "--pythonpath" );
 
         // arguments:
         generatedArguments.add( libraryOrResource );
-
+        generatedArguments.add( outputFile.toString() );
+        System.out.println(generatedArguments);
         return generatedArguments.toArray( new String[generatedArguments.size()] );
     }
 
@@ -351,61 +128,7 @@ public class LibDocMojo
         }
     }
 
-    private Iterator<PlexusIoFileResource> extractFilesFromLibraryOrResourceDirectory( File directoryToRecurse )
-        throws MojoExecutionException
-    {
-        try
-        {
-            if ( directoryToRecurse == null || !directoryToRecurse.exists() )
-            {
-                return Collections.<PlexusIoFileResource> emptyList().iterator();
-            }
 
-            return wildCardUtil.listFiles( directoryToRecurse, includes, excludes );
-        }
-        catch ( Exception e )
-        {
-            throw new MojoExecutionException( "failed to list files from " + directoryToRecurse, e );
-        }
-    }
-
-    /**
-     * List of files to include, in conjunction with libraryOrResourceDirectory. Specified as fileset patterns which are
-     * relative to the libraryOrResourceDirectory. Example configuration:
-     *
-     * <pre>
-     *   &lt;libraryOrResourceDirectory&gt;src/test/resources/tests&lt;/libraryOrResourceDirectory&gt;
-     *   &lt;includes&gt;
-     *     &lt;include&gt;**&#x2F;*resource.txt&lt;/include&gt;
-     *   &lt;/includes&gt;
-     * </pre>
-     *
-     * Documents all test resources ending in resource.txt found recursively below the libraryOrResourceDirectory.
-     *
-     * @parameter
-     */
-    private String[] includes;
-
-    /**
-     * List of files to exclude, in conjunction with libraryOrResourceDirectory. Specified as fileset patterns which are
-     * relative to the libraryOrResourceDirectory.
-     *
-     * @parameter
-     */
-    private String[] excludes;
-
-    /**
-     * Possible arguments that a library needs.
-     *
-     * @parameter expression="${argument}"
-     */
-    private String argument;
-
-    /**
-     * Specifies whether to generate HTML or XML output. The default value is HTML.
-     *
-     * @parameter expression="${format}"
-     */
     private String format;
 
     /**
@@ -418,6 +141,10 @@ public class LibDocMojo
      * @parameter expression="${output}" default-value="${project.build.directory}/robotframework-reports"
      */
     private File output;
+    
+    
+    
+    private File outputFile;
 
     /**
      * Sets the name of the documented library or resource.
@@ -427,57 +154,27 @@ public class LibDocMojo
     private String name;
 
     /**
-     * Sets the title of the generated HTML documentation. Underscores in the given title are automatically converted to
-     * spaces.
-     *
-     * @parameter expression="${title}"
-     */
-    private String title;
-
-    /**
-     * Overrides the default styles. If the given 'styles' is a path to an existing files, styles will be read from it.
-     * If it is string a 'NONE', no styles will be used. Otherwise the given text is used as-is.
-     *
-     * @parameter expression="${styles}"
-     */
-    private String styles;
-
-    /**
-     * Fully qualified path to the Java class (source code) or the resource file.
-     * <p/>
-     * e.g. src/main/java/com/test/ExampleLib.java
+     * Name or path of the documented library or resource file.
+     * <p>
+     * Name must be in the same format as when used in Robot Framework test data, for example
+     * <code>BuiltIn</code> or <code>com.acme.FooLibrary</code>. When name is used, the
+     * library is imported the same as when running the tests. Use {@link #extraPathDirectories}
+     * to set PYTHONPATH/CLASSPATH accordingly.
+     * <p>
+     * Paths are considered relative to the location of <code>pom.xml</code> and
+     * must point to a valid Python/Java source file or a resource file. For example
+     * <code>src/main/java/com/test/ExampleLib.java</code>
      *
      * @parameter expression="${libraryOrResourceFile}"
      */
-    private File libraryOrResourceFile;
+    private String libraryOrResourceFile;
 
     /**
      * Fully qualified path to the directory where Java classes or resource files are located.
      * <p/>
      * e.g. src/main/java/com/test/
      *
-     * @parameter expression="${libraryOrResourceDirectory}"
-     */
-    private File libraryOrResourceDirectory;
-
-    /**
-     * Library name. If the library name is used, it must be in the same format as in the Robot Framework test data when
-     * importing libraries. In this case, the library is searched from PYTHONPATH (and from CLASSPATH, if on Jython).
-     * For details about PYTHONPATH see {@link #extraPathDirectories}.
-     * <p/>
-     * e.g. MyCustomLibrary
-     *
-     * @parameter expression="${libraryName}"
-     */
-    private String libraryName;
-
-    /**
-     * Additional locations (directories, ZIPs, JARs) where to search test libraries from when they are imported. Maps
-     * to Libdoc's --pythonpath option. Otherwise if no locations are declared, the default location is
-     * ${project.basedir}/src/test/resources/robotframework/libraries.
-     *
-     * @parameter
-     * @since 1.1
+     * @parameter expression="${extraPathDirectories}"
      */
     private File[] extraPathDirectories;
 

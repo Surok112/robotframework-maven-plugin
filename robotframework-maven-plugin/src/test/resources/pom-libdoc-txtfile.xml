@@ -16,13 +16,10 @@
         <artifactId>robotframework-maven-plugin</artifactId>
         <configuration>
           <libraryOrResourceFile>src/test/resources/robot-libdoc/html_resource.txt</libraryOrResourceFile>
-          <output>target/robotframework</output>
+          <outputFile>target/robotframework/html_resource.html</outputFile>
           <defaultExtraPath>src/test/resources/robotframework/libraries</defaultExtraPath>
         </configuration>
       </plugin>
     </plugins>
   </build>
 </project>
-
-
-
