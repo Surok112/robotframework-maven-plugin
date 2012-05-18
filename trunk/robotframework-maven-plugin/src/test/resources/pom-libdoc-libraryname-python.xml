@@ -19,7 +19,7 @@
           <extraPathDirectories>
             <extraPathDirectory>src/test/resources/robot-libdoc-libraryname</extraPathDirectory>
           </extraPathDirectories>
-          <outputFile>target/robotframework/mylib.html</outputFile>
+          <outputFile>mylib.html</outputFile>
         </configuration>
       </plugin>
     </plugins>
