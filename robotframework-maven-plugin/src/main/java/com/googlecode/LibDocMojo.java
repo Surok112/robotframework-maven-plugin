@@ -109,7 +109,7 @@ public class LibDocMojo
     }
 
     private String getOutputPath() {
-        return outputDirectory + File.separator + outputFile.getPath();
+        return outputDirectory + File.separator + outputFile.getName();
     }
 
     private List<File> getExtraPathDirectoriesWithDefault()
