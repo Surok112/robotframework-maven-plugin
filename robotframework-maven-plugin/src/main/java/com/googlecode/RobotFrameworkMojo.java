@@ -18,14 +18,6 @@ package com.googlecode;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.robotframework.RobotFramework;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  * Runs the Robot tests. Behaves like invoking the "jybot" command.
