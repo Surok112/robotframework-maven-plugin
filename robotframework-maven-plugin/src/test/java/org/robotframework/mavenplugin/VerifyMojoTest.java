@@ -1,4 +1,4 @@
-package com.googlecode;
+package org.robotframework.mavenplugin;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -12,6 +12,8 @@ import java.io.OutputStream;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.robotframework.mavenplugin.VerifyMojo;
+
 
 public class VerifyMojoTest
     extends AbstractMojoTestCase

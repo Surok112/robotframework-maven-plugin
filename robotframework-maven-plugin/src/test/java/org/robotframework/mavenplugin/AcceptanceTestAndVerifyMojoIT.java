@@ -1,4 +1,4 @@
-package com.googlecode;
+package org.robotframework.mavenplugin;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;

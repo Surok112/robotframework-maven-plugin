@@ -1,4 +1,4 @@
-package com.googlecode;
+package org.robotframework.mavenplugin;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -8,6 +8,8 @@ import junit.framework.TestCase;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.robotframework.mavenplugin.AbstractMojoWithLoadedClasspath;
+
 
 public class AbstractMojoWithLoadedClasspathTest
     extends TestCase
