@@ -1,4 +1,4 @@
-package com.googlecode;
+package org.robotframework.mavenplugin;
 
 import java.util.Locale;
 import java.util.ResourceBundle;

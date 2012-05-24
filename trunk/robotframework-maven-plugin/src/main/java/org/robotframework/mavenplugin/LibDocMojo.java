@@ -1,4 +1,4 @@
-package com.googlecode;
+package org.robotframework.mavenplugin;
 
 /*
  * Copyright 2011 Michael Mallete, Dietrich Schulten

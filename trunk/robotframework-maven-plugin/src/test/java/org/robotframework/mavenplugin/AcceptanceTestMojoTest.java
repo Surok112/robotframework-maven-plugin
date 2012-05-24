@@ -1,4 +1,4 @@
-package com.googlecode;
+package org.robotframework.mavenplugin;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasXPath;
@@ -11,8 +11,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.robotframework.mavenplugin.AcceptanceTestMojo;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
+
 
 public class AcceptanceTestMojoTest
     extends AbstractMojoTestCase

@@ -1,10 +1,12 @@
-package com.googlecode;
+package org.robotframework.mavenplugin;
 
 import java.io.File;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.robotframework.mavenplugin.LibDocMojo;
+
 
 public class LibDocMojoTest
     extends AbstractMojoTestCase
@@ -12,7 +14,7 @@ public class LibDocMojoTest
 
     private final String outputDirectory = "target/robotframework/libdoc/";
     private final String htmlResourceLibDoc =  outputDirectory + "html_resource.html";
-    private final String javalibLibDoc = outputDirectory + "com.googlecode.ExampleLib.html";
+    private final String javalibLibDoc = outputDirectory + "ExampleLib.html";
     private final String mylibLibDoc = outputDirectory + "mylib.html";
     private final String mypackageMylibLibDoc = outputDirectory + "mypackage.mylib.html";
 

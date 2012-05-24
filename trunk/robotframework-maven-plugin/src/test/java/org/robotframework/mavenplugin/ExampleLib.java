@@ -1,4 +1,4 @@
-package com.googlecode;
+package org.robotframework.mavenplugin;
 
 /**
  * Library for demo purposes. This library is only used in an example and it does't do anything useful.
